@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace MTCG_SWEN1.HTTP
 {
-    class HttpMessages
+    public enum EHttpMethods
     {
+        GET,
+        POST,
+        PUT,
+        DELETE,
+        PATCH,
+        HEAD,
+        OPTIONS
     }
 }
