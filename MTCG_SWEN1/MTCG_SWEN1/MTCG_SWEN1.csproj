@@ -6,8 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Client\" />
     <Folder Include="DB\Cards\" />
+    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>
