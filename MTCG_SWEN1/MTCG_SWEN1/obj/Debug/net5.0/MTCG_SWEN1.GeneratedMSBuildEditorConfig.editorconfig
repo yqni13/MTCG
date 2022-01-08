@@ -1,0 +1,10 @@
+is_global = true
+build_property.TargetFramework = net5.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.PublishSingleFile = 
+build_property.IncludeAllContentForSelfExtract = 
+build_property._SupportedPlatformList = Android,iOS,Linux,macOS,Windows
+build_property.RootNamespace = MTCG_SWEN1
+build_property.ProjectDir = D:\Dokumente\GitHub\BIF_Semester_3\Software Engineering 1 Labor\MTCG\MTCG_SWEN1\MTCG_SWEN1\
