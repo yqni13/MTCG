@@ -1,4 +1,7 @@
-﻿using System;
+﻿using MTCG_SWEN1.HTTP;
+using MTCG_SWEN1.Services;
+using System;
+
 
 namespace MTCG_SWEN1
 {
@@ -6,7 +9,9 @@ namespace MTCG_SWEN1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            
+            Console.WriteLine(EHttpMessages.BadRequest400.GetDescription());
+
         }
     }
 }
