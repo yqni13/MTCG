@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MTCG_SWEN1.Services
+namespace MTCG_SWEN1.Models
 {
-    class Users
+    class User
     {
-
+        public
     }
 }
