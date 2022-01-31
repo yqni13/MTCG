@@ -8,7 +8,7 @@ namespace MTCG_SWEN1.Client
 {
     class Client
     {
-        private int _port = 10101;
+        
 
 
     }
