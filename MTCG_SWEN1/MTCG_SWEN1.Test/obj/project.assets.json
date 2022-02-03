@@ -1253,6 +1253,16 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
         }
+      },
+      "MTCG_SWEN1/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/MTCG_SWEN1.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/MTCG_SWEN1.dll": {}
+        }
       }
     }
   },
@@ -4942,10 +4952,16 @@
         "system.xml.xpath.xmldocument.4.3.0.nupkg.sha512",
         "system.xml.xpath.xmldocument.nuspec"
       ]
+    },
+    "MTCG_SWEN1/1.0.0": {
+      "type": "project",
+      "path": "../MTCG_SWEN1/MTCG_SWEN1.csproj",
+      "msbuildProject": "../MTCG_SWEN1/MTCG_SWEN1.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
+      "MTCG_SWEN1 >= 1.0.0",
       "Microsoft.NET.Test.Sdk >= 16.9.4",
       "NUnit >= 3.13.1",
       "NUnit3TestAdapter >= 3.17.0",
@@ -4983,7 +4999,11 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\Dokumente\\GitHub\\BIF_Semester_3\\Software Engineering 1 Labor\\MTCG\\MTCG_SWEN1\\MTCG_SWEN1\\MTCG_SWEN1.csproj": {
+              "projectPath": "D:\\Dokumente\\GitHub\\BIF_Semester_3\\Software Engineering 1 Labor\\MTCG\\MTCG_SWEN1\\MTCG_SWEN1\\MTCG_SWEN1.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
