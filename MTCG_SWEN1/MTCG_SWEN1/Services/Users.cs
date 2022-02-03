@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace MTCG_SWEN1.Services
 {
-    class Users
+    public class Users
     {
+        private int _demo = 1;
+        public int Demo { get => _demo; set => _demo = value; }
 
+        public Users() { }
     }
 }

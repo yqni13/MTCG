@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MTCG_SWEN1.Services
 {
-    class Trading
+    public class Trading
     {
     }
 }
