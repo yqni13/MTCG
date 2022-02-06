@@ -10,10 +10,10 @@ namespace MTCG_SWEN1
         static void Main()
         {
             
-            //Console.CancelKeyPress += (sender, e) => Environment.Exit(0);
+            Console.CancelKeyPress += (sender, e) => Environment.Exit(0);
 
             Console.WriteLine(EHttpMessages.BadRequest400.GetDescription());
-            HttpServer socket = HttpServer.GetServerStatic;
+            HttpServer.GetServerStatic.StartServerThread();
 
             
         }
