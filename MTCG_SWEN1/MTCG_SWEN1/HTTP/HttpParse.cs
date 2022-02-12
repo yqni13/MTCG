@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MTCG_SWEN1.Server
+namespace MTCG_SWEN1.HTTP
 {
-    class ThreadingHandling
+    class HttpParse
     {
     }
 }
