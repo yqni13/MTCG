@@ -20,8 +20,9 @@ namespace MTCG_SWEN1.HTTP
     {
         private TcpClient _socket;
         private HttpServer _httpServer;
+        private bool _wrongMethod = false;
 
-        public string Method { get; private set; }
+        public EHttpMethods Method { get; private set; }
         public string Path { get; private set; }
         public string Version { get; private set; }
 
@@ -32,7 +33,7 @@ namespace MTCG_SWEN1.HTTP
             this._socket = s;
             this._httpServer = httpServer;
 
-            Method = null;
+            //Method = null;
             Headers = new();
         }
 
@@ -51,10 +52,10 @@ namespace MTCG_SWEN1.HTTP
                     break;  // empty line means next comes the content (which is currently skipped)
 
                 // handle first line of HTTP
-                if (Method == null)
+                if (Path == null)
                 {
                     var parts = line.Split(' ');
-                    Method = parts[0];
+                    Method = Enum.Parse<EHttpMethods>(parts[0].ToUpper());
                     Path = parts[1];
                     Version = parts[2];
                 }
@@ -86,9 +87,11 @@ namespace MTCG_SWEN1.HTTP
             WriteLine(writer, "");
             WriteLine(writer, content);
 
+            
             writer.WriteLine();
             writer.Flush();
             writer.Close();
+
         }
 
         private void WriteLine(StreamWriter writer, string s)

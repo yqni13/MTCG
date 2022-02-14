@@ -17,9 +17,10 @@ namespace MTCG_SWEN1.HTTP
         public EHttpMethods Method { get; private set; }
         public string Path { get; private set; }
         public string Version { get; private set; }
-        public string Body { get; private set; } = "";
+        public string Body { get; private set; }
 
         public Dictionary<string, string> Headers;
+        public Dictionary<string, string> EndpointParameters;
 
         public HttpRequest(TcpClient socket)
         {
@@ -28,6 +29,7 @@ namespace MTCG_SWEN1.HTTP
             // Initialized with null to check at Receive() if first line processed or not.
             Path = null;
             Headers = new();
+            EndpointParameters = new();
         }
 
         // Send deserialiced data to respective service to do Business Logic.
@@ -51,30 +53,40 @@ namespace MTCG_SWEN1.HTTP
                     {
                         // Empty line announces content with next line.
                         if (line.Length == 0)
-                            ParseBody();
+                            ParseBody(reader);
 
-                        if (Path == null)
+                        if (Version == null)
                             ParseFirstLineRequest(line);
                         else
                             ParseHeader(line);
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception err)
             {
                 // Let the user know what went wrong.
                 Console.WriteLine("The Request could not be read:");
-                Console.WriteLine(e.Message);
+                Console.WriteLine(err.Message);
             }
         }
-
-        // Parse shit.
+                
         private void ParseFirstLineRequest(string line)
         {
             var requestFirstLine = line.Split(' ');
 
-            // Add method if not already existing in enum.
-            Method = Enum.Parse<EHttpMethods>(requestFirstLine[0].ToUpper());
+            // Control usable methods via enum EHttpMethods.
+            try
+            {
+                if (!Enum.IsDefined(typeof(EHttpMethods), requestFirstLine[0].ToUpper()))
+                    throw new ArgumentException($"Using method ({requestFirstLine[0].ToUpper()}) is prohibited.");
+
+                Method = Enum.Parse<EHttpMethods>(requestFirstLine[0].ToUpper());
+            }
+            catch (ArgumentException err)
+            {               
+                Console.WriteLine(err.Message);
+                System.Environment.Exit(0);
+            }            
             Path = requestFirstLine[1];
             Version = requestFirstLine[2];
         }
@@ -85,9 +97,17 @@ namespace MTCG_SWEN1.HTTP
             Headers.Add(requestHeader[0], requestHeader[1]);
         }
 
-        private void ParseBody()
-        {
-
+        private void ParseBody(StreamReader reader)
+        {            
+            if (Headers.ContainsKey("Content-Length"))
+            {
+                var bodyBuffer = new char[int.Parse(Headers["Content-Length"])];
+                Body = new string(bodyBuffer);
+            }
+            else
+            {
+                Body = "";
+            }
         }
     }
 }

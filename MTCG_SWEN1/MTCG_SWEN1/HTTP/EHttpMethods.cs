@@ -14,6 +14,14 @@ namespace MTCG_SWEN1.HTTP
         DELETE,
         PATCH,
         HEAD,
-        OPTIONS
+        OPTIONS,
+        COPY,
+        LINK,
+        UNLINK,
+        PURGE,
+        LOCK,
+        UNLOCK,
+        PROPFIND,
+        VIEW
     }
 }
