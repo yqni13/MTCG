@@ -52,13 +52,16 @@ namespace MTCG_SWEN1.Server
             _tcpListener.Start(5);
             Console.WriteLine($"Server {_serverName} started by {_creator}, {DateTime.UtcNow.AddHours(1)}\nWaiting for connection to {_ip}...");
             _serverIsActive = true;
+            Thread.Sleep(1500);
+            Console.WriteLine($"Connected to {GetHostName()}, {DateTime.UtcNow.AddHours(1)}\n");
 
             while (_serverIsActive)
             {
                 TcpClient socket = _tcpListener.AcceptTcpClient();
-                HttpProcessor processor = new HttpProcessor(socket, this);
-                new Thread(processor.Process).Start();
-                Thread.Sleep(1);
+                new ConnectionHandling(socket);
+                //HttpProcessor processor = new HttpProcessor(socket, this);
+                //new Thread(processor.Process).Start();
+                //Thread.Sleep(1);
             }
         }
 

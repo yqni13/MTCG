@@ -19,17 +19,17 @@ namespace MTCG_SWEN1.Server
         private readonly HttpResponse _response;
 
 
-
         public ConnectionHandling(TcpClient socket)
         {           
             _socket = socket;
             _request = new HttpRequest(socket);
-            _response = new HttpResponse(socket);
+            _response = new HttpResponse(socket);            
             ConnectionThreading();
         }
 
         private async void ConnectionThreading()
         {
+            
             await Task.Run(() => { Process(); });
             _socket.Close();
         }
@@ -37,7 +37,8 @@ namespace MTCG_SWEN1.Server
         private void Process()
         {
             _request.Receive();
-
+            Console.WriteLine(_request.Method);
+            
             try
             {
                 // Check condition.
@@ -45,6 +46,7 @@ namespace MTCG_SWEN1.Server
             catch(Exception e)
             {
                 _response.Send();
+                
             }
             
             // Build try/catch block to handle the allocation and its possible exceptions.

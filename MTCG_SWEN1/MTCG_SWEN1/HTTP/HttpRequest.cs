@@ -25,19 +25,13 @@ namespace MTCG_SWEN1.HTTP
         public HttpRequest(TcpClient socket)
         {
             _socket = socket;
+            Headers = new();
+            EndpointParameters = new();
 
             // Initialized with null to check at Receive() if first line processed or not.
             Path = null;
-            Headers = new();
-            EndpointParameters = new();
         }
-
-        // Send deserialiced data to respective service to do Business Logic.
-        public void Send()
-        {
-
-        }
-
+                
         // Receive incoming data request from client.
         public void Receive()
         {            
@@ -47,16 +41,21 @@ namespace MTCG_SWEN1.HTTP
                 StreamReader reader = new(_socket.GetStream());
                 {
                     string line;
-                    // Read and display lines from the file until the end of
-                    // the file is reached.
+                    // Read and display lines from the file until the end of the file is reached.
                     while ((line = reader.ReadLine()) != null)
                     {
                         // Empty line announces content with next line.
                         if (line.Length == 0)
+                        {
                             ParseBody(reader);
+                            return;
+                        }                        
 
                         if (Version == null)
+                        {
                             ParseFirstLineRequest(line);
+                            ParseParametersForQuery();
+                        }
                         else
                             ParseHeader(line);
                     }
@@ -66,7 +65,7 @@ namespace MTCG_SWEN1.HTTP
             {
                 // Let the user know what went wrong.
                 Console.WriteLine("The Request could not be read:");
-                Console.WriteLine(err.Message);
+                Console.WriteLine(err);
             }
         }
                 
@@ -106,8 +105,40 @@ namespace MTCG_SWEN1.HTTP
             }
             else
             {
-                Body = "";
+                Body = null;
             }
         }
+
+        private void ParseParametersForQuery()
+        {
+            if (Path.Contains('?'))
+            {
+                var tempPath = Path.Split('?');
+                Path = tempPath[0];
+                tempPath = tempPath[1].Split('&');
+
+                foreach (var item in tempPath)
+                {
+                    var keyValuePair = item.Split('=');
+                    EndpointParameters.Add(keyValuePair[0], keyValuePair[1]);
+                }
+            }
+            else
+                return;            
+        }
+
+        /*private void CheckMethodContent()
+        {
+            try
+            {
+                if (Method == EHttpMethods.POST || Method == EHttpMethods.PUT && Body == null)
+                    throw new ArgumentNullException("Request missing Body for used Method (POST/PUT).");
+            }
+            catch (ArgumentNullException err)
+            {
+                Console.WriteLine(err.Message);
+                HttpResponse.AddBody("application/json", "{\"response\":\"Internal Server Error\"}");
+            }
+        }*/
     }
 }
