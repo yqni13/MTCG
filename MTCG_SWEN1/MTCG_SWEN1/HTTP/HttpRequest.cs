@@ -127,6 +127,8 @@ namespace MTCG_SWEN1.HTTP
                 return;            
         }
 
+
+        /// ToDo: Exception handling for POST/PUT Requests without content.
         /*private void CheckMethodContent()
         {
             try
