@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MTCG_SWEN1.Server;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,10 +11,11 @@ namespace MTCG_SWEN1.HTTP
 {
     class HttpResponse
     {
+        private bool BodyNotNull = false;
+
         public string StatusMessage { get; set; }
-        public string Version { get; private set; }
-        public string BodyType { get; set; }
-        public string BodyContent { get; set; } // only post
+        public string Version { get; set; }
+        public string Body { get; set; }
         public Dictionary<string, string> Headers { get; set; }
         //private Dictionary<HttpStatusCode, string> StatusCodeString;
 
@@ -42,17 +44,14 @@ namespace MTCG_SWEN1.HTTP
                         // Empty line announces content with next line.
                         if (line.Length == 0)
                         {
-                            //ParseBody(reader);
+                            ParseBody(reader);
                             return;
                         }
 
                         if (Version == null)
-                        {
                             ParseVersionAndStatus(line);
-                            //ParseParametersForQuery();
-                        }
                         else                            
-                            //ParseHeader(line);
+                            ParseHeader(line);
                     }
                 }
             }
@@ -64,7 +63,7 @@ namespace MTCG_SWEN1.HTTP
             }
         }
 
-        public void ParseVersionAndStatus(string line)
+        private void ParseVersionAndStatus(string line)
         {
             var responseFirstLine = line.Split(' ');
             Version = responseFirstLine[0];
@@ -72,18 +71,61 @@ namespace MTCG_SWEN1.HTTP
             // Placeholder version to get the regarding status message.
             string statusCode = responseFirstLine[1];
             StatusMessage = HttpStatusMessageConverter.GetPlaceholderStatusCode(int.Parse(statusCode));
-        }        
+        }   
+        
+        private void ParseHeader(string line)
+        {
+            var responseHeader = line.Split(": ");
+            Headers.Add(responseHeader[0], responseHeader[1]);
+        }
+
+        private void ParseBody(StreamReader reader)
+        {
+            if (Headers.ContainsKey("Content-Length"))
+            {
+                var bodyBuffer = new char[int.Parse(Headers["Content-Length"])];
+                Body = new string(bodyBuffer);
+                BodyNotNull = true;
+            }
+            else
+            {
+                Body = null;
+            }
+        }
 
         public void Send()
         {
-            // Send received serialized data via http as answer.
+            StreamWriter writer = new(_socket.GetStream()) { AutoFlush = true };
+            SendServerAnswer();
+
+            WriteLine(writer, $"HTTP/{Version} {StatusMessage}");
+            WriteLine(writer, $"Datestamp: {DateTime.UtcNow.AddHours(1)}");
+            WriteLine(writer, $"Server: {HttpServer.GetServerStatic._serverName}");
+            if (Headers.Count != 0)
+                foreach (var pair in Headers)
+                    WriteLine(writer, $"{pair.Key}: {pair.Value}");
+            if (BodyNotNull)
+                WriteLine(writer, $"Content-Type: application/json; charset=UTF-8");
+            WriteLine(writer, $"Content-Lenght: {Body.Length}");
+
+            if (BodyNotNull)
+                WriteLine(writer, $"\n{Body}");
+            
+            writer.Flush();
+            writer.Close();
         }
 
-        /*public void AddBody(string bodyType, string bodyContent)
+        private void SendServerAnswer()
         {
-            BodyType = bodyType;
-            BodyContent = bodyContent;
-        }*/
+            Console.WriteLine($"Response sent - Status: {StatusMessage}");
+        }
+
+        private void WriteLine(StreamWriter writer, string message)
+        {
+            writer.WriteLine(message);
+        }
+
+        
 
         
     }
