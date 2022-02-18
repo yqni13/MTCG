@@ -14,10 +14,10 @@ namespace MTCG_SWEN1.HTTP
         // Query stands for request of data from database
 
         private TcpClient _socket;
-        public EHttpMethods Method { get; private set; }
-        public string Path { get; private set; }
-        public string Version { get; private set; }
-        public string Body { get; private set; }
+        public EHttpMethods Method { get; set; }
+        public string Path { get; set; }
+        public string Version { get; set; }
+        public string Body { get; set; }
 
         public Dictionary<string, string> Headers;
         public Dictionary<string, string> EndpointParameters;
@@ -48,6 +48,7 @@ namespace MTCG_SWEN1.HTTP
                         if (line.Length == 0)
                         {
                             ParseBody(reader);
+                            SendServerAnswer();
                             return;
                         }                        
 
@@ -125,6 +126,16 @@ namespace MTCG_SWEN1.HTTP
             }
             else
                 return;            
+        }
+
+        public void SendServerAnswer()
+        {
+            if (Headers.ContainsKey("Content-Type"))
+                Console.WriteLine($"Received Request - Method: {Method}, Content-Type: {Headers["Content-Type"]}.");
+            else if (Headers.ContainsKey("Authorization"))
+                Console.WriteLine($"Received Request - Method: {Method}, Authorization: /.");
+            else
+                Console.WriteLine($"Received Request - Method: {Method}, no content.");
         }
 
 

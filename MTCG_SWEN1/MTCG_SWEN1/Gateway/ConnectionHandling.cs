@@ -23,7 +23,8 @@ namespace MTCG_SWEN1.Server
         {           
             _socket = socket;
             _request = new HttpRequest(socket);
-            _response = new HttpResponse(socket);            
+            _response = new HttpResponse(socket);
+            AreParametersNull();
             ConnectionThreading();
         }
 
@@ -54,6 +55,15 @@ namespace MTCG_SWEN1.Server
 
             // Try/catch block.
             // In the exceptions its necessary to use _response.Send() to send exception message. 
+        }
+
+        public void AreParametersNull()
+        {
+            if (_request.Version == null)
+                Console.WriteLine("Request Version = null at start");
+
+            if (_response.Version == null)
+                Console.WriteLine("Response Version = null at start");
         }
     }
 }

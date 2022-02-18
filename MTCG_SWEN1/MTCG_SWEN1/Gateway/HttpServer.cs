@@ -16,7 +16,7 @@ namespace MTCG_SWEN1.Server
         private int _port = 10001;
         private IPAddress _ip = IPAddress.Loopback;
 
-        private readonly string _serverName = "MTCG_SWEN1";
+        public readonly string _serverName = "MTCG_SWEN1";
         private readonly string _creator = "Lukas Varga [if20b167]";
         private volatile bool _serverIsActive = false;
         
