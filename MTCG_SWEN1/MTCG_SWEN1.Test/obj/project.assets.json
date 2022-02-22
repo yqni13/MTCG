@@ -4969,24 +4969,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Lukas D.A. Varga\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Dell\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Dokumente\\GitHub\\BIF_Semester_3\\Software Engineering 1 Labor\\MTCG\\MTCG_SWEN1\\MTCG_SWEN1.Test\\MTCG_SWEN1.Test.csproj",
+      "projectUniqueName": "C:\\Users\\Dell\\Documents\\GitHub\\BIF_Semester_3\\SWEN\\MTCG\\MTCG_SWEN1\\MTCG_SWEN1.Test\\MTCG_SWEN1.Test.csproj",
       "projectName": "MTCG_SWEN1.Test",
-      "projectPath": "D:\\Dokumente\\GitHub\\BIF_Semester_3\\Software Engineering 1 Labor\\MTCG\\MTCG_SWEN1\\MTCG_SWEN1.Test\\MTCG_SWEN1.Test.csproj",
-      "packagesPath": "C:\\Users\\Lukas D.A. Varga\\.nuget\\packages\\",
-      "outputPath": "D:\\Dokumente\\GitHub\\BIF_Semester_3\\Software Engineering 1 Labor\\MTCG\\MTCG_SWEN1\\MTCG_SWEN1.Test\\obj\\",
+      "projectPath": "C:\\Users\\Dell\\Documents\\GitHub\\BIF_Semester_3\\SWEN\\MTCG\\MTCG_SWEN1\\MTCG_SWEN1.Test\\MTCG_SWEN1.Test.csproj",
+      "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Dell\\Documents\\GitHub\\BIF_Semester_3\\SWEN\\MTCG\\MTCG_SWEN1\\MTCG_SWEN1.Test\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Lukas D.A. Varga\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\Dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5000,8 +4995,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "D:\\Dokumente\\GitHub\\BIF_Semester_3\\Software Engineering 1 Labor\\MTCG\\MTCG_SWEN1\\MTCG_SWEN1\\MTCG_SWEN1.csproj": {
-              "projectPath": "D:\\Dokumente\\GitHub\\BIF_Semester_3\\Software Engineering 1 Labor\\MTCG\\MTCG_SWEN1\\MTCG_SWEN1\\MTCG_SWEN1.csproj"
+            "C:\\Users\\Dell\\Documents\\GitHub\\BIF_Semester_3\\SWEN\\MTCG\\MTCG_SWEN1\\MTCG_SWEN1\\MTCG_SWEN1.csproj": {
+              "projectPath": "C:\\Users\\Dell\\Documents\\GitHub\\BIF_Semester_3\\SWEN\\MTCG\\MTCG_SWEN1\\MTCG_SWEN1\\MTCG_SWEN1.csproj"
             }
           }
         }
@@ -5048,7 +5043,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.405\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
       }
     }
   }
