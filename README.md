@@ -4,6 +4,19 @@
 
 ---
 
+link of repository on GitHub:
+https://github.com/if20b167/MTCG
 
+##Technical steps
 
-content:
+#Designs
+
+#Failures
+
+#Selected Solutions
+
+##Unit-Tests
+
+##Timetrack
+
+##Git-History
