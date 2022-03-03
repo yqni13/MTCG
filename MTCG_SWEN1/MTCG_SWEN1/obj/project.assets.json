@@ -8,19 +8,24 @@
     "net5.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Dell\\.nuget\\packages\\": {}
+    "C:\\Users\\Lukas D.A. Varga\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Dell\\Documents\\GitHub\\BIF_Semester_3\\SWEN\\MTCG\\MTCG_SWEN1\\MTCG_SWEN1\\MTCG_SWEN1.csproj",
+      "projectUniqueName": "D:\\Dokumente\\GitHub\\BIF_Semester_3\\Software Engineering 1 Labor\\MTCG\\MTCG_SWEN1\\MTCG_SWEN1\\MTCG_SWEN1.csproj",
       "projectName": "MTCG_SWEN1",
-      "projectPath": "C:\\Users\\Dell\\Documents\\GitHub\\BIF_Semester_3\\SWEN\\MTCG\\MTCG_SWEN1\\MTCG_SWEN1\\MTCG_SWEN1.csproj",
-      "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Dell\\Documents\\GitHub\\BIF_Semester_3\\SWEN\\MTCG\\MTCG_SWEN1\\MTCG_SWEN1\\obj\\",
+      "projectPath": "D:\\Dokumente\\GitHub\\BIF_Semester_3\\Software Engineering 1 Labor\\MTCG\\MTCG_SWEN1\\MTCG_SWEN1\\MTCG_SWEN1.csproj",
+      "packagesPath": "C:\\Users\\Lukas D.A. Varga\\.nuget\\packages\\",
+      "outputPath": "D:\\Dokumente\\GitHub\\BIF_Semester_3\\Software Engineering 1 Labor\\MTCG\\MTCG_SWEN1\\MTCG_SWEN1\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Lukas D.A. Varga\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -60,7 +65,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.405\\RuntimeIdentifierGraph.json"
       }
     }
   }
