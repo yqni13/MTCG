@@ -1,17 +1,17 @@
 /*
- DROP TABLE users;
- DROP TABLE cards;
- DROP TABLE decks;
- DROP TABLE sessions;
  DROP TABLE own_cards;
- */
+ DROP TABLE sessions;
+ DROP TABLE decks;
+ DROP TABLE cards;
+ DROP TABLE users;
+*/
 
 CREATE TABLE
     IF NOT EXISTS
         users (
-            u_id    char(36) PRIMARY KEY,
-            u_username    varchar(20) NOT NULL UNIQUE,
-            u_password    varchar(36) NOT NULL,
+            u_id    char PRIMARY KEY,
+            u_username    varchar NOT NULL UNIQUE,
+            u_password    varchar NOT NULL,
             u_coins   integer default 20,
             u_deck varchar(126),
             u_elo integer NOT NULL
@@ -52,6 +52,14 @@ CREATE TABLE
             d_id    char(36) NOT NULL CONSTRAINT own_cards_decks_d_id_fk REFERENCES decks,
             c_id    char(36) NOT NULL CONSTRAINT own_cards_cards_c_id_fk REFERENCES cards on delete cascade,
             CONSTRAINT own_cards_pk UNIQUE (d_id, c_id)
+);
+
+CREATE TABLE
+    IF NOT EXISTS
+        tradings (
+            t_id    char(36) NOT NULL CONSTRAINT tradings_pk PRIMARY KEY,
+            t_user  varchar(20) NOT NULL CONSTRAINT tradings_users_u_id_fk REFERENCES users,
+            t_card  integer NOT NULL CONSTRAINT tradings_cards_c_id_fk REFERENCES cards
 );
 
 
