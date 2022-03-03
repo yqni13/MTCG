@@ -42,7 +42,8 @@ namespace MTCG_SWEN1.Server
             
             try
             {
-                // Check condition.
+                // Assemble EndpointPath and check which class will reach
+                // 
             }
             catch(Exception e)
             {
@@ -64,6 +65,14 @@ namespace MTCG_SWEN1.Server
 
             if (_response.Version == null)
                 Console.WriteLine("Response Version = null at start");
+        }
+
+        public string EndpointPath()
+        {
+            if (_request.Path.Count(a => a == '/') > 1)
+                return EndpointPath().Substring(0, EndpointPath().LastIndexOf("/"));
+            else
+                return _request.Path;
         }
     }
 }
