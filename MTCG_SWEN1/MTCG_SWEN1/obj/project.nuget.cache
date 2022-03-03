@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "RWDf4XVbl3gMEaZUUOLHOSUZsXfKroeJqRMlxsQoHM1522pjcaYf+aM4RVFl3r0QP9gHKTNx2fWsXHh4u/Skyw==",
+  "dgSpecHash": "/03slm2ZYexFxURIrAUQGS0g35woXi2gSwlGN6ZdoYrUaxD1uj0I+hQTdTHDG2ylvuy0HyB+KojKLVLcujdjdw==",
   "success": true,
   "projectFilePath": "D:\\Dokumente\\GitHub\\BIF_Semester_3\\Software Engineering 1 Labor\\MTCG\\MTCG_SWEN1\\MTCG_SWEN1\\MTCG_SWEN1.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Lukas D.A. Varga\\.nuget\\packages\\npgsql\\6.0.3\\npgsql.6.0.3.nupkg.sha512",
+    "C:\\Users\\Lukas D.A. Varga\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+  ],
   "logs": []
 }
