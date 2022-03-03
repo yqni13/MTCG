@@ -1,10 +1,11 @@
-/*
+ /*
+ DROP TABLE tradings;
  DROP TABLE own_cards;
  DROP TABLE sessions;
  DROP TABLE decks;
  DROP TABLE cards;
  DROP TABLE users;
-*/
+ */
 
 CREATE TABLE
     IF NOT EXISTS
@@ -41,8 +42,8 @@ CREATE TABLE
 CREATE TABLE
     IF NOT EXISTS
         sessions (
-            s_token     varchar(36) NOT NULL,
-            s_user  varchar(20) NOT NULL CONSTRAINT sessions_users_u_id_fk REFERENCES users on delete cascade,
+            s_token     varchar NOT NULL,
+            s_user  char NOT NULL CONSTRAINT sessions_users_u_id_fk REFERENCES users on delete cascade,
             s_timestamp timestamp NOT NULL
 );
 
@@ -59,7 +60,7 @@ CREATE TABLE
         tradings (
             t_id    char(36) NOT NULL CONSTRAINT tradings_pk PRIMARY KEY,
             t_user  varchar(20) NOT NULL CONSTRAINT tradings_users_u_id_fk REFERENCES users,
-            t_card  integer NOT NULL CONSTRAINT tradings_cards_c_id_fk REFERENCES cards
+            t_card  char NOT NULL CONSTRAINT tradings_cards_c_id_fk REFERENCES cards
 );
 
 

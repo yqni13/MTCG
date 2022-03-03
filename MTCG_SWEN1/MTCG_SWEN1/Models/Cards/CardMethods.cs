@@ -11,7 +11,7 @@ namespace MTCG_SWEN1.Models.Cards
     {
         public Guid ID { get; set; }
         public string Name { get; set; } = "";
-        public string UserName { get; set; };
+        public string UserName { get; set; }
         public int Damage { get; set; } = 0;
         public bool IsInDeck { get; set; } = false;
         public ECardType CardType { get; set; }
