@@ -1,17 +1,20 @@
 ﻿using MTCG_SWEN1.HTTP;
-using MTCG_SWEN1.Services;
+using MTCG_SWEN1.Server;
 using System;
-
+using System.Windows;
 
 namespace MTCG_SWEN1
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             
-            Console.WriteLine(EHttpMessages.BadRequest400.GetDescription());
+            Console.CancelKeyPress += (sender, e) => Environment.Exit(0);
+                        
+            HttpServer.GetServerStatic.StartServerThread();
 
+            
         }
     }
 }

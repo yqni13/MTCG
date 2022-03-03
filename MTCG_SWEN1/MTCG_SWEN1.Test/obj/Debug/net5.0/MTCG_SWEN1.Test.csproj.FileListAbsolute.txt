@@ -99,3 +99,10 @@ D:\Dokumente\GitHub\BIF_Semester_3\Software Engineering 1 Labor\MTCG\MTCG_SWEN1\
 D:\Dokumente\GitHub\BIF_Semester_3\Software Engineering 1 Labor\MTCG\MTCG_SWEN1\MTCG_SWEN1.Test\obj\Debug\net5.0\ref\MTCG_SWEN1.Test.dll
 D:\Dokumente\GitHub\BIF_Semester_3\Software Engineering 1 Labor\MTCG\MTCG_SWEN1\MTCG_SWEN1.Test\obj\Debug\net5.0\MTCG_SWEN1.Test.pdb
 D:\Dokumente\GitHub\BIF_Semester_3\Software Engineering 1 Labor\MTCG\MTCG_SWEN1\MTCG_SWEN1.Test\obj\Debug\net5.0\MTCG_SWEN1.Test.genruntimeconfig.cache
+D:\Dokumente\GitHub\BIF_Semester_3\Software Engineering 1 Labor\MTCG\MTCG_SWEN1\MTCG_SWEN1.Test\bin\Debug\net5.0\CoverletSourceRootsMapping
+D:\Dokumente\GitHub\BIF_Semester_3\Software Engineering 1 Labor\MTCG\MTCG_SWEN1\MTCG_SWEN1.Test\bin\Debug\net5.0\MTCG_SWEN1.deps.json
+D:\Dokumente\GitHub\BIF_Semester_3\Software Engineering 1 Labor\MTCG\MTCG_SWEN1\MTCG_SWEN1.Test\bin\Debug\net5.0\MTCG_SWEN1.runtimeconfig.json
+D:\Dokumente\GitHub\BIF_Semester_3\Software Engineering 1 Labor\MTCG\MTCG_SWEN1\MTCG_SWEN1.Test\bin\Debug\net5.0\MTCG_SWEN1.runtimeconfig.dev.json
+D:\Dokumente\GitHub\BIF_Semester_3\Software Engineering 1 Labor\MTCG\MTCG_SWEN1\MTCG_SWEN1.Test\bin\Debug\net5.0\MTCG_SWEN1.exe
+D:\Dokumente\GitHub\BIF_Semester_3\Software Engineering 1 Labor\MTCG\MTCG_SWEN1\MTCG_SWEN1.Test\bin\Debug\net5.0\MTCG_SWEN1.dll
+D:\Dokumente\GitHub\BIF_Semester_3\Software Engineering 1 Labor\MTCG\MTCG_SWEN1\MTCG_SWEN1.Test\bin\Debug\net5.0\MTCG_SWEN1.pdb

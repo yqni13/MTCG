@@ -8,6 +8,6 @@ namespace MTCG_SWEN1.Models
 {
     class User
     {
-        public
+        
     }
 }

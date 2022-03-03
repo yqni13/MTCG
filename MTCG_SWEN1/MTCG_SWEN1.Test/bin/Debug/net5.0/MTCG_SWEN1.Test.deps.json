@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v5.0": {
       "MTCG_SWEN1.Test/1.0.0": {
         "dependencies": {
+          "MTCG_SWEN1": "1.0.0",
           "Microsoft.NET.Test.Sdk": "16.9.4",
           "NUnit": "3.13.1",
           "NUnit3TestAdapter": "3.17.0",
@@ -868,6 +869,11 @@
             "fileVersion": "4.6.24705.1"
           }
         }
+      },
+      "MTCG_SWEN1/1.0.0": {
+        "runtime": {
+          "MTCG_SWEN1.dll": {}
+        }
       }
     }
   },
@@ -1331,6 +1337,11 @@
       "sha512": "sha512-A/uxsWi/Ifzkmd4ArTLISMbfFs6XpRPsXZonrIqyTY70xi8t+mDtvSM5Os0RqyRDobjMBwIDHDL4NOIbkDwf7A==",
       "path": "system.xml.xpath.xmldocument/4.3.0",
       "hashPath": "system.xml.xpath.xmldocument.4.3.0.nupkg.sha512"
+    },
+    "MTCG_SWEN1/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }
