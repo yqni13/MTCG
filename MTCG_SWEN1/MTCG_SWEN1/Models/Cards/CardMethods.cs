@@ -9,12 +9,13 @@ namespace MTCG_SWEN1.Models.Cards
 {
     class CardMethods
     {
-        public int Id { get; set; }
-        public string User { get; set; } = "";
+        public Guid ID { get; set; }
         public string Name { get; set; } = "";
+        public string UserName { get; set; };
         public int Damage { get; set; } = 0;
         public bool IsInDeck { get; set; } = false;
-        public bool IsInStack { get; set; } = false;
+        public ECardType CardType { get; set; }
+        public EElementType ElementType { get; set; }
         public bool IsChosenForTrade { get; set; } = false;
 
         public EElementType GetElementType()
