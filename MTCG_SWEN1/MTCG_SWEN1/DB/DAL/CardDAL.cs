@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MTCG_SWEN1.HTTP
+namespace MTCG_SWEN1.DB.DAL
 {
-    class HttpProperties
+    class CardDAL
     {
     }
 }
