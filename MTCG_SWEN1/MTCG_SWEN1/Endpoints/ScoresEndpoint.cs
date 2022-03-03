@@ -3,21 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MTCG_SWEN1.HTTP;
 
 namespace MTCG_SWEN1.Endpoints
 {
-    interface IEndpoints
+    [Endpoint("/score")]
+    class ScoresEndpoint
     {
-        /*interface IUsers
+        public ScoresEndpoint()
         {
-            void Add();
+            // ?
         }
 
-        interface ICards
+        [Method(EHttpMethods.GET)]
+        public void ScoresGet()
         {
-            void Shuffle();
-        }*/
 
-        void Add();
+        }
     }
 }
