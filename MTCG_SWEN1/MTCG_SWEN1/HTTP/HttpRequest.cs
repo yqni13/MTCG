@@ -14,7 +14,7 @@ namespace MTCG_SWEN1.HTTP
         // Query stands for request of data from database
 
         private TcpClient _socket;
-        public EHttpMethods Method { get; set; }
+        public string Method { get; set; }
         public string Path { get; set; }
         public string Version { get; set; }
         public string Body { get; set; }
@@ -69,24 +69,12 @@ namespace MTCG_SWEN1.HTTP
                 Console.WriteLine(err);
             }
         }
-                
+
         private void ParseFirstLineRequest(string line)
         {
             var requestFirstLine = line.Split(' ');
 
-            // Control usable methods via enum EHttpMethods.
-            try
-            {
-                if (!Enum.IsDefined(typeof(EHttpMethods), requestFirstLine[0].ToUpper()))
-                    throw new ArgumentException($"Using method ({requestFirstLine[0].ToUpper()}) is prohibited.");
-
-                Method = Enum.Parse<EHttpMethods>(requestFirstLine[0].ToUpper());
-            }
-            catch (ArgumentException err)
-            {               
-                Console.WriteLine(err.Message);
-                System.Environment.Exit(0);
-            }            
+            Method = requestFirstLine[0];
             Path = requestFirstLine[1];
             Version = requestFirstLine[2];
         }
@@ -139,20 +127,18 @@ namespace MTCG_SWEN1.HTTP
         }
 
 
-        /// ToDo: Exception handling for POST/PUT Requests without content.
-        /*private void CheckMethodContent()
+        public string GetValidEndpoint()
         {
-            try
-            {
-                if (Method == EHttpMethods.POST || Method == EHttpMethods.PUT && Body == null)
-                    throw new ArgumentNullException("Request missing Body for used Method (POST/PUT).");
-            }
-            catch (ArgumentNullException err)
-            {
-                Console.WriteLine(err.Message);
-                HttpResponse.AddBody("application/json", "{\"response\":\"Internal Server Error\"}");
-            }
-        }*/
+
+            // Count number of '/' and return value after last '/' as path variable.
+            // https://stackoverflow.com/questions/13961472/how-to-count-sets-of-specific-characters-in-a-string
+            int slashCount = Path.ToCharArray().Count(symbol => symbol == '/');
+
+            if (slashCount > 1)
+                return "hello";
+
+            return Path;
+        }
 
         
     }

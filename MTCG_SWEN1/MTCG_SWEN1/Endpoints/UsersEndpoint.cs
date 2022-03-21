@@ -1,4 +1,5 @@
-﻿using MTCG_SWEN1.HTTP;
+﻿using MTCG_SWEN1.Endpoints.Attributes;
+using MTCG_SWEN1.HTTP;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,19 +16,19 @@ namespace MTCG_SWEN1.Endpoints
             // ?
         }
 
-        [Method(EHttpMethods.GET)]
+        [Method("GET")]
         public void GetUsers()
         {
             
         }
 
-        [Method(EHttpMethods.POST)]
+        [Method("POST")]
         public void UsersPost()
         {
 
         }
 
-        [Method(EHttpMethods.PUT)]
+        [Method("PUT")]
         public void PutUsers()
         {
 

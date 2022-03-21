@@ -40,3 +40,7 @@ Working on this project shows me missing practical experience in working with da
 
 ##Git-History
 Created new GitHub Account to hide half-finished project from my official timeline. Therefore screenshots of Git-History is added below to show workflow.
+
+<img alt="picture unable to display" src="res/commit-history1.jpg">
+<img alt="picture unable to display" src="res/commit-history2.jpg">
+<img alt="picture unable to display" src="res/commit-history3.jpg">

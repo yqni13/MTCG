@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using MTCG_SWEN1.Endpoints.Attributes;
 using MTCG_SWEN1.HTTP;
 
 namespace MTCG_SWEN1.Server
@@ -37,13 +39,13 @@ namespace MTCG_SWEN1.Server
 
         private void Process()
         {
+            
+            //Console.WriteLine(_request.Method);
             _request.Receive();
-            Console.WriteLine(_request.Method);
             
             try
             {
                 // Assemble EndpointPath and check which class will reach
-                // 
             }
             catch(Exception e)
             {
@@ -65,14 +67,10 @@ namespace MTCG_SWEN1.Server
 
             if (_response.Version == null)
                 Console.WriteLine("Response Version = null at start");
+
+            var EndpointClass = Assembly.GetExecutingAssembly().GetTypes().Where(type => type.GetCustomAttribute<EndpointAttribute>()?.Path == _request.GetValidEndpoint()).Single();
         }
 
-        public string EndpointPath()
-        {
-            if (_request.Path.Count(a => a == '/') > 1)
-                return EndpointPath().Substring(0, EndpointPath().LastIndexOf("/"));
-            else
-                return _request.Path;
-        }
+        
     }
 }

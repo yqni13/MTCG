@@ -4,11 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MTCG_SWEN1.Endpoints
+namespace MTCG_SWEN1.Endpoints.Attributes
 {
-    class EndpointAttribute : System.Attribute
+    // Use AttributeTarget to save meta data for routing.
+    [AttributeUsage(AttributeTargets.Class)]
+    class EndpointAttribute : Attribute
     {
         private string _path;
+
         public string Path { get; set; }
 
         public EndpointAttribute(string path)

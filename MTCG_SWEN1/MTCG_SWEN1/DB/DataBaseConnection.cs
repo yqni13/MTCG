@@ -14,5 +14,6 @@ namespace MTCG_SWEN1.DB
         {
             return new NpgsqlConnection("Host=localhost;Username=postgre;Password=postgre;Database=mctg_db");
         }
+
     }
 }
