@@ -23,8 +23,17 @@ namespace MTCG_SWEN1.Endpoints
         [Method("GET")]
         public void GetUsers()
         {
-            _response.Body = "Users example Response";
-            _response.StatusMessage = EHttpStatusMessages.OK200.GetDescription();
+            try
+            {
+                _response.StatusMessage = EHttpStatusMessages.OK200.GetDescription();
+                _response.Body = "Demo content for /users GET";
+            }
+            catch (Exception err)
+            {
+                Console.WriteLine(err.Message);
+                _response.Body = "Error for /user GET";
+                _response.StatusMessage = EHttpStatusMessages.NotFound404.GetDescription();
+            }
             _response.Send();
         }
 
@@ -38,9 +47,9 @@ namespace MTCG_SWEN1.Endpoints
             }
             catch (Exception err)
             {
-                Console.WriteLine(err);
+                Console.WriteLine(err.Message);
                 _response.Body = "Error for /user POST";
-                _response.StatusMessage = EHttpStatusMessages.NotFound404.GetDescription();
+                _response.StatusMessage = EHttpStatusMessages.NotFound404.GetDescription();                
             }
             _response.Send();
         }
@@ -48,7 +57,17 @@ namespace MTCG_SWEN1.Endpoints
         [Method("PUT")]
         public void PutUsers()
         {
-            _response.StatusMessage = EHttpStatusMessages.NotFound404.GetDescription();
+            try
+            {
+                _response.StatusMessage = EHttpStatusMessages.OK200.GetDescription();
+                _response.Body = "Demo content for /users PUT";
+            }
+            catch (Exception err)
+            {
+                Console.WriteLine(err.Message);
+                _response.Body = "Error for /user PUT";
+                _response.StatusMessage = EHttpStatusMessages.NotFound404.GetDescription();
+            }
             _response.Send();
         }
     }

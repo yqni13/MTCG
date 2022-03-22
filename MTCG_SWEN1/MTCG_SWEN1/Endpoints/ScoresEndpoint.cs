@@ -11,15 +11,30 @@ namespace MTCG_SWEN1.Endpoints
     [Endpoint("/score")]
     class ScoresEndpoint
     {
-        public ScoresEndpoint()
+        private HttpRequest _request;
+        private HttpResponse _response;
+
+        public ScoresEndpoint(HttpRequest request, HttpResponse response)
         {
-            // ?
+            _request = request;
+            _response = response;
         }
 
         [Method("GET")]
         public void ScoresGet()
         {
-
+            try
+            {
+                _response.StatusMessage = EHttpStatusMessages.OK200.GetDescription();
+                _response.Body = "Demo content for /score GET";
+            }
+            catch (Exception err)
+            {
+                Console.WriteLine(err.Message);
+                _response.Body = "Error for /score GET";
+                _response.StatusMessage = EHttpStatusMessages.NotFound404.GetDescription();
+            }
+            _response.Send();
         }
     }
 }

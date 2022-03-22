@@ -17,3 +17,22 @@ D:\Dokumente\GitHub\BIF_Semester_3\Software Engineering 1 Labor\MTCG\MTCG_SWEN1\
 D:\Dokumente\GitHub\BIF_Semester_3\Software Engineering 1 Labor\MTCG\MTCG_SWEN1\MTCG_SWEN1\bin\Debug\net5.0\Npgsql.dll
 D:\Dokumente\GitHub\BIF_Semester_3\Software Engineering 1 Labor\MTCG\MTCG_SWEN1\MTCG_SWEN1\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll
 D:\Dokumente\GitHub\BIF_Semester_3\Software Engineering 1 Labor\MTCG\MTCG_SWEN1\MTCG_SWEN1\obj\Debug\net5.0\MTCG_SWEN1.csproj.CopyComplete
+C:\Users\Dell\Documents\GitHub\BIF_Semester_3\SWEN\MTCG\MTCG_SWEN1\MTCG_SWEN1\obj\Debug\net5.0\MTCG_SWEN1.dll
+C:\Users\Dell\Documents\GitHub\BIF_Semester_3\SWEN\MTCG\MTCG_SWEN1\MTCG_SWEN1\obj\Debug\net5.0\MTCG_SWEN1.pdb
+C:\Users\Dell\Documents\GitHub\BIF_Semester_3\SWEN\MTCG\MTCG_SWEN1\MTCG_SWEN1\bin\Debug\net5.0\MTCG_SWEN1.exe
+C:\Users\Dell\Documents\GitHub\BIF_Semester_3\SWEN\MTCG\MTCG_SWEN1\MTCG_SWEN1\bin\Debug\net5.0\MTCG_SWEN1.deps.json
+C:\Users\Dell\Documents\GitHub\BIF_Semester_3\SWEN\MTCG\MTCG_SWEN1\MTCG_SWEN1\bin\Debug\net5.0\MTCG_SWEN1.runtimeconfig.json
+C:\Users\Dell\Documents\GitHub\BIF_Semester_3\SWEN\MTCG\MTCG_SWEN1\MTCG_SWEN1\bin\Debug\net5.0\MTCG_SWEN1.runtimeconfig.dev.json
+C:\Users\Dell\Documents\GitHub\BIF_Semester_3\SWEN\MTCG\MTCG_SWEN1\MTCG_SWEN1\bin\Debug\net5.0\MTCG_SWEN1.dll
+C:\Users\Dell\Documents\GitHub\BIF_Semester_3\SWEN\MTCG\MTCG_SWEN1\MTCG_SWEN1\bin\Debug\net5.0\MTCG_SWEN1.pdb
+C:\Users\Dell\Documents\GitHub\BIF_Semester_3\SWEN\MTCG\MTCG_SWEN1\MTCG_SWEN1\bin\Debug\net5.0\Npgsql.dll
+C:\Users\Dell\Documents\GitHub\BIF_Semester_3\SWEN\MTCG\MTCG_SWEN1\MTCG_SWEN1\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\Dell\Documents\GitHub\BIF_Semester_3\SWEN\MTCG\MTCG_SWEN1\MTCG_SWEN1\obj\Debug\net5.0\MTCG_SWEN1.csproj.AssemblyReference.cache
+C:\Users\Dell\Documents\GitHub\BIF_Semester_3\SWEN\MTCG\MTCG_SWEN1\MTCG_SWEN1\obj\Debug\net5.0\MTCG_SWEN1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Dell\Documents\GitHub\BIF_Semester_3\SWEN\MTCG\MTCG_SWEN1\MTCG_SWEN1\obj\Debug\net5.0\MTCG_SWEN1.AssemblyInfoInputs.cache
+C:\Users\Dell\Documents\GitHub\BIF_Semester_3\SWEN\MTCG\MTCG_SWEN1\MTCG_SWEN1\obj\Debug\net5.0\MTCG_SWEN1.AssemblyInfo.cs
+C:\Users\Dell\Documents\GitHub\BIF_Semester_3\SWEN\MTCG\MTCG_SWEN1\MTCG_SWEN1\obj\Debug\net5.0\MTCG_SWEN1.csproj.CoreCompileInputs.cache
+C:\Users\Dell\Documents\GitHub\BIF_Semester_3\SWEN\MTCG\MTCG_SWEN1\MTCG_SWEN1\obj\Debug\net5.0\MTCG_SWEN1.csproj.CopyComplete
+C:\Users\Dell\Documents\GitHub\BIF_Semester_3\SWEN\MTCG\MTCG_SWEN1\MTCG_SWEN1\obj\Debug\net5.0\refint\MTCG_SWEN1.dll
+C:\Users\Dell\Documents\GitHub\BIF_Semester_3\SWEN\MTCG\MTCG_SWEN1\MTCG_SWEN1\obj\Debug\net5.0\MTCG_SWEN1.genruntimeconfig.cache
+C:\Users\Dell\Documents\GitHub\BIF_Semester_3\SWEN\MTCG\MTCG_SWEN1\MTCG_SWEN1\obj\Debug\net5.0\ref\MTCG_SWEN1.dll

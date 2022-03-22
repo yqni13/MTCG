@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "kWCuPxYIRkjOy+YHZ3sNZVWGEdrL3u03xvPtsc/JUhH2MN2a9aTgTSDNwknSo3XMShvidh/oAKLbeXbOx4KZrQ==",
+  "dgSpecHash": "5hlV2T5SEK3GndgfdXGFy2a74IiBIB++VHDv/okzRQJl3AGb9aHEu23WrocV/SwOKf4Hb31JINOaLLqYBR/3Uw==",
   "success": true,
-  "projectFilePath": "D:\\Dokumente\\GitHub\\BIF_Semester_3\\Software Engineering 1 Labor\\MTCG\\MTCG_SWEN1\\MTCG_SWEN1\\MTCG_SWEN1.csproj",
+  "projectFilePath": "C:\\Users\\Dell\\Documents\\GitHub\\BIF_Semester_3\\SWEN\\MTCG\\MTCG_SWEN1\\MTCG_SWEN1\\MTCG_SWEN1.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Lukas D.A. Varga\\.nuget\\packages\\npgsql\\6.0.3\\npgsql.6.0.3.nupkg.sha512",
-    "C:\\Users\\Lukas D.A. Varga\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+    "C:\\Users\\Dell\\.nuget\\packages\\npgsql\\6.0.3\\npgsql.6.0.3.nupkg.sha512",
+    "C:\\Users\\Dell\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
   ],
   "logs": []
 }

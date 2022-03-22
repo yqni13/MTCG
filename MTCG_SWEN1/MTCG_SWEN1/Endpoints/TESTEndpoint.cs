@@ -23,8 +23,17 @@ namespace MTCG_SWEN1.Endpoints
         [Method("POST")]
         public void TestPOST()
         {
-            _response.Body = "Users example Response";
-            _response.StatusMessage = EHttpStatusMessages.BadRequest400.GetDescription();
+            try
+            {
+                _response.StatusMessage = EHttpStatusMessages.OK200.GetDescription();
+                _response.Body = "Demo content for /test POST";
+            }
+            catch (Exception err)
+            {
+                Console.WriteLine(err.Message);
+                _response.Body = "Error for /test POST";
+                _response.StatusMessage = EHttpStatusMessages.NotFound404.GetDescription();
+            }
             _response.Send();
         }
     }

@@ -45,6 +45,7 @@ namespace MTCG_SWEN1.HTTP
                         if (line.Length == 0)
                         {
                             ParseBody(reader);
+                            Console.WriteLine("Gets into line.Length == 0");
                             return;
                         }
 
@@ -85,7 +86,7 @@ namespace MTCG_SWEN1.HTTP
             {
                 var bodyBuffer = new char[int.Parse(Headers["Content-Length"])];
                 Body = new string(bodyBuffer);
-                BodyNotNull = true;
+                //BodyNotNull = true;
             }
             else
             {
@@ -100,8 +101,8 @@ namespace MTCG_SWEN1.HTTP
             if (Version == null)
                 Version = "1.1";
 
-            
-            WriteLine(writer, $"HTTP/{Version} {StatusMessage}");
+
+            WriteLine(writer, $"HTTP/{Version} {StatusMessage}");            
             WriteLine(writer, $"Datestamp: {DateTime.UtcNow.AddHours(1)}");
             WriteLine(writer, $"Server: {HttpServer.GetServerStatic._serverName}");
             if (Headers.Count != 0)
@@ -112,9 +113,9 @@ namespace MTCG_SWEN1.HTTP
             WriteLine(writer, $"Content-Lenght: {Body.Length}");
 
             if (BodyNotNull)
-                WriteLine(writer, $"\n{Body}");
+                WriteLine(writer, Body);
             */
-            if(BodyNotNull)
+            if(!BodyNotNull)
             {
                 WriteLine(writer, $"Content-Lenght: {Body.Length}");
                 WriteLine(writer, $"Content-Type: application/json; charset=UTF-8");
