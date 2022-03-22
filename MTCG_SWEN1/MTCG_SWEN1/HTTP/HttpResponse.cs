@@ -97,20 +97,37 @@ namespace MTCG_SWEN1.HTTP
         {
             StreamWriter writer = new(_socket.GetStream()) { AutoFlush = true };
             SendServerAnswer();
+            if (Version == null)
+                Version = "1.1";
 
+            
             WriteLine(writer, $"HTTP/{Version} {StatusMessage}");
             WriteLine(writer, $"Datestamp: {DateTime.UtcNow.AddHours(1)}");
             WriteLine(writer, $"Server: {HttpServer.GetServerStatic._serverName}");
             if (Headers.Count != 0)
                 foreach (var pair in Headers)
                     WriteLine(writer, $"{pair.Key}: {pair.Value}");
-            if (BodyNotNull)
+            /*if (BodyNotNull)
                 WriteLine(writer, $"Content-Type: application/json; charset=UTF-8");
             WriteLine(writer, $"Content-Lenght: {Body.Length}");
 
             if (BodyNotNull)
                 WriteLine(writer, $"\n{Body}");
-            
+            */
+            if(BodyNotNull)
+            {
+                WriteLine(writer, $"Content-Lenght: {Body.Length}");
+                WriteLine(writer, $"Content-Type: application/json; charset=UTF-8");
+                WriteLine(writer, "");
+                WriteLine(writer, Body);
+
+            }
+            else
+            {
+                WriteLine(writer, $"Content-Lenght: {Body.Length}");
+            }
+
+            //writer.WriteLine();
             writer.Flush();
             writer.Close();
         }

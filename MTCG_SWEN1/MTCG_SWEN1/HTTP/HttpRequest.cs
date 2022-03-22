@@ -48,7 +48,7 @@ namespace MTCG_SWEN1.HTTP
                         if (line.Length == 0)
                         {
                             ParseBody(reader);
-                            SendServerAnswer();
+                            //SendServerAnswer();
                             return;
                         }                        
 
@@ -116,7 +116,7 @@ namespace MTCG_SWEN1.HTTP
                 return;            
         }
 
-        public void SendServerAnswer()
+        /*public void SendServerAnswer()
         {
             if (Headers.ContainsKey("Content-Type"))
                 Console.WriteLine($"Received Request - Method: {Method}, Content-Type: {Headers["Content-Type"]}.");
@@ -124,18 +124,24 @@ namespace MTCG_SWEN1.HTTP
                 Console.WriteLine($"Received Request - Method: {Method}, Authorization: /.");
             else
                 Console.WriteLine($"Received Request - Method: {Method}, no content.");
-        }
+        }*/
 
 
         public string GetValidEndpoint()
         {
-
             // Count number of '/' and return value after last '/' as path variable.
             // https://stackoverflow.com/questions/13961472/how-to-count-sets-of-specific-characters-in-a-string
             int slashCount = Path.ToCharArray().Count(symbol => symbol == '/');
 
             if (slashCount > 1)
-                return "hello";
+                if (Path.Substring(0, Path.LastIndexOf("/")) == "/transactions")
+                    //Console.WriteLine($"returned string instead: {a.Substring(a.LastIndexOf("/packages"))}");
+                    // Return Path variable "/packages" to find Endpoint.
+                    return Path.Substring(Path.LastIndexOf("/packages"));
+                else
+                    //Console.WriteLine($"returned string: {a.Substring(0, a.LastIndexOf("/"))}");
+                    // Return Path variable, because 2nd part of Path equals token or username.
+                    return Path.Substring(0, Path.LastIndexOf("/"));
 
             return Path;
         }

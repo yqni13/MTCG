@@ -15,10 +15,6 @@ namespace MTCG_SWEN1
                         
             HttpServer.GetServerStatic.StartServerThread();
 
-            string a = "/transactions/packages";
-            int slashCount = a.ToCharArray().Count(symbol => symbol == '/');
-            if (slashCount > 1)
-                Console.WriteLine($"returned string: {a.Substring(0, a.LastIndexOf("/"))}");
             
         }
     }

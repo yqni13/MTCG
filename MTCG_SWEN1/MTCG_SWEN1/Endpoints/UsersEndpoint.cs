@@ -11,27 +11,45 @@ namespace MTCG_SWEN1.Endpoints
     [Endpoint("/users")]
     class UsersEndpoint
     {
-        public UsersEndpoint()
+        private HttpRequest _request;
+        private HttpResponse _response;
+
+        public UsersEndpoint(HttpRequest request, HttpResponse response)
         {
-            // ?
+            _request = request;
+            _response = response;
         }
 
         [Method("GET")]
         public void GetUsers()
         {
-            
+            _response.Body = "Users example Response";
+            _response.StatusMessage = EHttpStatusMessages.OK200.GetDescription();
+            _response.Send();
         }
 
         [Method("POST")]
         public void UsersPost()
         {
-
+            try
+            {
+                _response.StatusMessage = EHttpStatusMessages.OK200.GetDescription();
+                _response.Body = "Demo content for /users POST";
+            }
+            catch (Exception err)
+            {
+                Console.WriteLine(err);
+                _response.Body = "Error for /user POST";
+                _response.StatusMessage = EHttpStatusMessages.NotFound404.GetDescription();
+            }
+            _response.Send();
         }
 
         [Method("PUT")]
         public void PutUsers()
         {
-
+            _response.StatusMessage = EHttpStatusMessages.NotFound404.GetDescription();
+            _response.Send();
         }
     }
 }

@@ -25,8 +25,7 @@ namespace MTCG_SWEN1.Server
         {           
             _socket = socket;
             _request = new HttpRequest(socket);
-            _response = new HttpResponse(socket);
-            AreParametersNull();
+            _response = new HttpResponse(socket);            
             ConnectionThreading();
         }
 
@@ -46,13 +45,21 @@ namespace MTCG_SWEN1.Server
             try
             {
                 // Assemble EndpointPath and check which class will reach
+                var endpointPath = _request.GetValidEndpoint();
+                var endpointMethod = _request.Method;
+                var endType = GetEndpointType();
+                var endMethodInfo = GetEndpointMethodInfo(endType);
+                Console.WriteLine($"Method from Request == {endpointMethod}");
+                Console.WriteLine($"Path from Request == {endpointPath}");
+                InvokingEndpoint(endMethodInfo, endType);
             }
             catch(Exception e)
             {
                 _response.Send();
                 
             }
-            
+
+            //_response = (HttpResponse)EndpointAttribute.Invoke(Activator.CreateInstance(EndpointClass), new object[] { _request, _response });
             // Build try/catch block to handle the allocation and its possible exceptions.
             //_request.Receive();
 
@@ -60,17 +67,23 @@ namespace MTCG_SWEN1.Server
             // In the exceptions its necessary to use _response.Send() to send exception message. 
         }
 
-        public void AreParametersNull()
+        
+
+        private void InvokingEndpoint(MethodInfo method, Type path)
         {
-            if (_request.Version == null)
-                Console.WriteLine("Request Version = null at start");
-
-            if (_response.Version == null)
-                Console.WriteLine("Response Version = null at start");
-
-            var EndpointClass = Assembly.GetExecutingAssembly().GetTypes().Where(type => type.GetCustomAttribute<EndpointAttribute>()?.Path == _request.GetValidEndpoint()).Single();
+            method.Invoke(Activator.CreateInstance(path, _request, _response), null);
         }
 
-        
+        private Type GetEndpointType()
+        {
+            var endpointType = Assembly.GetExecutingAssembly().GetTypes().Where(type => type.GetCustomAttribute<EndpointAttribute>()?.Path == _request.GetValidEndpoint()).Single();
+            return endpointType;
+        }
+
+        private MethodInfo GetEndpointMethodInfo(Type pathType)
+        {
+            var methodInfo = pathType.GetMethods().Where(method => method.GetCustomAttribute<MethodAttribute>()?.Method == _request.Method).Single();
+            return methodInfo;
+        }
     }
 }

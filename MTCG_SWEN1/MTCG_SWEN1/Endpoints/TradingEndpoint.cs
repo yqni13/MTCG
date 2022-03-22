@@ -27,5 +27,11 @@ namespace MTCG_SWEN1.Endpoints
         {
 
         }
+
+        [Method("DELETE")]
+        public void TradeDelete()
+        {
+
+        }
     }
 }
