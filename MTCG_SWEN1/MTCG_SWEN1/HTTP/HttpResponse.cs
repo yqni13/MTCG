@@ -104,7 +104,7 @@ namespace MTCG_SWEN1.HTTP
 
             WriteLine(writer, $"HTTP/{Version} {StatusMessage}");            
             WriteLine(writer, $"Datestamp: {DateTime.UtcNow.AddHours(1)}");
-            WriteLine(writer, $"Server: {HttpServer.GetServerStatic._serverName}");
+            WriteLine(writer, $"Server: {HttpServer.GetStaticServer._serverName}");
             if (Headers.Count != 0)
                 foreach (var pair in Headers)
                     WriteLine(writer, $"{pair.Key}: {pair.Value}");
