@@ -18,6 +18,8 @@ namespace MTCG_SWEN1.HTTP
         BadRequest400 = 400,
         [Description("404 Not Found")]
         NotFound404 = 404,
+        [Description("406 Not Acceptable")]
+        NotAcceptable406 = 406,
 
         // Server error responses
         [Description("500 Internal Server Error")]

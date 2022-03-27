@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace MTCG_SWEN1.DB
 {
-    internal interface ICRUD : IDisposable
+    interface ICRUD
     {
-
     }
 }

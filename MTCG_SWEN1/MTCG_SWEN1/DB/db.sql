@@ -10,7 +10,7 @@
 CREATE TABLE
     IF NOT EXISTS
         users (
-            u_id    char PRIMARY KEY,
+            u_id    char(36) PRIMARY KEY,
             u_username    varchar NOT NULL UNIQUE,
             u_password    varchar NOT NULL,
             u_coins   integer default 20,

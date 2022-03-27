@@ -1,4 +1,5 @@
-﻿using MTCG_SWEN1.HTTP;
+﻿using MTCG_SWEN1.DB;
+using MTCG_SWEN1.HTTP;
 using MTCG_SWEN1.Server;
 using System;
 using System.Linq;
@@ -13,8 +14,7 @@ namespace MTCG_SWEN1
             
             Console.CancelKeyPress += (sender, e) => Environment.Exit(0);
                         
-            HttpServer.GetServerStatic.StartServerThread();
-
+            HttpServer.GetStaticServer.StartServerThread();
             
         }
     }
