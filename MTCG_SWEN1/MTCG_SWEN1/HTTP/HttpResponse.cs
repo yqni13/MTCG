@@ -29,71 +29,6 @@ namespace MTCG_SWEN1.HTTP
             Headers = new();
         }
 
-
-        public void Receive()
-        {
-            try
-            {
-                // Create an instance of StreamReader to read from a file.
-                StreamReader reader = new(_socket.GetStream());
-                {
-                    string line;
-                    // Read and display lines from the file until the end of the file is reached.
-                    while ((line = reader.ReadLine()) != null)
-                    {
-                        // Empty line announces content with next line.
-                        if (line.Length == 0)
-                        {
-                            ParseBody(reader);
-                            Console.WriteLine("Gets into line.Length == 0");
-                            return;
-                        }
-
-                        if (Version == null)
-                            ParseVersionAndStatus(line);
-                        else                            
-                            ParseHeader(line);
-                    }
-                }
-            }
-            catch (Exception err)
-            {
-                // Let the user know what went wrong.
-                Console.WriteLine("The Request could not be read:");
-                Console.WriteLine(err);
-            }
-        }
-
-        private void ParseVersionAndStatus(string line)
-        {
-            var responseFirstLine = line.Split(' ');
-            Version = responseFirstLine[0];
-
-            // Placeholder version to get the regarding status message.
-            string statusCode = responseFirstLine[1];
-            StatusMessage = HttpStatusMessageConverter.GetPlaceholderStatusCode(int.Parse(statusCode));
-        }   
-        
-        private void ParseHeader(string line)
-        {
-            var responseHeader = line.Split(": ");
-            Headers.Add(responseHeader[0], responseHeader[1]);
-        }
-
-        private void ParseBody(StreamReader reader)
-        {
-            if (Headers.ContainsKey("Content-Length"))
-            {
-                var bodyBuffer = new char[int.Parse(Headers["Content-Length"])];
-                Body = new string(bodyBuffer);
-                //BodyNotNull = true;
-            }
-            else
-            {
-                Body = null;
-            }
-        }
-
         public void Send()
         {
             StreamWriter writer = new(_socket.GetStream()) { AutoFlush = true };
@@ -142,9 +77,6 @@ namespace MTCG_SWEN1.HTTP
         {
             writer.WriteLine(message);
         }
-
-        
-
         
     }
 }

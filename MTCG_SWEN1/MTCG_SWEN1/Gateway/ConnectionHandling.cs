@@ -55,10 +55,11 @@ namespace MTCG_SWEN1.Server
             }
             catch(Exception e)
             {
-                _response.Send();
+                Console.WriteLine(e.Message);
+                //_response.Send();
                 
             }
-
+            
             //_response = (HttpResponse)EndpointAttribute.Invoke(Activator.CreateInstance(EndpointClass), new object[] { _request, _response });
             // Build try/catch block to handle the allocation and its possible exceptions.
             //_request.Receive();

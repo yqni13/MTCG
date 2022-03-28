@@ -42,10 +42,12 @@ namespace MTCG_SWEN1.Endpoints
         [Method("POST")]
         public void Registration()
         {
+            User user;
             try
             {
                 // Fill user as model with credentials from request.
-                User user = JsonSerializer.Deserialize<User>(_request.Body);
+                user = JsonSerializer.Deserialize<User>(_request.Body);
+                
                 if(user.Username == null || user.Username == "") 
                 {
                     _response.StatusMessage = EHttpStatusMessages.NotAcceptable406.GetDescription();
@@ -55,16 +57,20 @@ namespace MTCG_SWEN1.Endpoints
                 }
 
                 // Call Service and catch Exceptions from Service or DB?
+                Console.WriteLine($"User successfully registered. username={user.Username} & password={user.Password}");
             }
             catch (Exception err)
             {
-                Console.WriteLine(err.Message);
+                Console.WriteLine($"UserEndpoint, error line 63 => {err.Message}\n");
+
                 _response.Body = "Error for /user POST";
-                _response.StatusMessage = EHttpStatusMessages.BadRequest400.GetDescription();                
+                _response.StatusMessage = EHttpStatusMessages.BadRequest400.GetDescription();
+                _response.Send();
+                return;
             }
 
             // Fill body and statusmsg of response.
-            _response.Body = "User successfully registered.";
+            _response.Body = $"User successfully registered. username={user.Username} & password={user.Password}";
             _response.StatusMessage = EHttpStatusMessages.OK200.GetDescription();
             _response.Send();
         }

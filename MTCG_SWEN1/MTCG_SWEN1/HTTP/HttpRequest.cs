@@ -48,7 +48,6 @@ namespace MTCG_SWEN1.HTTP
                         if (line.Length == 0)
                         {
                             ParseBody(reader);
-                            //SendServerAnswer();
                             return;
                         }                        
 
@@ -66,7 +65,7 @@ namespace MTCG_SWEN1.HTTP
             {
                 // Let the user know what went wrong.
                 Console.WriteLine("The Request could not be read:");
-                Console.WriteLine(err);
+                Console.WriteLine(err.Message);
             }
         }
 
@@ -86,15 +85,27 @@ namespace MTCG_SWEN1.HTTP
         }
 
         private void ParseBody(StreamReader reader)
-        {            
-            if (Headers.ContainsKey("Content-Length"))
+        {
+            try
             {
-                var bodyBuffer = new char[int.Parse(Headers["Content-Length"])];
-                Body = new string(bodyBuffer);
-            }
-            else
+                if (!Headers.ContainsKey("Content-Length"))
+                    throw new KeyNotFoundException("Missing Header error => HttpRequest.cs, ParseBody().");
+
+                while (reader.Peek() >= 0)
+                {
+                    Body += (char)reader.Read();
+                }
+
+            } 
+            catch(KeyNotFoundException err)
             {
-                Body = null;
+                Console.WriteLine(err.Message);                
+                Body = "";
+            } 
+            catch (Exception)
+            {
+                Console.WriteLine($"Parsing content error => HttpRequest.cs, ParseBody().");
+                Body = "";
             }
         }
 
@@ -116,17 +127,7 @@ namespace MTCG_SWEN1.HTTP
                 return;            
         }
 
-        /*public void SendServerAnswer()
-        {
-            if (Headers.ContainsKey("Content-Type"))
-                Console.WriteLine($"Received Request - Method: {Method}, Content-Type: {Headers["Content-Type"]}.");
-            else if (Headers.ContainsKey("Authorization"))
-                Console.WriteLine($"Received Request - Method: {Method}, Authorization: /.");
-            else
-                Console.WriteLine($"Received Request - Method: {Method}, no content.");
-        }*/
-
-
+        
         public string GetValidEndpoint()
         {
             // Count number of '/' and return value after last '/' as path variable.
