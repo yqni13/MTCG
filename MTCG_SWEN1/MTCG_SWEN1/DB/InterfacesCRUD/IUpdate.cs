@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MTCG_SWEN1.DB
+namespace MTCG_SWEN1.DB.InterfacesCRUD
 {
-    interface ICRUD
+    public interface IUpdate
     {
+        void Update();
     }
 }

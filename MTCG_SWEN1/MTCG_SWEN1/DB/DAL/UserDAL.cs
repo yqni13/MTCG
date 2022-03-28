@@ -1,4 +1,5 @@
-﻿using MTCG_SWEN1.HTTP;
+﻿using MTCG_SWEN1.DB.InterfacesCRUD;
+using MTCG_SWEN1.HTTP;
 using MTCG_SWEN1.Models;
 using Npgsql;
 using NpgsqlTypes;
@@ -11,75 +12,65 @@ using System.Threading.Tasks;
 
 namespace MTCG_SWEN1.DB.DAL
 {
-    class UserDAL : IRepository
+    class UserDAL : IInsert, IRead
     {
         private readonly DataBaseConnection _db = DataBaseConnection.GetStaticDBConnection;
         private readonly string _tableName = ETableNames.mctg_users.GetDescription();
         
-        public void Insert()
+        public void Create(Dictionary<string, string> credentials)
+        {                        
+            try
+            {
+                var command = _db.UpdateConnection().CreateCommand();
+                command.CommandText = $"INSERT INTO {_tableName} (u_id, u_username, u_password) VALUES (@id, @username, @password)";
+                command.Parameters.AddWithValue("@u_id", Guid.NewGuid());
+                command.Parameters.AddWithValue("@username", credentials["Username"]);
+                command.Parameters.AddWithValue("@password", credentials["Password"]);
+                command.ExecuteNonQuery();
+                
+            } 
+            catch(Exception err)
+            {
+                Console.WriteLine(err.Message);
+                throw new DuplicateNameException("Error creating new user.");
+            }
+        }
+
+        public User ReadSpecific(string username)
         {
-            string insert = $"INSERT INTO {_tableName} (u_username, u_password) VALUES (@u_username, @u_password)";
-            var command = _db.UpdateConnection().CreateCommand();
             
             try
             {
-                command.CommandText = insert;
-                command.Parameters.AddWithValue("@u_id", Guid.NewGuid());
-                //command.Parameters.AddWithValue("@u_username", )
-            } catch(Exception err)
-            {
+                var command = _db.UpdateConnection().CreateCommand();
+                command.CommandText = $"SELECT * FROM {_tableName} WHERE u_username=@username";
+                command.Parameters.AddWithValue("@username", username);
+                var reader = command.ExecuteReader();
 
-            }
-
-
-
-            /*NpgsqlCommand commandInsert = command as NpgsqlCommand;
-            commandInsert.Parameters.Add("@u_id", NpgsqlDbType.Char, 36);
-            commandInsert.Parameters.Add("u_username", NpgsqlDbType.Varchar, 20);
-            commandInsert.Parameters.Add("u_password", NpgsqlDbType.Varchar, 36);
-            commandInsert.Prepare();
-
-            commandInsert.Parameters["u_id"].Value = Guid.NewGuid();
-            commandInsert.Parameters["u_username"].Value = credentials.Username;
-            commandInsert.Parameters["u_password"].Value = credentials.Password;
-
-            command.ExecuteNonQuery();*/
-
-        }
-
-        public User ReadUserName(Credentials credentials)
-        {
-            string read = "SELECT u_id, u_username, u_password, u_coins, u_deck, u_elo FROM users WHERE u_username = @UserName";
-
-            var command = _db.UpdateConnection().CreateCommand();
-            command.CommandText = read;
-
-            var userName = command.CreateParameter();
-            userName.ParameterName = "UserName";
-            userName.DbType = DbType.String;
-            userName.Value = credentials.Username;
-            command.Parameters.Add(userName);
-
-            var commandReader = command.ExecuteReader();
-            if (commandReader.Read())
-            {
-                var id = Guid.NewGuid();
+                reader.Read();
                 User user = new();
-                user.Id = id;
-                user.Username = commandReader.GetString(1);
-                user.Password = commandReader.GetString(2);
-                user.Coins = commandReader.GetInt32(3);
-                user.ELO = commandReader.GetInt32(5);
-
-                commandReader.Close();
+                user.Id = Guid.Parse(reader.GetString(0));
+                user.Username = reader.GetString(1);
+                user.Password = reader.GetString(2);
+                user.Coins = reader.GetInt32(3);
+                if (reader.GetValue(4).ToString() != "")
+                {
+                    user.DeckID = Guid.Parse(reader.GetValue(4).ToString());
+                }
+                user.ELO = reader.GetInt32(5);
+                reader.Close();
                 return user;
-            }
-            else
+            } 
+            catch (Exception err)
             {
-                commandReader.Close();
-                throw new Exception("User not found");
+                Console.WriteLine(err.Message);
+                return new User();
             }
+            
+            //string read = $"SELECT u_uid, u_username, u_password, u_coins, u_deck, u_elo FROM {_tableName} WHERE u_username = @username";
+            
         }
+
+        
 
         public string CreateToken(Guid id)
         {
@@ -125,8 +116,13 @@ namespace MTCG_SWEN1.DB.DAL
                 commandReader.Close();
                 return false;
             }
+        }       
+
+        public void ReadAll()
+        {
+            throw new NotImplementedException();
         }
 
-
+        
     }
 }

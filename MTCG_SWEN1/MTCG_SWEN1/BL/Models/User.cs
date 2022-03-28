@@ -14,16 +14,16 @@ namespace MTCG_SWEN1.Models
         public string Username { get; set; }
         public string Password { get; set; }
         public int Coins { get; set; }
-        public CardMethods[] Deck { get; set; }
+        public Guid? DeckID { get; set; }
         public int ELO { get; set; }
 
-        /*public string GetUserData()
+        public User() { }
+
+
+        public User(string user, string pwd)
         {
-            List<Object> userData = new List<Object>();
-            userData.Add(UserName);
-            userData.Add(Coins);
-            userData.Add(ELO);
-            return JsonSerializer.Serialize(userData);
-        }*/
+            Username = user;
+            Password = pwd;
+        }        
     }
 }

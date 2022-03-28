@@ -1,6 +1,8 @@
-﻿using MTCG_SWEN1.Endpoints.Attributes;
+﻿using MTCG_SWEN1.BL.Service;
+using MTCG_SWEN1.Endpoints.Attributes;
 using MTCG_SWEN1.HTTP;
 using MTCG_SWEN1.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,14 +43,14 @@ namespace MTCG_SWEN1.Endpoints
 
         [Method("POST")]
         public void Registration()
-        {
-            User user;
+        {            
             try
             {
                 // Fill user as model with credentials from request.
-                user = JsonSerializer.Deserialize<User>(_request.Body);
-                
-                if(user.Username == null || user.Username == "") 
+                //user = JsonSerializer.Deserialize<User>(_request.Body);
+                var credentials = JsonConvert.DeserializeObject<Dictionary<string, string>>(_request.Body);
+
+                if(credentials["Username"] == null || credentials["Username"] == "") 
                 {
                     _response.StatusMessage = EHttpStatusMessages.NotAcceptable406.GetDescription();
                     _response.Body = "Content insufficient => invalid credentials";
@@ -57,8 +59,14 @@ namespace MTCG_SWEN1.Endpoints
                 }
 
                 // Call Service and catch Exceptions from Service or DB?
-                Console.WriteLine($"User successfully registered. username={user.Username} & password={user.Password}");
-            }
+                if (!UserService.Register(credentials))
+                {
+                    _response.StatusMessage = EHttpStatusMessages.BadRequest400.GetDescription();
+                    _response.Body = "User already exists.";
+                    _response.Send();
+                    return;
+                }
+            }            
             catch (Exception err)
             {
                 Console.WriteLine($"UserEndpoint, error line 63 => {err.Message}\n");
@@ -70,7 +78,7 @@ namespace MTCG_SWEN1.Endpoints
             }
 
             // Fill body and statusmsg of response.
-            _response.Body = $"User successfully registered. username={user.Username} & password={user.Password}";
+            _response.Body = $"User successfully registered.";
             _response.StatusMessage = EHttpStatusMessages.OK200.GetDescription();
             _response.Send();
         }

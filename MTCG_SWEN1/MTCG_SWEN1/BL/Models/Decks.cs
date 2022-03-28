@@ -9,15 +9,15 @@ namespace MTCG_SWEN1.Models
 {
     class Decks
     {
-        public Guid ID { get; set; }
-        public string UserName { get; set; }
+        public Guid Id { get; set; }
+        public string Username { get; set; }
         public string Name { get; set; }
         public List<CardMethods> Cards { get; set; } = new();
 
         public Decks(Guid deckID, string username, string name)
         {
-            ID = deckID;
-            UserName = username;
+            Id = deckID;
+            Username = username;
             Name = name;
         }
     }
