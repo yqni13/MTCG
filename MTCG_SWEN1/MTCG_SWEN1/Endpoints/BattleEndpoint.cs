@@ -8,7 +8,7 @@ using MTCG_SWEN1.HTTP;
 
 namespace MTCG_SWEN1.Endpoints
 {
-    [Endpoint("/battle")]
+    [Endpoint("/battles")]
     class BattleEndpoint
     {
         private HttpRequest _request;

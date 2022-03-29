@@ -53,5 +53,22 @@ namespace MTCG_SWEN1.Endpoints
             }
             _response.Send();
         }
+
+        [Method("PUT")]
+        public void DeckPut()
+        {
+            try
+            {
+                _response.StatusMessage = EHttpStatusMessages.OK200.GetDescription();
+                _response.Body = "Demo content for /deck PUT";
+            }
+            catch (Exception err)
+            {
+                Console.WriteLine(err.Message);
+                _response.Body = "Error for /deck PUT";
+                _response.StatusMessage = EHttpStatusMessages.NotFound404.GetDescription();
+            }
+            _response.Send();
+        }
     }
 }

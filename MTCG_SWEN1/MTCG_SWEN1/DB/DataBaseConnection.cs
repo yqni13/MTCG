@@ -13,6 +13,7 @@ namespace MTCG_SWEN1.DB
         private readonly string _host = "localhost";
         private readonly string _username = "postgres";
         private readonly string _password = "postgre";
+        //private readonly string _passwordDellMobile = "postgresql";
         private readonly string _database = "mtcg_db";
         private readonly string _dbConnectionData = "";
         private NpgsqlConnection _dbConnection;

@@ -1,11 +1,11 @@
- /*
+
  DROP TABLE tradings;
  DROP TABLE own_cards;
  DROP TABLE sessions;
  DROP TABLE decks;
  DROP TABLE cards;
  DROP TABLE users;
- */
+
 
 CREATE TABLE
     IF NOT EXISTS
@@ -14,7 +14,7 @@ CREATE TABLE
             u_username    varchar NOT NULL UNIQUE,
             u_password    varchar NOT NULL,
             u_coins   integer default 20,
-            u_deck varchar(126),
+            u_deck char(36),
             u_elo integer NOT NULL
 );
 

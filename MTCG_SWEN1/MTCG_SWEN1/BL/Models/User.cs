@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MTCG_SWEN1.Models
 {
-    class User
+    public class User
     {
         public Guid Id { get; set; }
         public string Username { get; set; }
