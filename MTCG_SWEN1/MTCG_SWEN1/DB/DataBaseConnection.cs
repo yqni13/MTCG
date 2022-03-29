@@ -8,19 +8,21 @@ using System.Threading.Tasks;
 
 namespace MTCG_SWEN1.DB
 {
-    class DataBaseConnection
+    class DataBaseConnection : IDisposable
     {        
         private readonly string _host = "localhost";
         private readonly string _username = "postgres";
-        private readonly string _password = "postgre";
-        //private readonly string _passwordDellMobile = "postgresql";
+        //private readonly string _password = "postgre";
+        private readonly string _password = "postgresql";
         private readonly string _database = "mtcg_db";
         private readonly string _dbConnectionData = "";
-        private NpgsqlConnection _dbConnection;
+        public NpgsqlConnection _dbConnection;
 
-        private readonly static DataBaseConnection s_staticDBConnection = new DataBaseConnection();
-        public static DataBaseConnection GetStaticDBConnection { get => s_staticDBConnection; }
-
+        //private readonly static DataBaseConnection s_staticDBConnection = new DataBaseConnection();
+        private static readonly Lazy<DataBaseConnection> _lazyConnection = new(() => new DataBaseConnection());
+        
+        //public static DataBaseConnection GetStaticDBConnection { get => s_staticDBConnection; }
+        public static DataBaseConnection GetStaticDBConnection { get { return _lazyConnection.Value; } }
 
         private DataBaseConnection()
         {
@@ -46,7 +48,7 @@ namespace MTCG_SWEN1.DB
             return _dbConnection;
         }
 
-        public void EndDBConnection()
+        public void Dispose()
         {
             _dbConnection.Close();
         }

@@ -21,52 +21,67 @@ namespace MTCG_SWEN1.DB.DAL
         {                        
             try
             {
-                var command = _db.UpdateConnection().CreateCommand();
-                command.CommandText = $"INSERT INTO {_tableName} (u_id, u_username, u_password) VALUES (@id, @username, @password)";
-                command.Parameters.AddWithValue("@u_id", Guid.NewGuid());
-                command.Parameters.AddWithValue("@username", credentials["Username"]);
-                command.Parameters.AddWithValue("@password", credentials["Password"]);
-                command.ExecuteNonQuery();
+                using (var command = _db.UpdateConnection().CreateCommand())
+                {
+                    command.CommandText = $"INSERT INTO {_tableName} (u_id, u_username, u_password) VALUES (@id, @username, @password)";
+                    command.Parameters.AddWithValue("@u_id", Guid.NewGuid());
+                    command.Parameters.AddWithValue("@username", credentials["Username"]);
+                    command.Parameters.AddWithValue("@password", credentials["Password"]);
+                    command.ExecuteNonQuery();
+                }
                 
+
             } 
             catch(Exception err)
             {
-                Console.WriteLine(err.Message);
+                Console.WriteLine($"UserDAL error => Create():\n{err}");                
                 throw new DuplicateNameException("Error creating new user.");
             }
         }
 
         public User ReadSpecific(string username)
         {
+            string read = $"SELECT u_username, u_password, u_coins, u_elo FROM users WHERE u_username=@username";
             
             try
             {
-                var command = _db.UpdateConnection().CreateCommand();
-                command.CommandText = $"SELECT * FROM {_tableName} WHERE u_username=@username";
-                command.Parameters.AddWithValue("@username", username);
-                var reader = command.ExecuteReader();
-
-                reader.Read();
-                User user = new();
-                user.Id = Guid.Parse(reader.GetString(0));
-                user.Username = reader.GetString(1);
-                user.Password = reader.GetString(2);
-                user.Coins = reader.GetInt32(3);
-                if (reader.GetValue(4).ToString() != "")
+                using (var command = _db.UpdateConnection().CreateCommand())
                 {
-                    user.DeckID = Guid.Parse(reader.GetValue(4).ToString());
+                    //command.CommandText = $"SELECT * FROM {_tableName} WHERE u_username=@username";
+                    command.CommandText = read;
+                    command.Parameters.AddWithValue("@username", username);
+                    var reader = command.ExecuteReader();
+
+                    reader.Read();
+                    User user = new();
+                    //user.Id = Guid.Parse(reader.GetString(0));                
+                    user.Username = reader.GetString(0);
+                    user.Password = reader.GetString(1);
+                    user.Coins = reader.GetInt32(2);
+                    //user.DeckID = Guid.Parse(reader.GetString(4));
+                    /*if (reader.GetValue(4).ToString() != "")
+                    {
+                        user.DeckID = Guid.Parse(reader.GetValue(4).ToString());
+                    }*/
+                    user.ELO = reader.GetInt32(3);
+                    reader.Close();
+                    //_db.EndDBConnection();
+                    return user;
                 }
-                user.ELO = reader.GetInt32(5);
-                reader.Close();
-                return user;
+                
             } 
-            catch (Exception err)
+            catch (Exception err) when (err.Message == "No row is available")
             {
-                Console.WriteLine(err.Message);
+                /*if (err.Message == "No row is available")
+                {
+                    Console.WriteLine("User does not exist.");
+                    throw new Exception("User not existing");
+                }
+                else
+                    Console.WriteLine($"UserDAL error => ReadSpecific():\n{err}"); */
+                Console.WriteLine($"UserDAL error => User existing - ReadSpecific():\n{err.Message}");
                 return new User();
             }
-            
-            //string read = $"SELECT u_uid, u_username, u_password, u_coins, u_deck, u_elo FROM {_tableName} WHERE u_username = @username";
             
         }
 

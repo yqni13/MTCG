@@ -14,7 +14,7 @@ namespace MTCG_SWEN1.Models
         public string Username { get; set; }
         public string Password { get; set; }
         public int Coins { get; set; }
-        public Guid? DeckID { get; set; }
+        public Guid DeckID { get; set; }
         public int ELO { get; set; }
 
         public User() { }
