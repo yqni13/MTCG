@@ -11,6 +11,6 @@ namespace MTCG_SWEN1.DB.InterfacesCRUD
     {
         void ReadAll();
 
-        User ReadSpecific(string username);
+        void ReadSpecific(string username, User user);
     }
 }

@@ -10,18 +10,18 @@
 CREATE TABLE
     IF NOT EXISTS
         users (
-            u_id    char(36) PRIMARY KEY,
+            u_id    SERIAL PRIMARY KEY,
             u_username    varchar NOT NULL UNIQUE,
             u_password    varchar NOT NULL,
             u_coins   integer default 20,
-            u_deck char(36),
+            u_deck SERIAL,
             u_elo integer NOT NULL
 );
 
 CREATE TABLE
     IF NOT EXISTS
         cards (
-            c_id    char(36) NOT NULL CONSTRAINT cards_pk PRIMARY KEY,
+            c_id    SERIAL NOT NULL CONSTRAINT cards_pk PRIMARY KEY,
             c_name varchar(50) NOT NULL,
             c_element_type  integer,
             c_card_type integer,
@@ -34,7 +34,7 @@ CREATE TABLE
 CREATE TABLE
     IF NOT EXISTS
         decks (
-            d_id    char(36) NOT NULL CONSTRAINT decks_pk PRIMARY KEY,
+            d_id    SERIAL NOT NULL CONSTRAINT decks_pk PRIMARY KEY,
             d_user  varchar(20) NOT NULL CONSTRAINT decks_users_u_id_fk REFERENCES users,
             d_name  char(36) default 'deck_nameless'
 );
@@ -50,7 +50,7 @@ CREATE TABLE
 CREATE TABLE
     IF NOT EXISTS
         own_cards (
-            d_id    char(36) NOT NULL CONSTRAINT own_cards_decks_d_id_fk REFERENCES decks,
+            d_id    SERIAL NOT NULL CONSTRAINT own_cards_decks_d_id_fk REFERENCES decks,
             c_id    char(36) NOT NULL CONSTRAINT own_cards_cards_c_id_fk REFERENCES cards on delete cascade,
             CONSTRAINT own_cards_pk UNIQUE (d_id, c_id)
 );
@@ -58,7 +58,7 @@ CREATE TABLE
 CREATE TABLE
     IF NOT EXISTS
         tradings (
-            t_id    char(36) NOT NULL CONSTRAINT tradings_pk PRIMARY KEY,
+            t_id    SERIAL NOT NULL CONSTRAINT tradings_pk PRIMARY KEY,
             t_user  varchar(20) NOT NULL CONSTRAINT tradings_users_u_id_fk REFERENCES users,
             t_card  char NOT NULL CONSTRAINT tradings_cards_c_id_fk REFERENCES cards
 );

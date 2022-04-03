@@ -30,59 +30,52 @@ namespace MTCG_SWEN1.DB.DAL
                     command.ExecuteNonQuery();
                 }
                 
-
             } 
             catch(Exception err)
             {
-                Console.WriteLine($"UserDAL error => Create():\n{err}");                
+                Console.WriteLine($"UserDAL error => Create():\n{err.Message}");                
                 throw new DuplicateNameException("Error creating new user.");
             }
         }
 
-        public User ReadSpecific(string username)
+        public void ReadSpecific(string username, User user)
         {
-            string read = $"SELECT u_username, u_password, u_coins, u_elo FROM users WHERE u_username=@username";
+            //string read = $"SELECT u_username, u_password, u_coins, u_elo FROM users WHERE u_username=@username";
             
             try
             {
                 using (var command = _db.UpdateConnection().CreateCommand())
                 {
-                    //command.CommandText = $"SELECT * FROM {_tableName} WHERE u_username=@username";
-                    command.CommandText = read;
+                    command.CommandText = $"SELECT * FROM {_tableName} WHERE u_username=@username";
+                    //command.CommandText = read;
                     command.Parameters.AddWithValue("@username", username);
                     var reader = command.ExecuteReader();
 
-                    reader.Read();
-                    User user = new();
-                    //user.Id = Guid.Parse(reader.GetString(0));                
-                    user.Username = reader.GetString(0);
-                    user.Password = reader.GetString(1);
-                    user.Coins = reader.GetInt32(2);
-                    //user.DeckID = Guid.Parse(reader.GetString(4));
-                    /*if (reader.GetValue(4).ToString() != "")
+                    reader.Read();                    
+                    user.Id = reader.GetInt32(0);                
+                    user.Username = reader.GetString(1);
+                    user.Password = reader.GetString(2);
+                    user.Coins = reader.GetInt32(3);
+                    if (reader.GetValue(4).ToString() != "")
                     {
                         user.DeckID = Guid.Parse(reader.GetValue(4).ToString());
-                    }*/
-                    user.ELO = reader.GetInt32(3);
-                    reader.Close();
-                    //_db.EndDBConnection();
-                    return user;
+
+                    }
+                    user.ELO = reader.GetInt32(5);
+                    //reader.Close();
                 }
                 
             } 
             catch (Exception err) when (err.Message == "No row is available")
-            {
-                /*if (err.Message == "No row is available")
-                {
-                    Console.WriteLine("User does not exist.");
-                    throw new Exception("User not existing");
-                }
-                else
-                    Console.WriteLine($"UserDAL error => ReadSpecific():\n{err}"); */
-                Console.WriteLine($"UserDAL error => User existing - ReadSpecific():\n{err.Message}");
-                return new User();
+            {                
+                Console.WriteLine($"UserDAL error => User '{username}' not existing - ReadSpecific():\n{err.Message}");
+                throw new Exception("User not existing");                
             }
-            
+            catch (Exception err)
+            {
+                Console.WriteLine($"UserDAL error => ReadSpecific():\n{err.Message}");
+                throw new Exception("Could not fetch user by username.");
+            }
         }
 
         

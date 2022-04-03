@@ -30,7 +30,8 @@ namespace MTCG_SWEN1.BL.Service
         public static bool CheckIfUserExists(string username)
         {
             UserDAL userTABLE = new();
-            var user = userTABLE.ReadSpecific(username);
+            User user = new();
+            userTABLE.ReadSpecific(username, user);
             if (user.Username == username)
                 return true;
 
