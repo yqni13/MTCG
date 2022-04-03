@@ -61,6 +61,7 @@ namespace MTCG_SWEN1.Endpoints
                 // Call Service and catch Exceptions from Service or DB?
                 if (!UserService.Register(credentials))
                 {
+                    Console.WriteLine($"{DateTime.UtcNow}, User does already exist in DB.");
                     _response.StatusMessage = EHttpStatusMessages.BadRequest400.GetDescription();
                     _response.Body = "User already exists.";
                     _response.Send();
@@ -69,7 +70,7 @@ namespace MTCG_SWEN1.Endpoints
             }            
             catch (Exception err)
             {
-                Console.WriteLine($"UserEndpoint, error line 63 => {err.Message}\n");
+                Console.WriteLine($"UserEndpoint error: {err.Message}");
 
                 _response.Body = "Error for /user POST";
                 _response.StatusMessage = EHttpStatusMessages.BadRequest400.GetDescription();
@@ -78,6 +79,7 @@ namespace MTCG_SWEN1.Endpoints
             }
 
             // Fill body and statusmsg of response.
+            Console.WriteLine($"{DateTime.UtcNow}, New User added in DB.");
             _response.Body = $"User successfully registered.";
             _response.StatusMessage = EHttpStatusMessages.OK200.GetDescription();
             _response.Send();

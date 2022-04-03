@@ -49,8 +49,7 @@ namespace MTCG_SWEN1.Server
                 var endpointMethod = _request.Method;
                 var endType = GetEndpointType();
                 var endMethodInfo = GetEndpointMethodInfo(endType);
-                Console.WriteLine($"Method from Request == {endpointMethod}");
-                Console.WriteLine($"Path from Request == {endpointPath}");
+                Console.WriteLine($"Endpoint reached: \"{endpointMethod}{endpointPath}\"");
                 InvokingEndpoint(endMethodInfo, endType);
             }
             catch(Exception e)
@@ -58,14 +57,7 @@ namespace MTCG_SWEN1.Server
                 Console.WriteLine(e.Message);
                 //_response.Send();
                 
-            }
-            
-            //_response = (HttpResponse)EndpointAttribute.Invoke(Activator.CreateInstance(EndpointClass), new object[] { _request, _response });
-            // Build try/catch block to handle the allocation and its possible exceptions.
-            //_request.Receive();
-
-            // Try/catch block.
-            // In the exceptions its necessary to use _response.Send() to send exception message. 
+            }            
         }
 
         

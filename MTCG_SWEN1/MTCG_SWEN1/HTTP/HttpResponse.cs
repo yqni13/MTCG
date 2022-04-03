@@ -70,7 +70,7 @@ namespace MTCG_SWEN1.HTTP
 
         private void SendServerAnswer()
         {
-            Console.WriteLine($"Response sent - Status: {StatusMessage}");
+            Console.WriteLine($"Response sent - Status: {StatusMessage}\n");
         }
 
         private void WriteLine(StreamWriter writer, string message)

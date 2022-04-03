@@ -22,11 +22,6 @@ namespace MTCG_SWEN1.BL.Service
             return true;
         }
 
-        public static void Login()
-        {
-
-        }
-
         public static bool CheckIfUserExists(string username)
         {
             UserDAL userTABLE = new();
@@ -37,5 +32,11 @@ namespace MTCG_SWEN1.BL.Service
 
             return false;
         }
+
+        public static void Login()
+        {
+
+        }
+
     }
 }
