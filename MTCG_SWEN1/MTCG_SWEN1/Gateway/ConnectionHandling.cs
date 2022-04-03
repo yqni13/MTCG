@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using MTCG_SWEN1.Endpoints.Attributes;
 using MTCG_SWEN1.HTTP;
 
 namespace MTCG_SWEN1.Server
@@ -23,8 +25,7 @@ namespace MTCG_SWEN1.Server
         {           
             _socket = socket;
             _request = new HttpRequest(socket);
-            _response = new HttpResponse(socket);
-            AreParametersNull();
+            _response = new HttpResponse(socket);            
             ConnectionThreading();
         }
 
@@ -37,42 +38,45 @@ namespace MTCG_SWEN1.Server
 
         private void Process()
         {
+            
+            //Console.WriteLine(_request.Method);
             _request.Receive();
-            Console.WriteLine(_request.Method);
             
             try
             {
                 // Assemble EndpointPath and check which class will reach
-                // 
+                var endpointPath = _request.GetValidEndpoint();
+                var endpointMethod = _request.Method;
+                var endType = GetEndpointType();
+                var endMethodInfo = GetEndpointMethodInfo(endType);
+                Console.WriteLine($"Endpoint reached: \"{endpointMethod}{endpointPath}\"");
+                InvokingEndpoint(endMethodInfo, endType);
             }
             catch(Exception e)
             {
-                _response.Send();
+                Console.WriteLine(e.Message);
+                //_response.Send();
                 
-            }
-            
-            // Build try/catch block to handle the allocation and its possible exceptions.
-            //_request.Receive();
-
-            // Try/catch block.
-            // In the exceptions its necessary to use _response.Send() to send exception message. 
+            }            
         }
 
-        public void AreParametersNull()
-        {
-            if (_request.Version == null)
-                Console.WriteLine("Request Version = null at start");
+        
 
-            if (_response.Version == null)
-                Console.WriteLine("Response Version = null at start");
+        private void InvokingEndpoint(MethodInfo method, Type path)
+        {
+            method.Invoke(Activator.CreateInstance(path, _request, _response), null);
         }
 
-        public string EndpointPath()
+        private Type GetEndpointType()
         {
-            if (_request.Path.Count(a => a == '/') > 1)
-                return EndpointPath().Substring(0, EndpointPath().LastIndexOf("/"));
-            else
-                return _request.Path;
+            var endpointType = Assembly.GetExecutingAssembly().GetTypes().Where(type => type.GetCustomAttribute<EndpointAttribute>()?.Path == _request.GetValidEndpoint()).Single();
+            return endpointType;
+        }
+
+        private MethodInfo GetEndpointMethodInfo(Type pathType)
+        {
+            var methodInfo = pathType.GetMethods().Where(method => method.GetCustomAttribute<MethodAttribute>()?.Method == _request.Method).Single();
+            return methodInfo;
         }
     }
 }

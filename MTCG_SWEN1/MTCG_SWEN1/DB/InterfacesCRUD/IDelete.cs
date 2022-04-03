@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MTCG_SWEN1.DB
+namespace MTCG_SWEN1.DB.InterfacesCRUD
 {
-    internal interface ICRUD : IDisposable
+    public interface IDelete
     {
-
+        void Delete();
     }
 }

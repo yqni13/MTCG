@@ -1,4 +1,6 @@
-﻿using MTCG_SWEN1.Models;
+﻿using MTCG_SWEN1.DB.InterfacesCRUD;
+using MTCG_SWEN1.HTTP;
+using MTCG_SWEN1.Models;
 using Npgsql;
 using NpgsqlTypes;
 using System;
@@ -10,86 +12,80 @@ using System.Threading.Tasks;
 
 namespace MTCG_SWEN1.DB.DAL
 {
-    class UserDAL
+    class UserDAL : IInsert, IRead
     {
-        private readonly IDbConnection _db;
+        //private readonly DataBaseConnection _db = DataBaseConnection.GetStaticDBConnection;
+        private readonly string _tableName = ETableNames.mctg_users.GetDescription();
 
-        public UserDAL()
+        public void Create(Dictionary<string, string> credentials)
         {
-            _db = DataBaseConnection.Connect();
+            NpgsqlConnection connection = DBConnection.Connect();
             try
-            {
-                _db.Open();
-                if (_db.State != ConnectionState.Open)
-                    throw new Exception("DB could not be opened.");
+            {                
+                connection.Open();
+                var command = connection.CreateCommand();
+
+                command.CommandText = $"INSERT INTO {_tableName} (u_username, u_password) VALUES (@username, @password)";
+                command.Parameters.AddWithValue("@username", credentials["Username"]);
+                command.Parameters.AddWithValue("@password", credentials["Password"]);
+                command.ExecuteNonQuery();
             }
-            catch(Exception err)
+            catch (Exception)
             {
-                Console.WriteLine(err.Message);
-            }            
+                //Console.WriteLine($"UserDAL error => Create():\n{err.Message}+still belongs here");
+                connection.Close();
+                throw new DuplicateNameException("Error creating new user.");
+            }
+            connection.Close();
         }
 
-        public void InsertUser(Credentials credentials)
+       
+        public void ReadSpecific(string username, User user)
         {
-            string insert = "INSERT INTO users (u_username, u_password) VALUES (@u_username, @u_password)";
-            IDbCommand commandGeneral = _db.CreateCommand();
-            commandGeneral.CommandText = insert;
+            NpgsqlConnection connection = DBConnection.Connect();
+            try
+            {                
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandText = $"SELECT * FROM {_tableName} WHERE u_username=@username";
+                command.Parameters.AddWithValue("@username", username);
+                var reader = command.ExecuteReader();
 
-            NpgsqlCommand commandInsert = commandGeneral as NpgsqlCommand;
-            commandInsert.Parameters.Add("@u_id", NpgsqlDbType.Char, 36);
-            commandInsert.Parameters.Add("u_username", NpgsqlDbType.Varchar, 20);
-            commandInsert.Parameters.Add("u_password", NpgsqlDbType.Varchar, 36);
-            commandInsert.Prepare();
+                reader.Read();
+                user.Id = reader.GetInt32(0);
+                user.Username = reader.GetString(1);
+                user.Password = reader.GetString(2);
+                user.Coins = reader.GetInt32(3);
+                if (reader.GetValue(4).ToString() != "")
+                {
+                    user.DeckID = reader.GetInt32(4);
 
-            commandInsert.Parameters["u_id"].Value = Guid.NewGuid();
-            commandInsert.Parameters["u_username"].Value = credentials.Username;
-            commandInsert.Parameters["u_password"].Value = credentials.Password;
-
-            commandGeneral.ExecuteNonQuery();
-
+                }
+                user.ELO = reader.GetInt32(5);
+            }
+            catch (Exception err) when (err.Message == "No row is available")
+            {
+                Console.WriteLine($"UserDAL, ReadSpecific(): User does not exist.");
+                connection.Close();
+            }
+            catch (Exception)
+            {
+                //Console.WriteLine($"UserDAL, ReadSpecific(): {err.Message}");
+                connection.Close();
+                throw new Exception("Could not fetch data.");
+            }
+            connection.Close();
         }
 
-        public User ReadUserName(Credentials credentials)
-        {
-            string read = "SELECT u_id, u_username, u_password, u_coins, u_deck, u_elo FROM users WHERE u_username = @UserName";
+        
 
-            IDbCommand commandGeneral = _db.CreateCommand();
-            commandGeneral.CommandText = read;
-
-            var userName = commandGeneral.CreateParameter();
-            userName.ParameterName = "UserName";
-            userName.DbType = DbType.String;
-            userName.Value = credentials.Username;
-            commandGeneral.Parameters.Add(userName);
-
-            var commandReader = commandGeneral.ExecuteReader();
-            if (commandReader.Read())
-            {
-                var id = Guid.NewGuid();
-                User user = new();
-                user.ID = id;
-                user.UserName = commandReader.GetString(1);
-                user.Password = commandReader.GetString(2);
-                user.Coins = commandReader.GetInt32(3);
-                user.ELO = commandReader.GetInt32(5);
-
-                commandReader.Close();
-                return user;
-            }
-            else
-            {
-                commandReader.Close();
-                throw new Exception("User not found");
-            }
-        }
-
-        public string CreateToken(Guid id)
+        /*public string CreateToken(Guid id)
         {
             string insert = "INSERT INTO sessions (s_token, s_user, s_timestamp) VALUES (@s_token, @s_user, @s_timestamp)";
-            IDbCommand commandGeneral = _db.CreateCommand();
-            commandGeneral.CommandText = insert;
+            var command = _db.UpdateConnection().CreateCommand();
+            command.CommandText = insert;
 
-            NpgsqlCommand commandInsert = commandGeneral as NpgsqlCommand;
+            NpgsqlCommand commandInsert = command as NpgsqlCommand;
             commandInsert.Parameters.Add("s_token", NpgsqlDbType.Varchar, 36);
             commandInsert.Parameters.Add("s_user", NpgsqlDbType.Integer);
             commandInsert.Parameters.Add("s_timestamp", NpgsqlDbType.Timestamp, 50);
@@ -100,23 +96,25 @@ namespace MTCG_SWEN1.DB.DAL
             commandInsert.Parameters["s_user"].Value = id;
             commandInsert.Parameters["s_timestamp"].Value = DateTime.Now;
 
-            commandGeneral.ExecuteNonQuery();
+            command.ExecuteNonQuery();
             return token;
-        }
+        }*/
 
-        public bool UserIsLoggedIn(string token)
+
+
+        /*public bool UserIsLoggedIn(string token)
         {
             string select = "SELECT s_user FROM sessions WHERE s_token = @Token";
-            IDbCommand commandGeneral = _db.CreateCommand();
-            commandGeneral.CommandText = select;
+            var command = _db.UpdateConnection().CreateCommand();
+            command.CommandText = select;
 
-            var userToken = commandGeneral.CreateParameter();
+            var userToken = command.CreateParameter();
             userToken.ParameterName = "Token";
             userToken.DbType = DbType.String;
             userToken.Value = token;
-            commandGeneral.Parameters.Add(userToken);
+            command.Parameters.Add(userToken);
 
-            var commandReader = commandGeneral.ExecuteReader();
+            var commandReader = command.ExecuteReader();
             if(commandReader.Read())
             {
                 commandReader.Close();
@@ -127,8 +125,13 @@ namespace MTCG_SWEN1.DB.DAL
                 commandReader.Close();
                 return false;
             }
+        }*/       
+
+        public void ReadAll()
+        {
+            throw new NotImplementedException();
         }
 
-
+        
     }
 }

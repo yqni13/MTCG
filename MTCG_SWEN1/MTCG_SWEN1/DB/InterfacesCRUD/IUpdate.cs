@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MTCG_SWEN1.DB.DAL
+namespace MTCG_SWEN1.DB.InterfacesCRUD
 {
-    class CardDAL
+    public interface IUpdate
     {
+        void Update();
     }
 }

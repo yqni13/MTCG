@@ -26,7 +26,7 @@ namespace MTCG_SWEN1.Server
 
         private Thread t_serverThread;
 
-        public static HttpServer GetServerStatic { get => s_staticServer; }
+        public static HttpServer GetStaticServer { get => s_staticServer; }
 
         public int Port { get => _port; set => _port = value; }
        
@@ -53,15 +53,12 @@ namespace MTCG_SWEN1.Server
             Console.WriteLine($"Server {_serverName} started by {_creator}, {DateTime.UtcNow.AddHours(1)}\nWaiting for connection to {_ip}...");
             _serverIsActive = true;
             Thread.Sleep(1500);
-            Console.WriteLine($"Connected to {GetHostName()}, {DateTime.UtcNow.AddHours(1)}\n");
+            Console.WriteLine($"{DateTime.UtcNow.AddHours(1)}, system successfully connected to IPAddress: {GetHostName()}\n");
 
             while (_serverIsActive)
             {
                 TcpClient socket = _tcpListener.AcceptTcpClient();
-                new ConnectionHandling(socket);
-                //HttpProcessor processor = new HttpProcessor(socket, this);
-                //new Thread(processor.Process).Start();
-                //Thread.Sleep(1);
+                new ConnectionHandling(socket);                
             }
         }
 
@@ -70,7 +67,7 @@ namespace MTCG_SWEN1.Server
             if (_ip.ToString() == "127.0.0.1")
                 return "localhost";
 
-            IPHostEntry hostEntry = Dns.GetHostEntry(HttpServer.GetServerStatic._ip);
+            IPHostEntry hostEntry = Dns.GetHostEntry(HttpServer.GetStaticServer._ip);
             return hostEntry.HostName;
         }
     }

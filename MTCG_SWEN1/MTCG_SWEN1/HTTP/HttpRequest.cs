@@ -14,7 +14,7 @@ namespace MTCG_SWEN1.HTTP
         // Query stands for request of data from database
 
         private TcpClient _socket;
-        public EHttpMethods Method { get; set; }
+        public string Method { get; set; }
         public string Path { get; set; }
         public string Version { get; set; }
         public string Body { get; set; }
@@ -48,7 +48,6 @@ namespace MTCG_SWEN1.HTTP
                         if (line.Length == 0)
                         {
                             ParseBody(reader);
-                            SendServerAnswer();
                             return;
                         }                        
 
@@ -66,27 +65,15 @@ namespace MTCG_SWEN1.HTTP
             {
                 // Let the user know what went wrong.
                 Console.WriteLine("The Request could not be read:");
-                Console.WriteLine(err);
+                Console.WriteLine(err.Message);
             }
         }
-                
+
         private void ParseFirstLineRequest(string line)
         {
             var requestFirstLine = line.Split(' ');
 
-            // Control usable methods via enum EHttpMethods.
-            try
-            {
-                if (!Enum.IsDefined(typeof(EHttpMethods), requestFirstLine[0].ToUpper()))
-                    throw new ArgumentException($"Using method ({requestFirstLine[0].ToUpper()}) is prohibited.");
-
-                Method = Enum.Parse<EHttpMethods>(requestFirstLine[0].ToUpper());
-            }
-            catch (ArgumentException err)
-            {               
-                Console.WriteLine(err.Message);
-                System.Environment.Exit(0);
-            }            
+            Method = requestFirstLine[0];
             Path = requestFirstLine[1];
             Version = requestFirstLine[2];
         }
@@ -98,15 +85,27 @@ namespace MTCG_SWEN1.HTTP
         }
 
         private void ParseBody(StreamReader reader)
-        {            
-            if (Headers.ContainsKey("Content-Length"))
+        {
+            try
             {
-                var bodyBuffer = new char[int.Parse(Headers["Content-Length"])];
-                Body = new string(bodyBuffer);
-            }
-            else
+                if (!Headers.ContainsKey("Content-Length"))
+                    throw new KeyNotFoundException("Missing Header error => HttpRequest.cs, ParseBody().");
+
+                while (reader.Peek() >= 0)
+                {
+                    Body += (char)reader.Read();
+                }
+
+            } 
+            catch(KeyNotFoundException err)
             {
-                Body = null;
+                Console.WriteLine(err.Message);                
+                Body = "";
+            } 
+            catch (Exception)
+            {
+                Console.WriteLine($"Parsing content error => HttpRequest.cs, ParseBody().");
+                Body = "";
             }
         }
 
@@ -128,31 +127,25 @@ namespace MTCG_SWEN1.HTTP
                 return;            
         }
 
-        public void SendServerAnswer()
+        
+        public string GetValidEndpoint()
         {
-            if (Headers.ContainsKey("Content-Type"))
-                Console.WriteLine($"Received Request - Method: {Method}, Content-Type: {Headers["Content-Type"]}.");
-            else if (Headers.ContainsKey("Authorization"))
-                Console.WriteLine($"Received Request - Method: {Method}, Authorization: /.");
-            else
-                Console.WriteLine($"Received Request - Method: {Method}, no content.");
+            // Count number of '/' and return value after last '/' as path variable.
+            // https://stackoverflow.com/questions/13961472/how-to-count-sets-of-specific-characters-in-a-string
+            int slashCount = Path.ToCharArray().Count(symbol => symbol == '/');
+
+            if (slashCount > 1)
+                if (Path.Substring(0, Path.LastIndexOf("/")) == "/transactions")
+                    //Console.WriteLine($"returned string instead: {a.Substring(a.LastIndexOf("/packages"))}");
+                    // Return Path variable "/packages" to find Endpoint.
+                    return Path.Substring(Path.LastIndexOf("/packages"));
+                else
+                    //Console.WriteLine($"returned string: {a.Substring(0, a.LastIndexOf("/"))}");
+                    // Return Path variable, because 2nd part of Path equals token or username.
+                    return Path.Substring(0, Path.LastIndexOf("/"));
+
+            return Path;
         }
-
-
-        /// ToDo: Exception handling for POST/PUT Requests without content.
-        /*private void CheckMethodContent()
-        {
-            try
-            {
-                if (Method == EHttpMethods.POST || Method == EHttpMethods.PUT && Body == null)
-                    throw new ArgumentNullException("Request missing Body for used Method (POST/PUT).");
-            }
-            catch (ArgumentNullException err)
-            {
-                Console.WriteLine(err.Message);
-                HttpResponse.AddBody("application/json", "{\"response\":\"Internal Server Error\"}");
-            }
-        }*/
 
         
     }
