@@ -62,6 +62,7 @@ namespace MTCG_SWEN1.DB.DAL
 
                 }
                 user.ELO = reader.GetInt32(5);
+                reader.Close();
             }
             catch (Exception err) when (err.Message == "No row is available")
             {
@@ -77,55 +78,6 @@ namespace MTCG_SWEN1.DB.DAL
             connection.Close();
         }
 
-        
-
-        /*public string CreateToken(Guid id)
-        {
-            string insert = "INSERT INTO sessions (s_token, s_user, s_timestamp) VALUES (@s_token, @s_user, @s_timestamp)";
-            var command = _db.UpdateConnection().CreateCommand();
-            command.CommandText = insert;
-
-            NpgsqlCommand commandInsert = command as NpgsqlCommand;
-            commandInsert.Parameters.Add("s_token", NpgsqlDbType.Varchar, 36);
-            commandInsert.Parameters.Add("s_user", NpgsqlDbType.Integer);
-            commandInsert.Parameters.Add("s_timestamp", NpgsqlDbType.Timestamp, 50);
-
-            commandInsert.Prepare();
-            string token = new string(Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Take(36).ToArray());
-            commandInsert.Parameters["s_token"].Value = token;
-            commandInsert.Parameters["s_user"].Value = id;
-            commandInsert.Parameters["s_timestamp"].Value = DateTime.Now;
-
-            command.ExecuteNonQuery();
-            return token;
-        }*/
-
-
-
-        /*public bool UserIsLoggedIn(string token)
-        {
-            string select = "SELECT s_user FROM sessions WHERE s_token = @Token";
-            var command = _db.UpdateConnection().CreateCommand();
-            command.CommandText = select;
-
-            var userToken = command.CreateParameter();
-            userToken.ParameterName = "Token";
-            userToken.DbType = DbType.String;
-            userToken.Value = token;
-            command.Parameters.Add(userToken);
-
-            var commandReader = command.ExecuteReader();
-            if(commandReader.Read())
-            {
-                commandReader.Close();
-                return true;
-            }
-            else
-            {
-                commandReader.Close();
-                return false;
-            }
-        }*/       
 
         public void ReadAll()
         {
