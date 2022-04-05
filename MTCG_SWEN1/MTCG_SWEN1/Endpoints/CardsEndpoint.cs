@@ -46,7 +46,7 @@ namespace MTCG_SWEN1.Endpoints
                     return;
                 }
 
-                cards = CardService.ShowAllCardsOfUser(_request.Headers["Autorization"]);
+                cards = CardService.ShowAllCardsOfUser(_request.Headers["Authorization"]);
             }
             catch (Exception err)
             {

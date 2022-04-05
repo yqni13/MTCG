@@ -19,7 +19,15 @@ namespace MTCG_SWEN1.Models
 
         public User() { }
 
-
+        public User(int id, string name, string pwd, int coins, int elo)
+        {
+            Id = id;
+            Username = name;
+            Password = pwd;
+            Coins = coins;
+            //DeckID = deckID;
+            ELO = elo;
+        }
         public User(string user, string pwd)
         {
             Username = user;

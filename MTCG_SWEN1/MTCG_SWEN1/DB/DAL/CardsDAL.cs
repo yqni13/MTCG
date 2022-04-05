@@ -59,7 +59,7 @@ namespace MTCG_SWEN1.DB.DAL
                 using(NpgsqlConnection connection = DBConnection.Connect())
                 {
                     connection.Open();
-                    var transaction = connection.BeginTransaction();
+                    //var transaction = connection.BeginTransaction();
 
                     var command = connection.CreateCommand();
 
@@ -84,16 +84,16 @@ namespace MTCG_SWEN1.DB.DAL
                     // 2. Update owner of 5 cards by changing to current user
                     //  => count if exactly 5 cards or not for exception                
 
+                        Console.WriteLine($"List of cards count to: {cards.Count}");
                     if (cards.Count != 5)
                     {
-                        Console.WriteLine($"List of cards count to: {cards.Count}");
-                        transaction.Rollback("Wrong number of cards, need to be 5.");                        
+                        //transaction.Rollback("Wrong number of cards, need to be 5.");                        
                     }
-                    transaction.Commit();
+                    //transaction.Commit();
                     //connection.Close();
 
                 }
-
+                
                 using (NpgsqlConnection connection = DBConnection.Connect())
                 {
                     connection.Open();
@@ -102,7 +102,8 @@ namespace MTCG_SWEN1.DB.DAL
                         var command = connection.CreateCommand();
                         command.CommandText = $"UPDATE {_tableName} SET c_user=@id WHERE c_id=@cardId";
                         command.Parameters.AddWithValue("@id", userID);
-                        command.Parameters.AddWithValue("@cardId", cards[i].ID);                        
+                        command.Parameters.AddWithValue("@cardId", cards[i].ID);
+                        Console.WriteLine($"cardID: {cards[i].ID}");
                         command.ExecuteNonQuery();                   
                     }
                     connection.Close();

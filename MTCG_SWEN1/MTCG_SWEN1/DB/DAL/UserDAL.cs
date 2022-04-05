@@ -79,25 +79,34 @@ namespace MTCG_SWEN1.DB.DAL
         }
 
 
-        public void ReadAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public User GetUserByID(int id)
+        public List<User> ReadAll()
         {
             NpgsqlConnection connection = DBConnection.Connect();
-            string username;
+            List<User> users = new();
+
             try
             {
                 connection.Open();
                 var command = connection.CreateCommand();
-                command.CommandText = $"SELECT u_username FROM {_tableName} WHERE u_id=@userId";
-                command.Parameters.AddWithValue("@userId", id);
+                command.CommandText = $"SELECT u_id, u_username, u_password, u_coins, u_elo FROM {_tableName}";                
                 var reader = command.ExecuteReader();
 
-                reader.Read();
-                username = reader.GetString(0);
+                while (reader.Read())
+                {
+                    int userID = reader.GetInt32(0);
+                    string username = reader.GetString(1);
+                    string pwd = reader.GetString(2);
+                    int coins = reader.GetInt32(3);
+                    
+                    /*if (reader.GetValue(4).ToString() != "")
+                    {
+                        var deckID = reader.GetInt32(4);
+
+                    }*/
+                    int elo = reader.GetInt32(4);
+
+                    users.Add(new User(userID, username, pwd, coins, elo));
+                }
                 reader.Close();
             }
             catch (Exception)
@@ -107,7 +116,42 @@ namespace MTCG_SWEN1.DB.DAL
                 throw new Exception("Could not fetch data.");
             }
             connection.Close();
-            return username;
+            return users;
+        }
+
+        public User GetUserByID(int id)
+        {
+            NpgsqlConnection connection = DBConnection.Connect();
+            User user = new();
+            try
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandText = $"SELECT * FROM {_tableName} WHERE u_id=@userId";
+                command.Parameters.AddWithValue("@userId", id);
+                var reader = command.ExecuteReader();
+
+                reader.Read();
+                user.Id = reader.GetInt32(0);
+                user.Username = reader.GetString(1);
+                user.Password = reader.GetString(2);
+                user.Coins = reader.GetInt32(3);
+                if (reader.GetValue(4).ToString() != "")
+                {
+                    user.DeckID = reader.GetInt32(4);
+
+                }
+                user.ELO = reader.GetInt32(5);
+                reader.Close();
+            }
+            catch (Exception)
+            {
+                //Console.WriteLine($"UserDAL, ReadSpecific(): {err.Message}");
+                connection.Close();
+                throw new Exception("Could not fetch data.");
+            }
+            connection.Close();
+            return user;
         }
     }
 }

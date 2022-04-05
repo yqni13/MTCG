@@ -26,9 +26,10 @@ namespace MTCG_SWEN1.Endpoints
 
         [Method("POST")]
         public void PackagesPost()
-        {            
+        {
             try
             {
+                User user = new();
                 if (!_request.Headers.ContainsKey("Authorization"))
                 {
                     _response.StatusMessage = EHttpStatusMessages.Unauthorized401.GetDescription();
@@ -67,8 +68,10 @@ namespace MTCG_SWEN1.Endpoints
                 else
                 {
                     string token = _request.Headers["Authorization"];
-                    string username = token.Substring(token.LastIndexOf(" ") + 1, token.LastIndexOf("-")-6);                   
-                    CardService.PurchasePackagesByUser(username);
+                    
+                    //string username = token.Substring(token.LastIndexOf(" ") + 1, token.LastIndexOf("-")-6);                   
+                    user = StatsService.GetUserStats(token);                    
+                    CardService.PurchasePackagesByUser(user.Username);
                 }
 
             }
