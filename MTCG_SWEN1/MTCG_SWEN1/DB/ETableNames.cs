@@ -17,8 +17,6 @@ namespace MTCG_SWEN1.DB
         mtcg_decks = 3,
         [Description("sessions")]
         mtcg_sessions = 2,
-        [Description("own_cards")]
-        mtcg_own_cards = 1,
         [Description("tradings")]
         mtcg_tradings = 0
     }

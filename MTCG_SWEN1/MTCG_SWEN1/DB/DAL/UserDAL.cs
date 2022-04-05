@@ -55,13 +55,8 @@ namespace MTCG_SWEN1.DB.DAL
                 user.Id = reader.GetInt32(0);
                 user.Username = reader.GetString(1);
                 user.Password = reader.GetString(2);
-                user.Coins = reader.GetInt32(3);
-                if (reader.GetValue(4).ToString() != "")
-                {
-                    user.DeckID = reader.GetInt32(4);
-
-                }
-                user.ELO = reader.GetInt32(5);
+                user.Coins = reader.GetInt32(3);                
+                user.ELO = reader.GetInt32(4);
                 reader.Close();
             }
             catch (Exception err) when (err.Message == "No row is available")
@@ -135,13 +130,8 @@ namespace MTCG_SWEN1.DB.DAL
                 user.Id = reader.GetInt32(0);
                 user.Username = reader.GetString(1);
                 user.Password = reader.GetString(2);
-                user.Coins = reader.GetInt32(3);
-                if (reader.GetValue(4).ToString() != "")
-                {
-                    user.DeckID = reader.GetInt32(4);
-
-                }
-                user.ELO = reader.GetInt32(5);
+                user.Coins = reader.GetInt32(3);                
+                user.ELO = reader.GetInt32(4);
                 reader.Close();
             }
             catch (Exception)

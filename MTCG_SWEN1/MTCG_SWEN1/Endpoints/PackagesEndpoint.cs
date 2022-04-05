@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MTCG_SWEN1.BL.Service;
+using MTCG_SWEN1.DB.DAL;
 using MTCG_SWEN1.Endpoints.Attributes;
 using MTCG_SWEN1.HTTP;
 using MTCG_SWEN1.Models;
@@ -27,8 +28,8 @@ namespace MTCG_SWEN1.Endpoints
         [Method("POST")]
         public void PackagesPost()
         {
-            try
-            {
+            //try
+            //{
                 User user = new();
                 if (!_request.Headers.ContainsKey("Authorization"))
                 {
@@ -70,18 +71,40 @@ namespace MTCG_SWEN1.Endpoints
                     string token = _request.Headers["Authorization"];
                     
                     //string username = token.Substring(token.LastIndexOf(" ") + 1, token.LastIndexOf("-")-6);                   
-                    user = StatsService.GetUserStats(token);                    
-                    CardService.PurchasePackagesByUser(user.Username);
+                    user = StatsService.GetUserStats(token);
+                    CardsDAL cardTABLE = new();
+                    SessionsDAL sessionTABLE = new();
+                    var adminID = sessionTABLE.GetUserIDByToken("Basic admin-mtcgToken");
+                    Console.WriteLine(adminID);
+                    List<Card> cardsToPurchase = cardTABLE.GetAllCardsOfUser(adminID);
+
+                    if(cardsToPurchase.Count < 5)
+                    {
+                        _response.StatusMessage = EHttpStatusMessages.Forbidden403.GetDescription();
+                        _response.Body = "Not enough cards to purchase package.";
+                        _response.Send();
+                        return;
+                    }                    
+                    else if(user.Coins > 4)
+                        CardService.PurchasePackagesByUser(user.Username);
+                    else
+                    {
+                        _response.StatusMessage = EHttpStatusMessages.Forbidden403.GetDescription();
+                        _response.Body = "User has less coins than necessary.";
+                        _response.Send();
+                        return;
+                    }
+                        
                 }
 
-            }
-            catch (Exception err)
+            //}
+            /*catch (Exception err)
             {
                 Console.WriteLine(err.Message);
                 _response.StatusMessage = EHttpStatusMessages.BadRequest400.GetDescription();
                 _response.Body = "Error for POST/packages.";
                 _response.Send();
-            }
+            }*/
 
             Console.WriteLine($"{DateTime.UtcNow}, New package added in DB.");
             _response.StatusMessage = EHttpStatusMessages.OK200.GetDescription();

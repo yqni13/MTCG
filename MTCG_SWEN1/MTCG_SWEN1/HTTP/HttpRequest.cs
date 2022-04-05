@@ -117,18 +117,21 @@ namespace MTCG_SWEN1.HTTP
                         //throw new KeyNotFoundException("Missing Header error => HttpRequest.cs, ParseBody().");
                         Console.WriteLine("Error finding certain header:");
                         throw new KeyNotFoundException();
-                    }                    
+                    }
                 }
 
-                var buffer = new char[int.Parse(Headers["Content-Length"])];
-                if (reader.ReadBlock(buffer, 0, buffer.Length) != buffer.Length)
-                    throw new Exception("Body not able to read.");
+                if(Headers.ContainsKey("Content-Length"))
+                {
+                    var buffer = new char[int.Parse(Headers["Content-Length"])];
+                    if (reader.ReadBlock(buffer, 0, buffer.Length) != buffer.Length)
+                        throw new Exception("Body not able to read.");
 
-                Body = new string(buffer);
+                    Body = new string(buffer);
+                }
             }
             catch (KeyNotFoundException err)
-            {
-                Console.WriteLine(err.Message);
+            {                
+                Console.WriteLine($"HttpRequest error, ParseBody(): {err.Message}");
                 Body = "";
             }
             catch (Exception err)

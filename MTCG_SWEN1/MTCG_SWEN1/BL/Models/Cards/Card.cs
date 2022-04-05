@@ -20,6 +20,11 @@ namespace MTCG_SWEN1.Models.Cards
 
         public Card() { }
 
+        public Card(Guid id)
+        {
+            ID = id;
+        }
+
         public Card(Guid id, string name, double damage)
         {
             this.ID = id;

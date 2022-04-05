@@ -35,5 +35,24 @@ namespace MTCG_SWEN1.BL.Service
             CardsDAL cardTABLE = new();
             return cardTABLE.GetAllCardsOfUser(sessionTABLE.GetUserIDByToken(token));            
         }
+
+        public static bool CheckIfUserOwnChosenCards(List<String> cardIDs, string token)
+        {
+            List<Card> allCardsOfUser = ShowAllCardsOfUser(token);
+            List<String> idUserCards = new();
+            foreach( var card in allCardsOfUser)
+            {
+                idUserCards.Add(new string(card.ID.ToString()));
+            }
+
+            int existingCount = 0;
+            foreach(var card in cardIDs)
+            {
+                if (idUserCards.Contains(card))
+                    ++existingCount;
+            }
+
+            return existingCount == cardIDs.Count;                 
+        }
     }
 }

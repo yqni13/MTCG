@@ -27,8 +27,8 @@ namespace MTCG_SWEN1.Endpoints
         [Method("POST")]
         public void Login()
         {
-            try
-            {
+            //try
+            //{
                 var credentials = JsonConvert.DeserializeObject<Dictionary<string, string>>(_request.Body);
 
                 if(!UserService.CheckIfCredentialsComplete(credentials["Username"], credentials["Password"]))
@@ -53,14 +53,14 @@ namespace MTCG_SWEN1.Endpoints
                 }
 
                 UserService.LoginService(user, credentials["Password"], sessionTABLE);
-            }
-            catch (Exception err)
+            //}
+            /*catch (Exception err)
             {
                 Console.WriteLine(err.Message);
                 _response.Body = "Error for POST/sessions.";
                 _response.StatusMessage = EHttpStatusMessages.NotFound404.GetDescription();
                 _response.Send();
-            }
+            }*/
 
             // Fill body and statusmsg of response and display status on backend console.
             Console.WriteLine($"{DateTime.UtcNow}, User login was successful.");

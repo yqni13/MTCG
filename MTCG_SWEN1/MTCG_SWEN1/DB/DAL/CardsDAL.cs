@@ -1,4 +1,5 @@
-﻿using MTCG_SWEN1.DB.InterfacesCRUD;
+﻿using MTCG_SWEN1.BL.Service;
+using MTCG_SWEN1.DB.InterfacesCRUD;
 using MTCG_SWEN1.HTTP;
 using MTCG_SWEN1.Models.Cards;
 using Npgsql;
@@ -69,7 +70,7 @@ namespace MTCG_SWEN1.DB.DAL
 
                     while(reader.Read() && cards.Count != 5)
                     {
-                        Guid cardID = Guid.Parse(reader.GetString(0));
+                        Guid cardID = Guid.Parse(reader[0].ToString());
                         string cardName = reader.GetString(1);
                         int Id = reader.GetInt32(2);
                         double cardDamage = reader.GetInt32(3);
@@ -85,12 +86,13 @@ namespace MTCG_SWEN1.DB.DAL
                     //  => count if exactly 5 cards or not for exception                
 
                         Console.WriteLine($"List of cards count to: {cards.Count}");
-                    if (cards.Count != 5)
+
+                    if (!PackageService.CheckForEnoughFreeCards(cards.Count))
                     {
-                        //transaction.Rollback("Wrong number of cards, need to be 5.");                        
+                        connection.Close();
+                        return;
                     }
-                    //transaction.Commit();
-                    //connection.Close();
+                       
 
                 }
                 
@@ -103,6 +105,7 @@ namespace MTCG_SWEN1.DB.DAL
                         command.CommandText = $"UPDATE {_tableName} SET c_user=@id WHERE c_id=@cardId";
                         command.Parameters.AddWithValue("@id", userID);
                         command.Parameters.AddWithValue("@cardId", cards[i].ID);
+                        Console.WriteLine($"userID: {userID}");
                         Console.WriteLine($"cardID: {cards[i].ID}");
                         command.ExecuteNonQuery();                   
                     }
@@ -148,13 +151,13 @@ namespace MTCG_SWEN1.DB.DAL
             {                
                 connection.Open();
                 var command = connection.CreateCommand();
-                command.CommandText = $"SELECT c_id, c_name, c_damage FROM {_tableName} WHERE c_user=@userId";
+                command.CommandText = $"SELECT c_id, c_name, c_user, c_damage FROM {_tableName} WHERE c_user=@userId";
                 command.Parameters.AddWithValue("@userId", id);
                 var reader = command.ExecuteReader();
 
                 while (reader.Read())
                 {
-                    Guid cardID = Guid.Parse(reader.GetString(0));
+                    Guid cardID = Guid.Parse(reader[0].ToString());
                     string cardName = reader.GetString(1);
                     int Id = reader.GetInt32(2);
                     double cardDamage = reader.GetInt32(3);
@@ -170,11 +173,6 @@ namespace MTCG_SWEN1.DB.DAL
             {
                 connection.Close();
                 Console.WriteLine($"CardDAL, GetAllCardsOfUser(): User does not own cards.");
-            }
-            catch (Exception)
-            {
-                connection.Close();
-                throw new Exception("Could not fetch data.");
             }
 
             connection.Close();
