@@ -11,6 +11,8 @@ namespace MTCG_SWEN1.DB.InterfacesCRUD
     {
         void AddPackage(List<Card> cards, int id);
 
-        void PurchasePackage();
+        void PurchasePackage(int userID, int adminID);
+
+        void UpdateUserCoins(int userID);
     }
 }

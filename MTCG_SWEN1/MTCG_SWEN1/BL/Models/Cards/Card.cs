@@ -25,6 +25,15 @@ namespace MTCG_SWEN1.Models.Cards
             this.Damage = damage;
         }
 
+        public Card(Guid id, string name, int userID, double damage)
+        {
+            ID = id;
+            Name = name;
+            UserID = userID;
+            Damage = damage;
+        }
+        //public Card(Guid id, string name, int userID, double damage, bool isInDeck, ECardType)
+
         public EElementType GetElementType()
         {
             var elementNames = Enum.GetNames(typeof(EElementType));

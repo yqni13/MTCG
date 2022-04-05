@@ -15,7 +15,7 @@ namespace MTCG_SWEN1.DB.DAL
     class UserDAL : IInsert, IRead
     {
         //private readonly DataBaseConnection _db = DataBaseConnection.GetStaticDBConnection;
-        private readonly string _tableName = ETableNames.mctg_users.GetDescription();
+        private readonly string _tableName = ETableNames.mtcg_users.GetDescription();
 
         public void Create(Dictionary<string, string> credentials)
         {

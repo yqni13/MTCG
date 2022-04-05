@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MTCG_SWEN1.BL.Service;
 using MTCG_SWEN1.Endpoints.Attributes;
 using MTCG_SWEN1.HTTP;
+using MTCG_SWEN1.Models;
 using MTCG_SWEN1.Models.Cards;
 using Newtonsoft.Json;
 
@@ -36,13 +37,13 @@ namespace MTCG_SWEN1.Endpoints
                     return;
                 }
 
-                if (_request.Headers["Authorization"] != "Basic admin-mtcgToken")
+                /*if (_request.Headers["Authorization"] != "Basic admin-mtcgToken")
                 {
                     _response.StatusMessage = EHttpStatusMessages.NotAcceptable406.GetDescription();
                     _response.Body = "Only admin is allowed to add packages.";
                     _response.Send();
                     return;
-                }
+                }*/
                                 
                 if (!UserService.CheckIfLoggedIn(_request.Headers["Authorization"]))
                 {
@@ -52,14 +53,23 @@ namespace MTCG_SWEN1.Endpoints
                     return;
                 }
 
-                List<Card> cardList = new();
-                var cards = JsonConvert.DeserializeObject<List<Card>>(_request.Body);
-                foreach(Card card in cards)
+                if (_request.Headers["Authorization"] == "Basic admin-mtcgToken")
                 {
-                    cardList.Add(new Card(card.ID, card.Name, card.Damage));
-                }
+                    List<Card> cardList = new();
+                    var cards = JsonConvert.DeserializeObject<List<Card>>(_request.Body);
+                    foreach(Card card in cards)
+                    {
+                        cardList.Add(new Card(card.ID, card.Name, card.Damage));
+                    }
 
-                CardService.AddPackagesByAdmin(cardList);
+                    CardService.AddPackagesByAdmin(cardList);
+                }
+                else
+                {
+                    string token = _request.Headers["Authorization"];
+                    string username = token.Substring(token.LastIndexOf(" ") + 1, token.LastIndexOf("-")-6);                   
+                    CardService.PurchasePackagesByUser(username);
+                }
 
             }
             catch (Exception err)

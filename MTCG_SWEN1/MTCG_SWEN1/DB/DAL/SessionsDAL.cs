@@ -12,7 +12,7 @@ namespace MTCG_SWEN1.DB.DAL
 {
     class SessionsDAL : ISessions
     {
-        private readonly string _tableName = ETableNames.mctg_sessions.GetDescription();
+        private readonly string _tableName = ETableNames.mtcg_sessions.GetDescription();
 
         public void AddSession(string token, int id)
         {
