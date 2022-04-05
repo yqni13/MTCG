@@ -11,9 +11,9 @@ namespace MTCG_SWEN1.Models
     {
         public Guid ID { get; set; }
         public User Username { get; set; }
-        public CardMethods Card { get; set; }
+        public Card Card { get; set; }
 
-        public Trading(Guid id, User user, CardMethods card)
+        public Trading(Guid id, User user, Card card)
         {
             ID = id;
             Username = user;

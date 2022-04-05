@@ -35,8 +35,8 @@ namespace MTCG_SWEN1.Endpoints
             catch (Exception err)
             {
                 Console.WriteLine(err.Message);
-                _response.Body = "Error for GET/users.";
                 _response.StatusMessage = EHttpStatusMessages.NotFound404.GetDescription();
+                _response.Body = "Error for GET/users.";
             }
             _response.Send();
         }
@@ -70,17 +70,16 @@ namespace MTCG_SWEN1.Endpoints
             catch (Exception err)
             {
                 Console.WriteLine($"UserEndpoint error: {err.Message}");
-
-                _response.Body = "Error for POST/users.";
                 _response.StatusMessage = EHttpStatusMessages.BadRequest400.GetDescription();
+                _response.Body = "Error for POST/users.";
                 _response.Send();
                 return;
             }
 
             // Fill body and statusmsg of response and display status on backend console.
             Console.WriteLine($"{DateTime.UtcNow}, New User added in DB.");
-            _response.Body = $"User registration successful.";
             _response.StatusMessage = EHttpStatusMessages.OK200.GetDescription();
+            _response.Body = $"User registration successful.";
             _response.Send();
         }
 
@@ -95,8 +94,8 @@ namespace MTCG_SWEN1.Endpoints
             catch (Exception err)
             {
                 Console.WriteLine(err.Message);
-                _response.Body = "Error for PUT/users.";
                 _response.StatusMessage = EHttpStatusMessages.NotFound404.GetDescription();
+                _response.Body = "Error for PUT/users.";
             }
             _response.Send();
         }

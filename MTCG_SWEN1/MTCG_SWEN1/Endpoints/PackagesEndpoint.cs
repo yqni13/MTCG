@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MTCG_SWEN1.BL.Service;
 using MTCG_SWEN1.Endpoints.Attributes;
 using MTCG_SWEN1.HTTP;
+using MTCG_SWEN1.Models.Cards;
+using Newtonsoft.Json;
 
 namespace MTCG_SWEN1.Endpoints
 {
@@ -22,18 +25,54 @@ namespace MTCG_SWEN1.Endpoints
 
         [Method("POST")]
         public void PackagesPost()
-        {
+        {            
             try
             {
-                _response.StatusMessage = EHttpStatusMessages.OK200.GetDescription();
-                _response.Body = "Demo content for /packages POST";
+                if (!_request.Headers.ContainsKey("Authorization"))
+                {
+                    _response.StatusMessage = EHttpStatusMessages.Unauthorized401.GetDescription();
+                    _response.Body = "Error no token for authentication found.";
+                    _response.Send();
+                    return;
+                }
+
+                if (_request.Headers["Authorization"] != "Basic admin-mtcgToken")
+                {
+                    _response.StatusMessage = EHttpStatusMessages.NotAcceptable406.GetDescription();
+                    _response.Body = "Only admin is allowed to add packages.";
+                    _response.Send();
+                    return;
+                }
+                                
+                if (!UserService.CheckIfLoggedIn(_request.Headers["Authorization"]))
+                {
+                    _response.StatusMessage = EHttpStatusMessages.Forbidden403.GetDescription();
+                    _response.Body = "Admin not logged in.";
+                    _response.Send();
+                    return;
+                }
+
+                List<Card> cardList = new();
+                var cards = JsonConvert.DeserializeObject<List<Card>>(_request.Body);
+                foreach(Card card in cards)
+                {
+                    cardList.Add(new Card(card.ID, card.Name, card.Damage));
+                }
+
+                CardService.AddPackagesByAdmin(cardList);
+
             }
             catch (Exception err)
             {
                 Console.WriteLine(err.Message);
-                _response.Body = "Error for /packages POST";
-                _response.StatusMessage = EHttpStatusMessages.NotFound404.GetDescription();
+                _response.StatusMessage = EHttpStatusMessages.BadRequest400.GetDescription();
+                _response.Body = "Error for POST/packages.";
+                _response.Send();
             }
+
+            Console.WriteLine($"{DateTime.UtcNow}, New package added in DB.");
+            _response.StatusMessage = EHttpStatusMessages.OK200.GetDescription();
+            _response.Body = "New package added.";
             _response.Send();
         }
     }

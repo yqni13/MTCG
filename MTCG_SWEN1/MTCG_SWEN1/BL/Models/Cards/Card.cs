@@ -7,16 +7,23 @@ using System.Threading.Tasks;
 
 namespace MTCG_SWEN1.Models.Cards
 {
-    class CardMethods
+    public class Card
     {
         public Guid ID { get; set; }
         public string Name { get; set; } = "";
-        public string UserName { get; set; }
-        public int Damage { get; set; } = 0;
+        public int UserID { get; set; }
+        public Double Damage { get; set; } = 0;
         public bool IsInDeck { get; set; } = false;
         public ECardType CardType { get; set; }
         public EElementType ElementType { get; set; }
         public bool IsChosenForTrade { get; set; } = false;
+
+        public Card(Guid id, string name, double damage)
+        {
+            this.ID = id;
+            this.Name = name;
+            this.Damage = damage;
+        }
 
         public EElementType GetElementType()
         {

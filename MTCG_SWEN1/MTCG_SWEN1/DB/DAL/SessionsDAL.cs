@@ -66,5 +66,38 @@ namespace MTCG_SWEN1.DB.DAL
 
             return true;
         }
+
+        public bool CheckLoggedInUserByToken(string requestingToken)
+        {
+            NpgsqlConnection connection = DBConnection.Connect();
+            string dbToken;
+            try
+            {
+                Console.WriteLine($"\"{requestingToken}\"");
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandText = $"SELECT s_token FROM {_tableName} WHERE s_token=@token";
+                command.Parameters.AddWithValue("@token", requestingToken);
+                var reader = command.ExecuteReader();
+
+                reader.Read();
+                dbToken = reader.GetString(0);                
+                reader.Close();
+            }
+            catch (Exception err) when (err.Message == "No row is available")
+            {
+                connection.Close();
+                Console.WriteLine($"SessionDAL, CheckLoggedInUserByToken(): User not logged in.");
+                return false;
+            }
+            catch (Exception)
+            {
+                connection.Close();
+                throw new Exception("Could not fetch data.");
+            }
+
+            connection.Close();            
+            return true;
+        }
     }
 }

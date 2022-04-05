@@ -12,7 +12,7 @@ namespace MTCG_SWEN1.Models
         public Guid Id { get; set; }
         public string Username { get; set; }
         public string Name { get; set; }
-        public List<CardMethods> Cards { get; set; } = new();
+        public List<Card> Cards { get; set; } = new();
 
         public Decks(Guid deckID, string username, string name)
         {

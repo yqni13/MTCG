@@ -12,11 +12,9 @@ namespace MTCG_SWEN1.BL.Service
     {
         public static bool RegisterService(Dictionary<string, string> credentials)
         {
-            if(CheckIfUserExists(credentials["Username"]))
-            {
+            if (CheckIfUserExists(credentials["Username"]))
                 return false;
-            }
-
+            
             UserDAL userTable = new();
             userTable.Create(credentials);
             return true;
@@ -47,6 +45,15 @@ namespace MTCG_SWEN1.BL.Service
             return false;
         }
 
+        public static bool CheckIfLoggedIn(string token)
+        {
+            SessionsDAL sessionTABLE = new();
+            if (sessionTABLE.CheckLoggedInUserByToken(token))
+                return true;
+
+            return false;
+        }
+
         public static bool CheckIfCredentialsComplete(string name, string pwd)
         {
             if ((name == null || name == "") || (pwd == null || pwd == ""))
@@ -57,7 +64,15 @@ namespace MTCG_SWEN1.BL.Service
 
         public static string CreateToken(User user)
         {            
-            return $"Basic: {user.Username}-mtcgToken";
+            return $"Basic {user.Username}-mtcgToken";
+        }
+
+        public static int GetUserID(string username)
+        {
+            UserDAL userTABLE = new();
+            User user = new();
+            userTABLE.ReadSpecific(username, user);
+            return user.Id;
         }
     }
 }
