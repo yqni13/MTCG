@@ -48,7 +48,10 @@ namespace MTCG_SWEN1.BL.Service
         public static bool CheckIfLoggedIn(string token)
         {
             SessionsDAL sessionTABLE = new();
-            if (sessionTABLE.CheckLoggedInUserByToken(token))
+            //if (sessionTABLE.GetUserIDByToken(token))
+                //return true;
+
+            if (sessionTABLE.GetUserIDByToken(token) != -1)
                 return true;
 
             return false;

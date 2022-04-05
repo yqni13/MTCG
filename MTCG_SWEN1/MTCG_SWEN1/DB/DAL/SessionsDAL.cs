@@ -67,28 +67,29 @@ namespace MTCG_SWEN1.DB.DAL
             return true;
         }
 
-        public bool CheckLoggedInUserByToken(string requestingToken)
+        public int GetUserIDByToken(string requestingToken)
         {
             NpgsqlConnection connection = DBConnection.Connect();
             string dbToken;
+            int userID;
             try
-            {
-                Console.WriteLine($"\"{requestingToken}\"");
+            {                
                 connection.Open();
                 var command = connection.CreateCommand();
-                command.CommandText = $"SELECT s_token FROM {_tableName} WHERE s_token=@token";
+                command.CommandText = $"SELECT s_token, s_user FROM {_tableName} WHERE s_token=@token";
                 command.Parameters.AddWithValue("@token", requestingToken);
                 var reader = command.ExecuteReader();
 
                 reader.Read();
-                dbToken = reader.GetString(0);                
+                dbToken = reader.GetString(0);
+                userID = reader.GetInt32(1);
                 reader.Close();
             }
             catch (Exception err) when (err.Message == "No row is available")
             {
                 connection.Close();
                 Console.WriteLine($"SessionDAL, CheckLoggedInUserByToken(): User not logged in.");
-                return false;
+                return -1;
             }
             catch (Exception)
             {
@@ -97,7 +98,7 @@ namespace MTCG_SWEN1.DB.DAL
             }
 
             connection.Close();            
-            return true;
+            return userID;
         }
     }
 }

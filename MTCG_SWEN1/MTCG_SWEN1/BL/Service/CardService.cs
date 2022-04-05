@@ -28,5 +28,12 @@ namespace MTCG_SWEN1.BL.Service
             userTABLE.ReadSpecific("admin", admin);
             cardTABLE.PurchasePackage(user.Id, admin.Id);
         }
+
+        public static List<Card> ShowAllCardsOfUser(string token)
+        {
+            SessionsDAL sessionTABLE = new();
+            CardsDAL cardTABLE = new();
+            return cardTABLE.GetAllCardsOfUser(sessionTABLE.GetUserIDByToken(token));            
+        }
     }
 }

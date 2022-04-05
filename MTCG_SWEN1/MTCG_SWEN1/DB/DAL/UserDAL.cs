@@ -84,6 +84,30 @@ namespace MTCG_SWEN1.DB.DAL
             throw new NotImplementedException();
         }
 
-        
+        public string GetUsernameByID(int id)
+        {
+            NpgsqlConnection connection = DBConnection.Connect();
+            string username;
+            try
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandText = $"SELECT u_username FROM {_tableName} WHERE u_id=@userId";
+                command.Parameters.AddWithValue("@userId", id);
+                var reader = command.ExecuteReader();
+
+                reader.Read();
+                username = reader.GetString(0);
+                reader.Close();
+            }
+            catch (Exception)
+            {
+                //Console.WriteLine($"UserDAL, ReadSpecific(): {err.Message}");
+                connection.Close();
+                throw new Exception("Could not fetch data.");
+            }
+            connection.Close();
+            return username;
+        }
     }
 }

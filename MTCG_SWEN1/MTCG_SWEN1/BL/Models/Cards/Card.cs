@@ -18,6 +18,8 @@ namespace MTCG_SWEN1.Models.Cards
         public EElementType ElementType { get; set; }
         public bool IsChosenForTrade { get; set; } = false;
 
+        public Card() { }
+
         public Card(Guid id, string name, double damage)
         {
             this.ID = id;

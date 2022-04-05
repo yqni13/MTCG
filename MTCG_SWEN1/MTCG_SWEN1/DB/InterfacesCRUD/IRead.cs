@@ -12,5 +12,7 @@ namespace MTCG_SWEN1.DB.InterfacesCRUD
         void ReadAll();
 
         void ReadSpecific(string username, User user);
+
+        string GetUsernameByID(int id);
     }
 }

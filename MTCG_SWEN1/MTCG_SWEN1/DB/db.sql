@@ -1,5 +1,3 @@
-
- DROP TABLE IF EXISTS packages CASCADE;
  DROP TABLE IF EXISTS tradings CASCADE;
  DROP TABLE IF EXISTS own_cards CASCADE;
  DROP TABLE IF EXISTS sessions CASCADE;
@@ -22,7 +20,7 @@ CREATE TABLE
 CREATE TABLE
     IF NOT EXISTS
         cards (
-            c_id    char(36) NOT NULL CONSTRAINT cards_pk PRIMARY KEY,
+            c_id    varchar(36) NOT NULL CONSTRAINT cards_pk PRIMARY KEY,
             c_name varchar NOT NULL,
             c_user  integer CONSTRAINT cards_users_u_id_fk REFERENCES users,
             c_damage    integer,
@@ -52,7 +50,7 @@ CREATE TABLE
     IF NOT EXISTS
         own_cards (
             d_id    INTEGER NOT NULL CONSTRAINT own_cards_decks_d_id_fk REFERENCES decks,
-            c_id    char(36) NOT NULL CONSTRAINT own_cards_cards_c_id_fk REFERENCES cards on delete cascade,
+            c_id    varchar(36) NOT NULL CONSTRAINT own_cards_cards_c_id_fk REFERENCES cards on delete cascade,
             CONSTRAINT own_cards_pk UNIQUE (d_id, c_id)
 );
 
@@ -61,7 +59,7 @@ CREATE TABLE
         tradings (
             t_id    SERIAL NOT NULL CONSTRAINT tradings_pk PRIMARY KEY,
             t_user  INTEGER NOT NULL CONSTRAINT tradings_users_u_id_fk REFERENCES users,
-            t_card  char(36) NOT NULL CONSTRAINT tradings_cards_c_id_fk REFERENCES cards
+            t_card  varchar(36) NOT NULL CONSTRAINT tradings_cards_c_id_fk REFERENCES cards
 );
 
 

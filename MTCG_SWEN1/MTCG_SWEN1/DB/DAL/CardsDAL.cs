@@ -67,7 +67,7 @@ namespace MTCG_SWEN1.DB.DAL
                     command.Parameters.AddWithValue("@id", adminID);
                     var reader = command.ExecuteReader();
 
-                    while(reader.Read())
+                    while(reader.Read() && cards.Count != 5)
                     {
                         Guid cardID = Guid.Parse(reader.GetString(0));
                         string cardName = reader.GetString(1);
@@ -87,8 +87,7 @@ namespace MTCG_SWEN1.DB.DAL
                     if (cards.Count != 5)
                     {
                         Console.WriteLine($"List of cards count to: {cards.Count}");
-                        //transaction.Rollback("Wrong number of cards, need to be 5.");
-                        transaction.Rollback();
+                        transaction.Rollback("Wrong number of cards, need to be 5.");                        
                     }
                     transaction.Commit();
                     //connection.Close();
@@ -128,7 +127,7 @@ namespace MTCG_SWEN1.DB.DAL
             {
                 //connection.Close();
                 //connectionUsers.Close();
-                throw new Exception($"Error purchasing new package: {err.Message}");
+                throw new Exception($"Error purchasing new package: {err}");
             }
 
             //connectionUsers.Close();
@@ -138,6 +137,47 @@ namespace MTCG_SWEN1.DB.DAL
         public void UpdateUserCoins(int userID)
         {
 
+        }
+
+        public List<Card> GetAllCardsOfUser(int id)
+        {
+            NpgsqlConnection connection = DBConnection.Connect();
+            List<Card> cards = new();            
+            try
+            {                
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandText = $"SELECT c_id, c_name, c_damage FROM {_tableName} WHERE c_user=@userId";
+                command.Parameters.AddWithValue("@userId", id);
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Guid cardID = Guid.Parse(reader.GetString(0));
+                    string cardName = reader.GetString(1);
+                    int Id = reader.GetInt32(2);
+                    double cardDamage = reader.GetInt32(3);
+                    //bool cardInDeck = reader.GetBoolean(4);
+                    //int cardType = reader.GetInt32(5);
+                    //int elementType = reader.GetInt32(6);
+                    //bool cardForTrade = reader.GetBoolean(7);
+                    cards.Add(new Card(cardID, cardName, Id, cardDamage));
+                }
+                reader.Close();
+            }
+            catch (Exception err) when (err.Message == "No row is available")
+            {
+                connection.Close();
+                Console.WriteLine($"CardDAL, GetAllCardsOfUser(): User does not own cards.");
+            }
+            catch (Exception)
+            {
+                connection.Close();
+                throw new Exception("Could not fetch data.");
+            }
+
+            connection.Close();
+            return cards;
         }
     }
 }
