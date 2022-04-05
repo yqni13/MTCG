@@ -84,7 +84,7 @@ namespace MTCG_SWEN1.DB.DAL
             throw new NotImplementedException();
         }
 
-        public string GetUsernameByID(int id)
+        public User GetUserByID(int id)
         {
             NpgsqlConnection connection = DBConnection.Connect();
             string username;
