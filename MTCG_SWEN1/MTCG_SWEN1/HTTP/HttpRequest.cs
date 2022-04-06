@@ -18,6 +18,7 @@ namespace MTCG_SWEN1.HTTP
         public string Path { get; set; }
         public string Version { get; set; }
         public string Body { get; set; }
+        public string PathParameter { get; set; }
 
         public Dictionary<string, string> Headers;
         public Dictionary<string, string> EndpointParameters;
@@ -166,15 +167,25 @@ namespace MTCG_SWEN1.HTTP
             // https://stackoverflow.com/questions/13961472/how-to-count-sets-of-specific-characters-in-a-string
             int slashCount = Path.ToCharArray().Count(symbol => symbol == '/');
 
+
             if (slashCount > 1)
+            {
                 if (Path.Substring(0, Path.LastIndexOf("/")) == "/transactions")
                     //Console.WriteLine($"returned string instead: {a.Substring(a.LastIndexOf("/packages"))}");
                     // Return Path variable "/packages" to find Endpoint.
-                    return Path.Substring(Path.LastIndexOf("/packages"));
+                    return Path.Substring(Path.LastIndexOf("/packages"));                               
                 else
+                {
                     //Console.WriteLine($"returned string: {a.Substring(0, a.LastIndexOf("/"))}");
                     // Return Path variable, because 2nd part of Path equals token or username.
+                    if (Path.Substring(1, Path.LastIndexOf("/") - 1) != "")
+                    {
+                        string parameter = Path.Substring(Path.LastIndexOf("/"));
+                        PathParameter = string.Join("", parameter.Split('/'));
+                    }
                     return Path.Substring(0, Path.LastIndexOf("/"));
+                }
+            }
 
             return Path;
         }

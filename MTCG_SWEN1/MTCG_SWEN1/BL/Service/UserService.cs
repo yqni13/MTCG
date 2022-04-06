@@ -77,5 +77,19 @@ namespace MTCG_SWEN1.BL.Service
             userTABLE.GetUserByUsername(username, user);
             return user.Id;
         }
+
+        public static User GetUserInformation(string token)
+        {
+            UserDAL userTABLE = new();
+            SessionsDAL sessionTABLE = new();
+            return userTABLE.GetUserByID(sessionTABLE.GetUserIDByToken(token));
+        }
+
+        public static void EditUserInformation(Dictionary<string, string> userEdit, string token)
+        {
+            UserDAL userTABLE = new();
+            SessionsDAL sessionTABLE = new();
+            userTABLE.EditUser(userEdit, sessionTABLE.GetUserIDByToken(token));
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MTCG_SWEN1.BL.Service;
+using MTCG_SWEN1.DB.DAL;
 using MTCG_SWEN1.Endpoints.Attributes;
 using MTCG_SWEN1.HTTP;
 using MTCG_SWEN1.Models;
@@ -27,18 +28,37 @@ namespace MTCG_SWEN1.Endpoints
         [Method("GET")]
         public void GetUsers()
         {
+            User user = new();
             try
-            {
-                _response.StatusMessage = EHttpStatusMessages.OK200.GetDescription();
-                _response.Body = "Demo content for /users GET";
+            {                
+                string userParameter = _request.PathParameter;
+                string token = _request.Headers["Authorization"];
+
+                // Check if user exists.
+                UserService.CheckIfUserExists(userParameter);
+                // Compare with logged in user.
+                if(!UserService.CheckIfLoggedIn(token))
+                {
+                    _response.StatusMessage = EHttpStatusMessages.Unauthorized401.GetDescription();
+                    _response.Body = "User not logged in.";
+                    _response.Send();
+                    return;
+                }
+
+                user = UserService.GetUserInformation(token);
+
             }
             catch (Exception err)
             {
                 Console.WriteLine(err.Message);
                 _response.StatusMessage = EHttpStatusMessages.NotFound404.GetDescription();
                 _response.Body = "Error for GET/users.";
+                return;
             }
-            _response.Send();
+
+            string json = JsonConvert.SerializeObject(user);
+            Console.WriteLine($"{DateTime.UtcNow}, User attributes successfully listed.");
+            _response.SendWithHeaders(json, EHttpStatusMessages.OK200.GetDescription());
         }
 
         [Method("POST")]
@@ -86,10 +106,25 @@ namespace MTCG_SWEN1.Endpoints
         [Method("PUT")]
         public void PutUsers()
         {
+            Dictionary<string, string> userEdit = new();
             try
             {
-                _response.StatusMessage = EHttpStatusMessages.OK200.GetDescription();
-                _response.Body = "Demo content for /users PUT";
+                string userParameter = _request.PathParameter;
+                string token = _request.Headers["Authorization"];
+
+                // Check if user exists.
+                UserService.CheckIfUserExists(userParameter);
+                // Compare with logged in user.
+                if (!UserService.CheckIfLoggedIn(token))
+                {
+                    _response.StatusMessage = EHttpStatusMessages.Unauthorized401.GetDescription();
+                    _response.Body = "User not logged in.";
+                    _response.Send();
+                    return;
+                }
+
+                userEdit = JsonConvert.DeserializeObject<Dictionary<string, string>>(_request.Body);
+
             }
             catch (Exception err)
             {

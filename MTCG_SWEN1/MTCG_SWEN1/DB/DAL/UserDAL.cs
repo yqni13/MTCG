@@ -75,7 +75,7 @@ namespace MTCG_SWEN1.DB.DAL
             }
             catch (Exception err) when (err.Message == "No row is available")
             {
-                Console.WriteLine($"UserDAL, ReadSpecific(): User does not exist.");                
+                Console.WriteLine($"UserDAL, GetUserByUsername(): User does not exist.");                
                 connection.Close();
             }
             catch (Exception err)
@@ -177,6 +177,33 @@ namespace MTCG_SWEN1.DB.DAL
             }
             connection.Close();
             return user;
+        }
+
+        public void EditUser(Dictionary<string, string> userEdit, Guid userID)
+        {
+            NpgsqlConnection connection = DBConnection.Connect();
+            try
+            {
+                connection.Open();
+                // update name, bio, image               
+
+                var command = connection.CreateCommand();
+                command.CommandText = $"UPDATE {_tableName} SET u_username=@user, u_bio=@bio, u_image=@image WHERE u_id=@userId";
+                command.Parameters.AddWithValue("@user", userEdit["Name"]);
+                command.Parameters.AddWithValue("@bio", userEdit["Bio"]);
+                command.Parameters.AddWithValue("@image", userEdit["Image"]);
+                command.Parameters.AddWithValue("@userId", userID);
+                command.ExecuteNonQuery();
+                command.Dispose();
+                connection.Close();
+
+            }
+            catch(Exception err)
+            {
+                connection.Close();
+                throw new Exception($"Error updating User: {err.Message}");
+            }
+
         }
     }
 }
