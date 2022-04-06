@@ -18,7 +18,7 @@ namespace MTCG_SWEN1.DB
 
         public static NpgsqlConnection Connect()
         {
-            return new NpgsqlConnection($"Host=localhost;Username=postgres;Password=postgre;Database=mtcg_db");
+            return new NpgsqlConnection($"Host=localhost;Username=postgres;Password=postgre;Database=mtcg_db;IncludeErrorDetail=true");
         } 
 
     }

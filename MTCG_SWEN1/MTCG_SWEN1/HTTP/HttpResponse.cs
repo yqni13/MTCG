@@ -68,6 +68,19 @@ namespace MTCG_SWEN1.HTTP
             writer.Close();
         }
 
+        public void SendWithHeaders(string body, string statusmsg, params string[] headers)
+        {
+            StatusMessage = statusmsg;
+            if (body.Length > 0)
+                Body = body;
+            foreach (var header in headers)
+            {
+                var keyValuePair = header.Split(": ");
+                Headers.Add(keyValuePair[0], keyValuePair[1]);
+            }
+            Send();
+        }
+
         private void SendServerAnswer()
         {
             Console.WriteLine($"Response sent - Status: {StatusMessage}\n");

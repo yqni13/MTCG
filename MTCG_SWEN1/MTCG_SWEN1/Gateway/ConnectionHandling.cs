@@ -52,9 +52,9 @@ namespace MTCG_SWEN1.Server
                 Console.WriteLine($"Endpoint reached: \"{endpointMethod}{endpointPath}\"");
                 InvokingEndpoint(endMethodInfo, endType);
             }
-            catch(Exception e)
+            catch(Exception err)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine($"Transffering error, ConnectionHandler.cs, Process(): {err.Message}");
                 //_response.Send();
                 
             }            

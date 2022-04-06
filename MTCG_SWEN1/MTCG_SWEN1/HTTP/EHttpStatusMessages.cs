@@ -16,6 +16,10 @@ namespace MTCG_SWEN1.HTTP
         // Client error responses.
         [Description("400 Bad Request")]
         BadRequest400 = 400,
+        [Description("401 Unauthorized")]
+        Unauthorized401 = 401,
+        [Description("403 Forbidden")]
+        Forbidden403 = 403,
         [Description("404 Not Found")]
         NotFound404 = 404,
         [Description("406 Not Acceptable")]

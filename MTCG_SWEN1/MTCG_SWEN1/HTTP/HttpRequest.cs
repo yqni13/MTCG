@@ -86,7 +86,7 @@ namespace MTCG_SWEN1.HTTP
 
         private void ParseBody(StreamReader reader)
         {
-            try
+            /*try
             {
                 if (!Headers.ContainsKey("Content-Length"))
                     throw new KeyNotFoundException("Missing Header error => HttpRequest.cs, ParseBody().");
@@ -105,6 +105,38 @@ namespace MTCG_SWEN1.HTTP
             catch (Exception)
             {
                 Console.WriteLine($"Parsing content error => HttpRequest.cs, ParseBody().");
+                Body = "";
+            }*/
+
+            try
+            {
+                if (!Headers.ContainsKey("Content-Length"))
+                {
+                    if(!Headers.ContainsKey("Authorization") && Method != "GET")
+                    {
+                        //throw new KeyNotFoundException("Missing Header error => HttpRequest.cs, ParseBody().");
+                        Console.WriteLine("Error finding certain header:");
+                        throw new KeyNotFoundException();
+                    }
+                }
+
+                if(Headers.ContainsKey("Content-Length"))
+                {
+                    var buffer = new char[int.Parse(Headers["Content-Length"])];
+                    if (reader.ReadBlock(buffer, 0, buffer.Length) != buffer.Length)
+                        throw new Exception("Body not able to read.");
+
+                    Body = new string(buffer);
+                }
+            }
+            catch (KeyNotFoundException err)
+            {                
+                Console.WriteLine($"HttpRequest error, ParseBody(): {err.Message}");
+                Body = "";
+            }
+            catch (Exception err)
+            {
+                Console.WriteLine($"Parsing content error => HttpRequest.cs, ParseBody(): {err}");
                 Body = "";
             }
         }
@@ -147,6 +179,6 @@ namespace MTCG_SWEN1.HTTP
             return Path;
         }
 
-        
+         
     }
 }

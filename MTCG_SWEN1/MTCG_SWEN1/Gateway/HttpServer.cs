@@ -50,7 +50,7 @@ namespace MTCG_SWEN1.Server
         private void RunServer()
         {            
             _tcpListener.Start(5);
-            Console.WriteLine($"Server {_serverName} started by {_creator}, {DateTime.UtcNow.AddHours(1)}\nWaiting for connection to {_ip}...");
+            Console.WriteLine($"Server {_serverName} started by {_creator}, {DateTime.Now.ToString("dd.MM.yyyy")} {DateTime.Now.ToString("HH:mm:ss")}\nWaiting for connection to {_ip}...");
             _serverIsActive = true;
             Thread.Sleep(1500);
             Console.WriteLine($"{DateTime.UtcNow.AddHours(1)}, system successfully connected to IPAddress: {GetHostName()}\n");

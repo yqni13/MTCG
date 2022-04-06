@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace MTCG_SWEN1.DB.InterfacesCRUD
 {
-    public interface IInsert
+    interface ISessions
     {
-        void CreateUser(Dictionary<string, string> credentials);
+        void AddSession(string token, Guid id);
+
+        bool CheckExistingSession(Guid id);
     }
 }

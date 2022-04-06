@@ -9,8 +9,10 @@ namespace MTCG_SWEN1.DB.InterfacesCRUD
 {
     public interface IRead
     {
-        void ReadAll();
+        List<User> ReadAll();
 
-        void ReadSpecific(string username, User user);
+        void GetUserByUsername(string username, User user);
+
+        User GetUserByID(Guid id);
     }
 }
