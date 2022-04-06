@@ -48,11 +48,11 @@ namespace MTCG_SWEN1.HTTP
             WriteLine(writer, $"Content-Lenght: {Body.Length}");
 
             if (BodyNotNull)
-                WriteLine(writer, Body);
-            */
+                WriteLine(writer, Body);*/
+            
             if(!BodyNotNull)
             {
-                WriteLine(writer, $"Content-Lenght: {Body.Length}");
+                WriteLine(writer, $"Content-Length: {Body.Length}");
                 WriteLine(writer, $"Content-Type: application/json; charset=UTF-8");
                 WriteLine(writer, "");
                 WriteLine(writer, Body);
@@ -60,7 +60,7 @@ namespace MTCG_SWEN1.HTTP
             }
             else
             {
-                WriteLine(writer, $"Content-Lenght: {Body.Length}");
+                WriteLine(writer, $"Content-Length: {Body.Length}");
             }
 
             //writer.WriteLine();

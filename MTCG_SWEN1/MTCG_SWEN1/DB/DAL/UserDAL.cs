@@ -204,6 +204,37 @@ namespace MTCG_SWEN1.DB.DAL
                 throw new Exception($"Error updating User: {err.Message}");
             }
 
+
         }
+        public Dictionary<string, int> GetScoreboardSorted()
+        {
+            NpgsqlConnection connection = DBConnection.Connect();
+            Dictionary<string, int> scoreboard = new();
+            try
+            {
+                connection.Open();
+                // update name, bio, image               
+
+                var command = connection.CreateCommand();
+                command.CommandText = $"SELECT u_username, u_elo FROM {_tableName} ORDER BY u_elo DESC";
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    scoreboard.Add(reader.GetString(0), reader.GetInt32(1));
+                }
+                reader.Close();
+                command.Dispose();
+                connection.Close();
+
+            }
+            catch (Exception err)
+            {
+                connection.Close();
+                throw new Exception($"Error updating User: {err.Message}");
+            }
+
+            return scoreboard;
+        } 
     }
 }

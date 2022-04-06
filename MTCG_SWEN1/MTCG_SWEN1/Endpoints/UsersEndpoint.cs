@@ -44,6 +44,14 @@ namespace MTCG_SWEN1.Endpoints
                     _response.Send();
                     return;
                 }
+                user = UserService.GetUserInformation(token);
+                if(userParameter != user.Username)
+                {
+                    _response.StatusMessage = EHttpStatusMessages.Unauthorized401.GetDescription();
+                    _response.Body = "Wrong user.";
+                    _response.Send();
+                    return;
+                }
 
                 user = UserService.GetUserInformation(token);
 
@@ -107,6 +115,7 @@ namespace MTCG_SWEN1.Endpoints
         public void PutUsers()
         {
             Dictionary<string, string> userEdit = new();
+            User user = new();
             try
             {
                 string userParameter = _request.PathParameter;
@@ -123,8 +132,17 @@ namespace MTCG_SWEN1.Endpoints
                     return;
                 }
 
-                userEdit = JsonConvert.DeserializeObject<Dictionary<string, string>>(_request.Body);
+                user = UserService.GetUserInformation(token);
+                if (userParameter != user.Username)
+                {
+                    _response.StatusMessage = EHttpStatusMessages.Unauthorized401.GetDescription();
+                    _response.Body = "Wrong user.";
+                    _response.Send();
+                    return;
+                }
 
+                userEdit = JsonConvert.DeserializeObject<Dictionary<string, string>>(_request.Body);
+                
             }
             catch (Exception err)
             {
@@ -132,6 +150,10 @@ namespace MTCG_SWEN1.Endpoints
                 _response.StatusMessage = EHttpStatusMessages.NotFound404.GetDescription();
                 _response.Body = "Error for PUT/users.";
             }
+
+            Console.WriteLine($"{DateTime.UtcNow}, User information successfully updated.");
+            _response.StatusMessage = EHttpStatusMessages.OK200.GetDescription();
+            _response.Body = "User successfully updated.";
             _response.Send();
         }
     }

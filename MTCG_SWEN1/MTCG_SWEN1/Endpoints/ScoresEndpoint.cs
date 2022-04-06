@@ -25,7 +25,7 @@ namespace MTCG_SWEN1.Endpoints
         [Method("GET")]
         public void ScoresGet()
         {
-            Dictionary<string, string> scoreboard = new();
+            Dictionary<string, int> scoreboard = new();
             try
             {
                 if (!_request.Headers.ContainsKey("Authorization"))
