@@ -14,7 +14,7 @@ namespace MTCG_SWEN1.DB.DAL
     {
         private readonly string _tableName = ETableNames.mtcg_sessions.GetDescription();
 
-        public void AddSession(string token, int id)
+        public void AddSession(string token, Guid id)
         {
             NpgsqlConnection connection = DBConnection.Connect();
             
@@ -37,7 +37,7 @@ namespace MTCG_SWEN1.DB.DAL
             connection.Close();
         }
 
-        public bool CheckExistingSession(int id)
+        public bool CheckExistingSession(Guid id)
         {
             NpgsqlConnection connection = DBConnection.Connect();
             string token;
@@ -45,13 +45,12 @@ namespace MTCG_SWEN1.DB.DAL
             {
                 connection.Open();
                 var command = connection.CreateCommand();
-                command.CommandText = $"SELECT * FROM {_tableName} WHERE s_user=@id";
+                command.CommandText = $"SELECT s_token FROM {_tableName} WHERE s_user=@id";
                 command.Parameters.AddWithValue("@id", id);
                 var reader = command.ExecuteReader();
 
                 reader.Read();
-                token = reader.GetString(0);
-                var userID = reader.GetInt32(1);
+                token = reader.GetString(0);                
                 reader.Close();
             }
             catch (Exception)
@@ -67,29 +66,27 @@ namespace MTCG_SWEN1.DB.DAL
             return true;
         }
 
-        public int GetUserIDByToken(string requestingToken)
+        public Guid GetUserIDByToken(string requestingToken)
         {
-            NpgsqlConnection connection = DBConnection.Connect();
-            string dbToken;
-            int userID;
+            NpgsqlConnection connection = DBConnection.Connect();            
+            Guid userID;
             try
             {                
                 connection.Open();
                 var command = connection.CreateCommand();
-                command.CommandText = $"SELECT s_token, s_user FROM {_tableName} WHERE s_token=@token";
+                command.CommandText = $"SELECT s_user FROM {_tableName} WHERE s_token=@token";
                 command.Parameters.AddWithValue("@token", requestingToken);
                 var reader = command.ExecuteReader();
 
-                reader.Read();
-                dbToken = reader.GetString(0);
-                userID = reader.GetInt32(1);
+                reader.Read();                
+                userID = Guid.Parse(reader[0].ToString());
                 reader.Close();
             }
             catch (Exception err) when (err.Message == "No row is available")
             {
                 connection.Close();
                 Console.WriteLine($"SessionDAL, CheckLoggedInUserByToken(): User not logged in.");
-                return -1;
+                return Guid.NewGuid();
             }
             catch (Exception)
             {

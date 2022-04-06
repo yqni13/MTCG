@@ -11,12 +11,15 @@ namespace MTCG_SWEN1.Models.Cards
     {
         public Guid ID { get; set; }
         public string Name { get; set; } = "";
-        public int UserID { get; set; }
+        public Guid StackUser { get; set; }
         public Double Damage { get; set; } = 0;
-        public bool IsInDeck { get; set; } = false;
-        public ECardType CardType { get; set; }
-        public EElementType ElementType { get; set; }
-        public bool IsChosenForTrade { get; set; } = false;
+        public string CardType { get; set; }
+        public string ElementType { get; set; }
+        public bool ForTrade { get; set; } = false;
+        //public Guid PackageNumber { get; set; }
+        public DateTime PackageTimestamp { get; set; }
+
+        public int DeckID { get; set; }
 
         public Card() { }
 
@@ -25,29 +28,42 @@ namespace MTCG_SWEN1.Models.Cards
             ID = id;
         }
 
-        public Card(Guid id, string name, double damage)
-        {
-            this.ID = id;
-            this.Name = name;
-            this.Damage = damage;
-        }
-
-        public Card(Guid id, string name, int userID, double damage)
+        public Card(Guid id, string name, Guid user, double damage, string type, string element)
         {
             ID = id;
             Name = name;
-            UserID = userID;
+            StackUser = user;
             Damage = damage;
+            CardType = type;
+            ElementType = element;
         }
-        //public Card(Guid id, string name, int userID, double damage, bool isInDeck, ECardType)
 
-        public EElementType GetElementType()
+        public Card(Guid cardID, DateTime timestamp)
+        {
+            //StackUser = userID;
+            ID = cardID;
+            PackageTimestamp = timestamp;
+        }
+
+
+        public Card(Guid id, string name, double damage, string element, string type, DateTime timestamp)
+        {
+            ID = id;
+            Name = name;
+            Damage = damage;
+            ElementType = element;
+            CardType = type;
+            PackageTimestamp = timestamp;
+        }
+            
+
+        /*public EElementType GetElementType()
         {
             var elementNames = Enum.GetNames(typeof(EElementType));
 
             foreach (var type in elementNames)
             {
-                if (this.Name == type)
+                if (Name == type)
                 {
                     return Enum.Parse<EElementType>(type);
                 }
@@ -62,14 +78,14 @@ namespace MTCG_SWEN1.Models.Cards
 
             foreach (var type in cardNames)
             {
-                if (this.Name == type)
+                if (Name == type)
                 {
                     return Enum.Parse<ECardType>(type);
                 }
             }
 
             return Enum.Parse<ECardType>("Ghost");
-        }
+        }*/
 
     }
 }

@@ -11,28 +11,22 @@ namespace MTCG_SWEN1.BL.Service
 {
     class CardService
     {
-        public static void AddPackagesByAdmin(List<Card> cards)
-        {
-            CardsDAL cardTABLE = new();
-            var id = UserService.GetUserID("admin");
-            cardTABLE.AddPackage(cards, id);
-        }
+        
 
         public static void PurchasePackagesByUser(string username)
         {
             CardsDAL cardTABLE = new();
             UserDAL userTABLE = new();
-            User user = new();
-            User admin = new();
-            userTABLE.ReadSpecific(username, user);
-            userTABLE.ReadSpecific("admin", admin);
-            cardTABLE.PurchasePackage(user.Id, admin.Id);
+            User user = new();            
+            userTABLE.GetUserByUsername(username, user);            
+            cardTABLE.PurchasePackage(user.Id);
         }
 
         public static List<Card> ShowAllCardsOfUser(string token)
         {
             SessionsDAL sessionTABLE = new();
             CardsDAL cardTABLE = new();
+            
             return cardTABLE.GetAllCardsOfUser(sessionTABLE.GetUserIDByToken(token));            
         }
 
@@ -53,6 +47,12 @@ namespace MTCG_SWEN1.BL.Service
             }
 
             return existingCount == cardIDs.Count;                 
+        }
+
+        public static List<Card> GetNumberOfCardsToPurchase()
+        {
+            CardsDAL cardTABLE = new();
+            return cardTABLE.GetMaxNumberOfCardsToPurchase();
         }
     }
 }

@@ -17,7 +17,7 @@ namespace MTCG_SWEN1.DB.DAL
         //private readonly DataBaseConnection _db = DataBaseConnection.GetStaticDBConnection;
         private readonly string _tableName = ETableNames.mtcg_users.GetDescription();
 
-        public void Create(Dictionary<string, string> credentials)
+        public void CreateUser(Dictionary<string, string> credentials)
         {
             NpgsqlConnection connection = DBConnection.Connect();
             try
@@ -25,22 +25,24 @@ namespace MTCG_SWEN1.DB.DAL
                 connection.Open();
                 var command = connection.CreateCommand();
 
-                command.CommandText = $"INSERT INTO {_tableName} (u_username, u_password) VALUES (@username, @password)";
+                command.CommandText = $"INSERT INTO {_tableName} (u_id, u_username, u_password) VALUES (@id, @username, @password)";
+                command.Parameters.AddWithValue("@id", Guid.NewGuid());
                 command.Parameters.AddWithValue("@username", credentials["Username"]);
                 command.Parameters.AddWithValue("@password", credentials["Password"]);
                 command.ExecuteNonQuery();
             }
-            catch (Exception)
+            catch (Exception err)
             {
                 //Console.WriteLine($"UserDAL error => Create():\n{err.Message}+still belongs here");
                 connection.Close();
+                Console.WriteLine(err.Message);
                 throw new DuplicateNameException("Error creating new user.");
             }
             connection.Close();
         }
 
        
-        public void ReadSpecific(string username, User user)
+        public void GetUserByUsername(string username, User user)
         {
             NpgsqlConnection connection = DBConnection.Connect();
             try
@@ -52,22 +54,35 @@ namespace MTCG_SWEN1.DB.DAL
                 var reader = command.ExecuteReader();
 
                 reader.Read();
-                user.Id = reader.GetInt32(0);
+                user.Id = Guid.Parse(reader[0].ToString());
                 user.Username = reader.GetString(1);
                 user.Password = reader.GetString(2);
                 user.Coins = reader.GetInt32(3);                
                 user.ELO = reader.GetInt32(4);
+                if (reader.GetValue(5).ToString() != "")
+                    user.Bio = reader.GetString(5);
+                else
+                    user.Bio = "";
+
+                if (reader.GetValue(6).ToString() != "")
+                    user.Image = reader.GetString(6);
+                else
+                    user.Image = "";
+                user.Games = reader.GetInt32(7);
+                user.Wins = reader.GetInt32(8);
+                user.Losses = reader.GetInt32(9);
                 reader.Close();
             }
             catch (Exception err) when (err.Message == "No row is available")
             {
-                Console.WriteLine($"UserDAL, ReadSpecific(): User does not exist.");
+                Console.WriteLine($"UserDAL, ReadSpecific(): User does not exist.");                
                 connection.Close();
             }
-            catch (Exception)
+            catch (Exception err)
             {
                 //Console.WriteLine($"UserDAL, ReadSpecific(): {err.Message}");
                 connection.Close();
+                Console.WriteLine(err.Message);
                 throw new Exception("Could not fetch data.");
             }
             connection.Close();
@@ -83,24 +98,31 @@ namespace MTCG_SWEN1.DB.DAL
             {
                 connection.Open();
                 var command = connection.CreateCommand();
-                command.CommandText = $"SELECT u_id, u_username, u_password, u_coins, u_elo FROM {_tableName}";                
+                command.CommandText = $"SELECT * FROM {_tableName}";                
                 var reader = command.ExecuteReader();
+                string bio, image;
 
                 while (reader.Read())
                 {
-                    int userID = reader.GetInt32(0);
-                    string username = reader.GetString(1);
+                    Guid Id = Guid.Parse(reader[0].ToString());
+                    string name = reader.GetString(1);
                     string pwd = reader.GetString(2);
                     int coins = reader.GetInt32(3);
-                    
-                    /*if (reader.GetValue(4).ToString() != "")
-                    {
-                        var deckID = reader.GetInt32(4);
-
-                    }*/
                     int elo = reader.GetInt32(4);
+                    if (reader.GetValue(5).ToString() != "")
+                        bio = reader.GetString(5);
+                    else
+                        bio = "";
 
-                    users.Add(new User(userID, username, pwd, coins, elo));
+                    if (reader.GetValue(6).ToString() != "")
+                        image = reader.GetString(6);
+                    else
+                        image = "";                    
+                    int games = reader.GetInt32(7);
+                    int wins = reader.GetInt32(8);
+                    int losses = reader.GetInt32(9);
+
+                    users.Add(new User(Id, name, pwd, coins, elo, bio, image, games, wins, losses));
                 }
                 reader.Close();
             }
@@ -114,7 +136,7 @@ namespace MTCG_SWEN1.DB.DAL
             return users;
         }
 
-        public User GetUserByID(int id)
+        public User GetUserByID(Guid id)
         {
             NpgsqlConnection connection = DBConnection.Connect();
             User user = new();
@@ -124,20 +146,33 @@ namespace MTCG_SWEN1.DB.DAL
                 var command = connection.CreateCommand();
                 command.CommandText = $"SELECT * FROM {_tableName} WHERE u_id=@userId";
                 command.Parameters.AddWithValue("@userId", id);
-                var reader = command.ExecuteReader();
+                var reader = command.ExecuteReader();                
 
                 reader.Read();
-                user.Id = reader.GetInt32(0);
+                user.Id = Guid.Parse(reader[0].ToString());
                 user.Username = reader.GetString(1);
                 user.Password = reader.GetString(2);
-                user.Coins = reader.GetInt32(3);                
+                user.Coins = reader.GetInt32(3);
                 user.ELO = reader.GetInt32(4);
+                if (reader.GetValue(5).ToString() != "")
+                    user.Bio = reader.GetString(5);
+                else
+                    user.Bio = "";
+
+                if (reader.GetValue(6).ToString() != "")
+                    user.Image = reader.GetString(6);
+                else
+                    user.Image = "";
+                user.Games = reader.GetInt32(7);
+                user.Wins = reader.GetInt32(8);
+                user.Losses = reader.GetInt32(9);
                 reader.Close();
             }
-            catch (Exception)
+            catch (Exception err)
             {
                 //Console.WriteLine($"UserDAL, ReadSpecific(): {err.Message}");
                 connection.Close();
+                Console.WriteLine(err.Message);
                 throw new Exception("Could not fetch data.");
             }
             connection.Close();

@@ -9,8 +9,14 @@ namespace MTCG_SWEN1.DB.InterfacesCRUD
 {
     interface IDecks
     {
-        List<Card> GetDeckCards(int userID);
+        List<Card> GetDeckCards(int deckID);
 
-        void AddDeckCards(List<String> cards, int userID, string userName);
+        void CreateNewDeck(Guid userID);
+
+        int GetDeckID(Guid userID);
+
+        void AddDeckCards(List<Card> cards, Guid userID, int deckID);
+
+
     }
 }

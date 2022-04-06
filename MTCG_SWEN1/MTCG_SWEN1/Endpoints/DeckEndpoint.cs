@@ -54,7 +54,7 @@ namespace MTCG_SWEN1.Endpoints
                     _response.Body = "No deck for user existing.";
                     _response.Send();
                     return;
-                } 
+                }
             //}
             /*catch (Exception err)
             {
@@ -62,9 +62,17 @@ namespace MTCG_SWEN1.Endpoints
                 _response.StatusMessage = EHttpStatusMessages.NotFound404.GetDescription();
                 _response.Body = "Error for GET/deck";
             }*/
-
+            if (_request.EndpointParameters.ContainsKey("format"))
+            {
+                List<String> plainCardIDs = DeckService.ConvertToPlainOutput(cards);
+                json = JsonConvert.SerializeObject(plainCardIDs);
+                Console.WriteLine($"{DateTime.UtcNow}, Deck listed only IDs as string instead Guid.");
+                _response.SendWithHeaders(json, EHttpStatusMessages.OK200.GetDescription());
+                return;
+            }
+                
             json = JsonConvert.SerializeObject(cards);
-            Console.WriteLine($"{DateTime.UtcNow}, Deck successfully listed for user.");
+            Console.WriteLine($"{DateTime.UtcNow}, Deck with content successfully listed for user.");
             _response.SendWithHeaders(json, EHttpStatusMessages.OK200.GetDescription());
         }
 
@@ -87,8 +95,7 @@ namespace MTCG_SWEN1.Endpoints
 
         [Method("PUT")]
         public void DeckPut()
-        {
-            
+        {            
             List<String> cardIDs = new();
             
             try
@@ -111,16 +118,33 @@ namespace MTCG_SWEN1.Endpoints
 
                 SessionsDAL sessionTABLE = new();
                 string token = _request.Headers["Authorization"];
-                int userID = sessionTABLE.GetUserIDByToken(token);
+                Guid userID = sessionTABLE.GetUserIDByToken(token);
                 cardIDs = JsonConvert.DeserializeObject<List<String>>(_request.Body);
-
-                if (CardService.CheckIfUserOwnChosenCards(cardIDs, token))
-                    DeckService.AddDeck(userID, cardIDs);
+                List<Card> cards = DeckService.PrepareCards(cardIDs);
+                if(cards.Count != 4)
+                {
+                    _response.StatusMessage = EHttpStatusMessages.NotAcceptable406.GetDescription();
+                    _response.Body = "User needs to choose 4 cards.";
+                    _response.Send();
+                    return;
+                }
+                else if (CardService.CheckIfUserOwnChosenCards(cardIDs, token))
+                {
+                    DeckService.AddDeck(userID, cards);
+                }
                 else
                 {
-                    _response.StatusMessage = EHttpStatusMessages.NotFound404.GetDescription();
-                    _response.Body = "Not all cards are owned by user.";
-                    _response.Send();
+                    
+
+
+                    List<Card> cardsOld = DeckService.GetDeck(_request.Headers["Authorization"]);
+                    var json = JsonConvert.SerializeObject(cardsOld);
+                    Console.WriteLine($"{DateTime.UtcNow}, Not all cards are owned by user.");
+                    _response.SendWithHeaders(json, EHttpStatusMessages.NotFound404.GetDescription());
+
+                    //_response.StatusMessage = EHttpStatusMessages.NotFound404.GetDescription();
+                    //_response.Body = ".";
+                    //_response.Send();
                     return;
                 }
             }
@@ -129,7 +153,7 @@ namespace MTCG_SWEN1.Endpoints
                 Console.WriteLine(err.Message);
                 _response.StatusMessage = EHttpStatusMessages.BadRequest400.GetDescription();
                 _response.Body = "Error for PUT/deck.";
-            }
+            }            
 
             Console.WriteLine($"{DateTime.UtcNow}, Card added to users deck.");
             _response.StatusMessage = EHttpStatusMessages.OK200.GetDescription();

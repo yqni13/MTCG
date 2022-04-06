@@ -19,7 +19,7 @@ namespace MTCG_SWEN1.DB.DAL
         private readonly string _tableName = ETableNames.mtcg_cards.GetDescription();
         private readonly string _tableNameUSER = ETableNames.mtcg_users.GetDescription();
 
-        public void AddPackage(List<Card> cards, int id)
+        public void AddPackage(List<Card> cards)
         {
             NpgsqlConnection connection = DBConnection.Connect();
             try
@@ -30,11 +30,14 @@ namespace MTCG_SWEN1.DB.DAL
                 {
                     var command = connection.CreateCommand();
 
-                    command.CommandText = $"INSERT INTO {_tableName} (c_id, c_name, c_damage, c_user) VALUES (@id, @name, @damage, @user)";
+                    command.CommandText = $"INSERT INTO {_tableName} (c_id, c_name, c_damage, c_cardtype, c_elementtype, c_packagetimestamp) " +
+                        $"VALUES (@id, @name, @damage, @type, @element, @timestamp)";
                     command.Parameters.AddWithValue("@id", cards[i].ID);
                     command.Parameters.AddWithValue("@name", cards[i].Name);
                     command.Parameters.AddWithValue("@damage", cards[i].Damage);
-                    command.Parameters.AddWithValue("@user", id);
+                    command.Parameters.AddWithValue("@type", cards[i].CardType);
+                    command.Parameters.AddWithValue("@element", cards[i].ElementType);
+                    command.Parameters.AddWithValue("@timestamp", cards[i].PackageTimestamp);
                     command.ExecuteNonQuery();
                 }
                 transaction.Commit();
@@ -47,7 +50,7 @@ namespace MTCG_SWEN1.DB.DAL
             connection.Close();
         }
 
-        public void PurchasePackage(int userID, int adminID)
+        public void PurchasePackage(Guid userID)
         {
             List<Card> cards = new();
             //NpgsqlConnection connection = DBConnection.Connect();
@@ -64,28 +67,23 @@ namespace MTCG_SWEN1.DB.DAL
 
                     var command = connection.CreateCommand();
 
-                    command.CommandText = $"SELECT c_id, c_name, c_user, c_damage FROM {_tableName} WHERE c_user=@id";
-                    command.Parameters.AddWithValue("@id", adminID);
+                    //command.CommandText = $"SELECT c_packageid, c_packagetimestamp FROM {_tableName} WHERE c_packagetimestamp = (SELECT MIN(c_packagetimestamp) FROM {_tableName})";
+                    command.CommandText = $"SELECT c_id, c_packagetimestamp FROM {_tableName} WHERE c_stackuser IS NULL ORDER BY c_packagetimestamp FETCH FIRST 5 row only";
                     var reader = command.ExecuteReader();
 
                     while(reader.Read() && cards.Count != 5)
-                    {
-                        Guid cardID = Guid.Parse(reader[0].ToString());
-                        string cardName = reader.GetString(1);
-                        int Id = reader.GetInt32(2);
-                        double cardDamage = reader.GetInt32(3);
-                        //bool cardInDeck = reader.GetBoolean(4);
-                        //int cardType = reader.GetInt32(5);
-                        //int elementType = reader.GetInt32(6);
-                        //bool cardForTrade = reader.GetBoolean(7);
-                        cards.Add(new Card(cardID, cardName, Id, cardDamage));                    
+                    {                                                
+                        Guid cardid = Guid.Parse(reader[0].ToString());
+                        DateTime timestamp = (DateTime)reader.GetValue(1);
+                        
+                        cards.Add(new Card(cardid, timestamp));                    
                     }
                     reader.Close();
 
                     // 2. Update owner of 5 cards by changing to current user
                     //  => count if exactly 5 cards or not for exception                
 
-                        Console.WriteLine($"List of cards count to: {cards.Count}");
+                        
 
                     if (!PackageService.CheckForEnoughFreeCards(cards.Count))
                     {
@@ -102,11 +100,11 @@ namespace MTCG_SWEN1.DB.DAL
                     for (int i = 0; i < cards.Count; ++i)
                     {
                         var command = connection.CreateCommand();
-                        command.CommandText = $"UPDATE {_tableName} SET c_user=@id WHERE c_id=@cardId";
+                        command.CommandText = $"UPDATE {_tableName} SET c_stackuser=@id WHERE c_id=@card AND c_packagetimestamp=@timestamp ";
                         command.Parameters.AddWithValue("@id", userID);
-                        command.Parameters.AddWithValue("@cardId", cards[i].ID);
-                        Console.WriteLine($"userID: {userID}");
-                        Console.WriteLine($"cardID: {cards[i].ID}");
+                        command.Parameters.AddWithValue("@card", cards[i].ID);
+                        command.Parameters.AddWithValue("@timestamp", cards[i].PackageTimestamp);
+                        
                         command.ExecuteNonQuery();                   
                     }
                     connection.Close();
@@ -137,13 +135,9 @@ namespace MTCG_SWEN1.DB.DAL
             //connectionUsers.Close();
             //connection.Close();
         }
+                
 
-        public void UpdateUserCoins(int userID)
-        {
-
-        }
-
-        public List<Card> GetAllCardsOfUser(int id)
+        public List<Card> GetAllCardsOfUser(Guid id)
         {
             NpgsqlConnection connection = DBConnection.Connect();
             List<Card> cards = new();            
@@ -151,7 +145,7 @@ namespace MTCG_SWEN1.DB.DAL
             {                
                 connection.Open();
                 var command = connection.CreateCommand();
-                command.CommandText = $"SELECT c_id, c_name, c_user, c_damage FROM {_tableName} WHERE c_user=@userId";
+                command.CommandText = $"SELECT c_id, c_name, c_stackuser, c_damage, c_cardtype, c_elementtype FROM {_tableName} WHERE c_stackuser=@userId";
                 command.Parameters.AddWithValue("@userId", id);
                 var reader = command.ExecuteReader();
 
@@ -159,13 +153,12 @@ namespace MTCG_SWEN1.DB.DAL
                 {
                     Guid cardID = Guid.Parse(reader[0].ToString());
                     string cardName = reader.GetString(1);
-                    int Id = reader.GetInt32(2);
+                    Guid cardUser = Guid.Parse(reader[2].ToString());
                     double cardDamage = reader.GetInt32(3);
-                    //bool cardInDeck = reader.GetBoolean(4);
-                    //int cardType = reader.GetInt32(5);
-                    //int elementType = reader.GetInt32(6);
-                    //bool cardForTrade = reader.GetBoolean(7);
-                    cards.Add(new Card(cardID, cardName, Id, cardDamage));
+                    string type = reader.GetString(4);
+                    string element = reader.GetString(5);
+
+                    cards.Add(new Card(cardID, cardName, cardUser, cardDamage, type, element));
                 }
                 reader.Close();
             }
@@ -173,6 +166,38 @@ namespace MTCG_SWEN1.DB.DAL
             {
                 connection.Close();
                 Console.WriteLine($"CardDAL, GetAllCardsOfUser(): User does not own cards.");
+            }
+
+            connection.Close();
+            return cards;
+        }
+
+        public List<Card> GetMaxNumberOfCardsToPurchase()
+        {
+            NpgsqlConnection connection = DBConnection.Connect();            
+            List<Card> cards = new();
+            try
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandText = $"SELECT c_id FROM {_tableName} WHERE c_stackuser IS NULL";
+                
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Guid cardID = Guid.Parse(reader[0].ToString());                    
+
+                    cards.Add(new Card(cardID));
+                }
+                reader.Close();
+                
+            }
+            catch (Exception err) when (err.Message == "No row is available")
+            {
+                connection.Close();
+                Console.WriteLine($"CardDAL, GetAllCardsOfUser(): User does not own cards.");
+                return cards;
             }
 
             connection.Close();

@@ -9,13 +9,11 @@ namespace MTCG_SWEN1.DB.InterfacesCRUD
 {
     public interface ICards
     {
-        void AddPackage(List<Card> cards, int id);
+        void AddPackage(List<Card> cards);
 
-        void PurchasePackage(int userID, int adminID);
+        void PurchasePackage(Guid userID);
 
-        void UpdateUserCoins(int userID);
-
-        List<Card> GetAllCardsOfUser(int id);
+        List<Card> GetAllCardsOfUser(Guid id);
 
 
     }

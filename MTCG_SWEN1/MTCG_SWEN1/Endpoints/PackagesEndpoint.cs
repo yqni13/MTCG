@@ -55,28 +55,24 @@ namespace MTCG_SWEN1.Endpoints
                     return;
                 }
 
+                // Create new package.
                 if (_request.Headers["Authorization"] == "Basic admin-mtcgToken")
                 {
                     List<Card> cardList = new();
                     var cards = JsonConvert.DeserializeObject<List<Card>>(_request.Body);
-                    foreach(Card card in cards)
-                    {
-                        cardList.Add(new Card(card.ID, card.Name, card.Damage));
-                    }
 
-                    CardService.AddPackagesByAdmin(cardList);
+                    cardList = PackageService.PrepareNewPackage(cards);                
+                    PackageService.AddPackageToPurchase(cardList);
                 }
+                // Purchase package.
                 else
                 {
-                    string token = _request.Headers["Authorization"];
-                    
-                    //string username = token.Substring(token.LastIndexOf(" ") + 1, token.LastIndexOf("-")-6);                   
+                    string token = _request.Headers["Authorization"];                    
+                                     
                     user = StatsService.GetUserStats(token);
-                    CardsDAL cardTABLE = new();
-                    SessionsDAL sessionTABLE = new();
-                    var adminID = sessionTABLE.GetUserIDByToken("Basic admin-mtcgToken");
-                    Console.WriteLine(adminID);
-                    List<Card> cardsToPurchase = cardTABLE.GetAllCardsOfUser(adminID);
+                    CardsDAL cardTABLE = new();                                    
+                    List<Card> cardsToPurchase = cardTABLE.GetMaxNumberOfCardsToPurchase();
+                    Console.WriteLine($"card counter Endpoint: {cardsToPurchase.Count}");
 
                     if(cardsToPurchase.Count < 5)
                     {

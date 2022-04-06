@@ -10,8 +10,8 @@ namespace MTCG_SWEN1.BL.Models
     {
         public string Token { get; set; }
 
-        public int UID { get; set; }
+        public Guid User { get; set; }
 
-        public DateTime Timestamp { get; set; }
+        public DateTime Timestamp { get; set; }        
     }
 }
