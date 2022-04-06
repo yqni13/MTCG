@@ -41,7 +41,7 @@ namespace MTCG_SWEN1.Endpoints
                 UserDAL userTABLE = new();
                 SessionsDAL sessionTABLE = new();
                 User user = new();
-                userTABLE.ReadSpecific(credentials["Username"], user);
+                userTABLE.GetUserByUsername(credentials["Username"], user);
 
                 if(UserService.CheckIfSessionExisting(user, sessionTABLE))
                 {

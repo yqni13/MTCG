@@ -11,8 +11,8 @@ namespace MTCG_SWEN1.DB.InterfacesCRUD
     {
         List<User> ReadAll();
 
-        void ReadSpecific(string username, User user);
+        void GetUserByUsername(string username, User user);
 
-        User GetUserByID(int id);
+        User GetUserByID(Guid id);
     }
 }

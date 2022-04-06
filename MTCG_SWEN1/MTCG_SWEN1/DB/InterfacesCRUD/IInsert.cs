@@ -8,6 +8,6 @@ namespace MTCG_SWEN1.DB.InterfacesCRUD
 {
     public interface IInsert
     {
-        void Create(Dictionary<string, string> credentials);
+        void CreateUser(Dictionary<string, string> credentials);
     }
 }

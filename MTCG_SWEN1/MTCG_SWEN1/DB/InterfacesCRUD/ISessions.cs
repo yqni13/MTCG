@@ -8,8 +8,8 @@ namespace MTCG_SWEN1.DB.InterfacesCRUD
 {
     interface ISessions
     {
-        void AddSession(string token, int id);
+        void AddSession(string token, Guid id);
 
-        bool CheckExistingSession(int id);
+        bool CheckExistingSession(Guid id);
     }
 }

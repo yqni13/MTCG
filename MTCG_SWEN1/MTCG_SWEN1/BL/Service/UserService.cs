@@ -16,7 +16,7 @@ namespace MTCG_SWEN1.BL.Service
                 return false;
             
             UserDAL userTable = new();
-            userTable.Create(credentials);
+            userTable.CreateUser(credentials);
             return true;
         }
 
@@ -30,7 +30,7 @@ namespace MTCG_SWEN1.BL.Service
         {
             UserDAL userTABLE = new();
             User user = new();
-            userTABLE.ReadSpecific(username, user);
+            userTABLE.GetUserByUsername(username, user);
             if (user.Username == username)
                 return true;
 
@@ -51,7 +51,7 @@ namespace MTCG_SWEN1.BL.Service
             //if (sessionTABLE.GetUserIDByToken(token))
                 //return true;
 
-            if (sessionTABLE.GetUserIDByToken(token) != -1)
+            if (sessionTABLE.GetUserIDByToken(token) != Guid.Empty)
                 return true;
 
             return false;
@@ -70,11 +70,11 @@ namespace MTCG_SWEN1.BL.Service
             return $"Basic {user.Username}-mtcgToken";
         }
 
-        public static int GetUserID(string username)
+        public static Guid GetUserID(string username)
         {
             UserDAL userTABLE = new();
             User user = new();
-            userTABLE.ReadSpecific(username, user);
+            userTABLE.GetUserByUsername(username, user);
             return user.Id;
         }
     }

@@ -10,14 +10,18 @@ namespace MTCG_SWEN1.Models
     class Trading
     {
         public Guid ID { get; set; }
-        public User Username { get; set; }
-        public Card Card { get; set; }
+        public Guid User { get; set; }
+        public Guid Card { get; set; }
+        public int MinDamage { get; set; }
+        public string RequiredType { get; set; }
 
-        public Trading(Guid id, User user, Card card)
+        public Trading(Guid id, Guid user, Guid card, int minDmg, string requiredType)
         {
             ID = id;
-            Username = user;
+            User = user;
             Card = card;
+            MinDamage = minDmg;
+            RequiredType = requiredType;
         }
     }
 }

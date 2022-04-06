@@ -15,7 +15,7 @@ namespace MTCG_SWEN1.BL.Service
             //User user = new();
             SessionsDAL sessionTABLE = new();
             UserDAL userTABLE = new();
-            int id = sessionTABLE.GetUserIDByToken(token);
+            Guid id = sessionTABLE.GetUserIDByToken(token);
             
             return userTABLE.GetUserByID(id);
         }
