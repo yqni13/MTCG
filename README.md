@@ -20,7 +20,7 @@ Singleton pattern is used for starting the server.
 DB - script was created by using VisualStudio and Datagrip, Information from the internet and a lot of trial and error. The db itself runs on postgresql controlled by command line. For controlling the endpoints I used the Endpoint Attributes.
 
 ![db structure]
-(res/mtcg_db_visualize.png)
+<img alt="db_placeholder" src="res/mtcg_db_visualize.png">
 
 
 ##Unique Feature
