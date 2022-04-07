@@ -235,6 +235,35 @@ namespace MTCG_SWEN1.DB.DAL
             }
 
             return scoreboard;
-        } 
+        }
+        
+        public void UpdateBattleStats(List<User> battleUsers)
+        {
+            NpgsqlConnection connection = DBConnection.Connect();
+
+            try
+            {
+                connection.Open();
+                foreach (var user in battleUsers)
+                {
+                    var command = connection.CreateCommand();
+                    command.CommandText = $"UPDATE {_tableName} SET u_elo=@elo, u_games=@games, u_wins=@wins, u_losses=@losses WHERE u_id=@userID";
+                    command.Parameters.AddWithValue("@userID", user.Id);
+                    command.Parameters.AddWithValue("@elo", user.ELO);
+                    command.Parameters.AddWithValue("@games", user.Games);
+                    command.Parameters.AddWithValue("@wins", user.Wins);
+                    command.Parameters.AddWithValue("@losses", user.Losses);
+                    command.ExecuteNonQuery();
+                    command.Dispose();
+                }
+            }
+            catch (Exception err)
+            {
+                connection.Close();
+                throw new Exception($"Error adding deck cards for user: {err}");
+            }
+
+            connection.Close();
+        }
     }
 }

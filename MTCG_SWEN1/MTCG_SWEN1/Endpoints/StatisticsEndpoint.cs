@@ -28,6 +28,7 @@ namespace MTCG_SWEN1.Endpoints
         public void StatsGet()
         {
             User user = new();
+            Dictionary<string, string> statistics = new();
             try
             {
                 if (!_request.Headers.ContainsKey("Authorization"))
@@ -47,7 +48,7 @@ namespace MTCG_SWEN1.Endpoints
                 }
 
                 user = StatsService.GetUserStats(_request.Headers["Authorization"]);
-
+                statistics = StatsService.PrepareStatsDisplay(user);
             }
             catch (Exception err)
             {
@@ -56,13 +57,11 @@ namespace MTCG_SWEN1.Endpoints
                 _response.Body = "Error for GET/stats.";
             }
 
-            string json = JsonConvert.SerializeObject(user.ELO);
+            string json = JsonConvert.SerializeObject(statistics);
 
             Console.WriteLine($"{DateTime.UtcNow}, Statistics successfully listed for user.");
             _response.SendWithHeaders(json, EHttpStatusMessages.OK200.GetDescription());
-            //_response.StatusMessage = EHttpStatusMessages.OK200.GetDescription();
-            //_response.Body = "Demo content for /stats GET";
-            //_response.Send();
+            
         }
     }
 }

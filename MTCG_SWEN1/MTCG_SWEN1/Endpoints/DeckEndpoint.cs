@@ -29,8 +29,8 @@ namespace MTCG_SWEN1.Endpoints
         {
             List<Card> cards = new();
             string json;
-            //try
-            //{
+            try
+            {
                 if (!_request.Headers.ContainsKey("Authorization"))
                 {
                     _response.StatusMessage = EHttpStatusMessages.Unauthorized401.GetDescription();
@@ -55,13 +55,13 @@ namespace MTCG_SWEN1.Endpoints
                     _response.Send();
                     return;
                 }
-            //}
-            /*catch (Exception err)
+            }
+            catch (Exception err)
             {
                 Console.WriteLine(err.Message);
                 _response.StatusMessage = EHttpStatusMessages.NotFound404.GetDescription();
                 _response.Body = "Error for GET/deck";
-            }*/
+            }
             if (_request.EndpointParameters.ContainsKey("format"))
             {
                 List<String> plainCardIDs = DeckService.ConvertToPlainOutput(cards);

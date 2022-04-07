@@ -91,5 +91,13 @@ namespace MTCG_SWEN1.BL.Service
             SessionsDAL sessionTABLE = new();
             userTABLE.EditUser(userEdit, sessionTABLE.GetUserIDByToken(token));
         }
+
+        public static User GetUser(string token)
+        {
+            SessionsDAL sessionsTABLE = new();
+            UserDAL userTABLE = new();
+            Guid userID = sessionsTABLE.GetUserIDByToken(token);
+            return userTABLE.GetUserByID(userID);
+        }
     }
 }

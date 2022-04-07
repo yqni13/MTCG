@@ -163,7 +163,7 @@ echo altenhof
 curl -X GET http://localhost:10001/deck?format=plain --header "Authorization: Basic altenhof-mtcgToken"
 echo.
 echo.
-ping localhost -n 10 >NUL 2>NUL
+
 REM --------------------------------------------------
 echo 14) edit user data
 echo.
@@ -211,7 +211,7 @@ REM --------------------------------------------------
 echo 17) battle
 start /b "kienboec battle" curl -X POST http://localhost:10001/battles --header "Authorization: Basic kienboec-mtcgToken"
 start /b "altenhof battle" curl -X POST http://localhost:10001/battles --header "Authorization: Basic altenhof-mtcgToken"
-ping localhost -n 10 >NUL 2>NUL
+ping localhost -n 2 >NUL 2>NUL
 
 REM --------------------------------------------------
 echo 18) Stats 

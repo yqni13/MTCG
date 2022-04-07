@@ -46,7 +46,7 @@ namespace MTCG_SWEN1.Models.Cards
         }
 
 
-        public Card(Guid id, string name, double damage, string element, string type, DateTime timestamp)
+        public Card(Guid id, string name, double damage, string type, string element, DateTime timestamp)
         {
             ID = id;
             Name = name;
