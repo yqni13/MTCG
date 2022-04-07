@@ -10,6 +10,7 @@ https://github.com/yqni13/MTCG
 ##Technical steps
 
 #Designs
+Project coded in C#. Using TCP-Communication like in example from study courses. 
 The system uses the combination of Data Access Layer (db access and operations), Business Layer via models, services and endpoints as well as a Presentation Layer (gateways for server connection and communication). Standard exceptions and serialization are implemented too.
 
 #Failures
@@ -35,7 +36,7 @@ As a unique feature, after battle the regarding BattleLog will be saved into a .
 06 Unit-Tests for testing the UserLogic
 
 Unit-Tests have been implemented by using the NUnit Framework.
-The integration was focused on testing the battle logic because of the many conditions to change the damage calculation. Furthermore a few Asserts to check for exceptions while communicating with the database were tested. Additionally operations for registration and login of users are checked to get the correct results or exceptions.
+The integration was focused on testing the battle logic because of the many conditions to change the damage calculation. Furthermore a few Asserts to check for exceptions while communicating with the database were tested. Additionally operations for registration and login of users are checked to get the correct results or exceptions. The difference to working with the curl script is more precise results to expect and hint what to debug. Mostly preferred working with the Postman which is the most important tool for debugging.
 
 
 ##Leasons learned
