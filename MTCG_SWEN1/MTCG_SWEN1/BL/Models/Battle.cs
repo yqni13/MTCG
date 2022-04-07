@@ -33,8 +33,7 @@ namespace MTCG_SWEN1.BL.Models
         public BattleStatus Result { get; set; }
         public List<String> BattleLog { get; set; } = new();
         public Boolean BattleStillRunning { get; set; } = false;
-        public int Roundnumber { get; set; } = 1;
-        
+        public int Roundnumber { get; set; } = 1;        
         
 
         private readonly int _maxRoundsOfBattle = 100;
@@ -66,8 +65,14 @@ namespace MTCG_SWEN1.BL.Models
             
             var result = ExecuteBattle();
             if (result == "roundlimit")
-                Console.WriteLine("Battle ended because of round limit and has no end result.");
+            {
+                BattleService.UpdatesUserStatsAfterDraw(User1, User2);
+                LogText = $"LOG|{DateTime.Now}, END OF BATTLE WITHOUT RESULT {User1.Username}: {UserDeck1.Count} vs {User2.Username}: {UserDeck2.Count}";
+                BattleLog.Add(LogText);
+                Console.WriteLine(LogText);               
+            }
 
+            UniqueFeatureLOG.GetLogAsTXT(BattleLog);
         }
 
         public string ExecuteBattle()
@@ -83,11 +88,15 @@ namespace MTCG_SWEN1.BL.Models
                 foreach (var card in UserDeck2)
                     Console.WriteLine($"card2: {card.Name}");*/
 
-                Console.WriteLine($"LOG|{DateTime.Now}, NUMBER OF CARDS IN DECK {User1.Username}: {UserDeck1.Count} vs {User2.Username}: {UserDeck2.Count}");
+                LogText = $"LOG|{DateTime.Now}, NUMBER OF CARDS IN DECK {User1.Username}: {UserDeck1.Count} vs {User2.Username}: {UserDeck2.Count}";
+                BattleLog.Add(LogText);
+                Console.WriteLine(LogText);
                 HandleCardVsCard(uCard1, uCard2);
                 /*if (i != 77)
                 {
-                    Console.WriteLine($"LOG|{DateTime.Now}, NUMBER OF CARDS IN DECK {User1.Username}: {UserDeck1.Count} vs {User2.Username}: {UserDeck2.Count}");
+                    LogText = $"LOG|{DateTime.Now}, NUMBER OF CARDS IN DECK {User1.Username}: {UserDeck1.Count} vs {User2.Username}: {UserDeck2.Count}";
+                    BattleLog.Add(LogText);
+                    Console.WriteLine(LogText);
                     HandleCardVsCard(uCard1, uCard2);
                     count1 = UserDeck1.Count;
                 }
@@ -96,7 +105,7 @@ namespace MTCG_SWEN1.BL.Models
 
                 if (UserDeck1.Count/*count1*/ < 1)
                 {
-                    BattleService.HandleUserStatsAfterWin(User2, User1);
+                    BattleService.UpdatesUserStatsAfterWin(User2, User1);
                     LogText = $"\nLOG|{DateTime.Now}, Battle {User1.Username} vs {User2.Username} was won by {User2.Username.ToUpper()}.\n---------END OF BATTLE---------";
                     BattleLog.Add(LogText);
                     Console.WriteLine(LogText);
@@ -104,7 +113,7 @@ namespace MTCG_SWEN1.BL.Models
                 }
                 else if (UserDeck2.Count < 1)
                 {
-                    BattleService.HandleUserStatsAfterWin(User1, User2);
+                    BattleService.UpdatesUserStatsAfterWin(User1, User2);
                     LogText = $"\nLOG|{DateTime.Now}, Battle {User1.Username} vs {User2.Username} was won by {User1.Username.ToUpper()}.\n---------END OF BATTLE---------";
                     BattleLog.Add(LogText);
                     Console.WriteLine(LogText);
@@ -112,8 +121,8 @@ namespace MTCG_SWEN1.BL.Models
                 }
                 else if (UserDeck1.Count < 1 && UserDeck1.Count < 1)
                 {
-                    BattleService.HandleUserStatsAfterDraw(User1, User2);
-                    LogText = $"\nLOG|{DateTime.Now}, Battle {User1.Username} vs {User2.Username} ended in draw because of battle round limit (100 rounds) between.\n---------END OF BATTLE---------";
+                    BattleService.UpdatesUserStatsAfterDraw(User1, User2);
+                    LogText = $"\nLOG|{DateTime.Now}, Battle {User1.Username} vs {User2.Username} ended in draw because of error.\n---------END OF BATTLE---------";
                     BattleLog.Add(LogText);
                     Console.WriteLine(LogText);
                     return "draw";
@@ -121,7 +130,10 @@ namespace MTCG_SWEN1.BL.Models
                 else
                 {
                     ++Roundnumber;
-                    LogText = $"LOG|{DateTime.Now}, Continue BattleRound: {Roundnumber}.\n";
+                    if(Roundnumber == _maxRoundsOfBattle)
+                        LogText = $"LOG|{DateTime.Now}, last BattleRound: {Roundnumber}.\n";
+                    else
+                        LogText = $"LOG|{DateTime.Now}, Continue BattleRound: {Roundnumber}.\n";
                     BattleLog.Add(LogText);
                     Console.WriteLine(LogText);
                 }
@@ -141,114 +153,14 @@ namespace MTCG_SWEN1.BL.Models
             Console.WriteLine(LogText);
 
             // Catch scenario of fight.
-            if (uCard1.CardType == "Spell" && uCard2.CardType == "Spell")
-            {
-                if (uCard1.ElementType == "Regular" && uCard2.ElementType == "Water" ||
-                    uCard1.ElementType == "Water" && uCard2.ElementType == "Fire" ||
-                    uCard1.ElementType == "Fire" && uCard2.ElementType == "Regular")
-                {
-                    dmgCard1 *= 2;
-                    dmgCard2 /= 2;
-                }
-                else if (uCard1.ElementType == "Water" && uCard2.ElementType == "Regular" ||
-                         uCard1.ElementType == "Fire" && uCard2.ElementType == "Water" ||
-                         uCard1.ElementType == "Regular" && uCard2.ElementType == "Fire")
-                {
-                    dmgCard1 /= 2;
-                    dmgCard2 *= 2;
-                }                
-                else
-                {                   
-                    dmgCard1 -= uCard2.Damage;
-                    dmgCard2 -= uCard1.Damage;
-                }
+            List<double> calculatedDamage = BattleService.CalculateDamage(uCard1, uCard2);
+            dmgCard1 = calculatedDamage[0];
+            dmgCard2 = calculatedDamage[1];
 
-            }
-            // No impact from spell effects in fight between monsters, only history effect.
-            else if (uCard1.CardType == "Monster" && uCard2.CardType == "Monster")
-            {
-                if (uCard1.Name.Contains("Goblin") && uCard2.Name.Contains("Dragon"))
-                    dmgCard1 = 0.0;
-                else if (uCard1.Name.Contains("Dragon") && uCard2.Name.Contains("Goblin"))
-                    dmgCard2 = 0.0;
-                else if (uCard1.Name.Contains("Ork") && uCard2.Name.Contains("Wizzard"))
-                    dmgCard1 = 0.0;
-                else if (uCard1.Name.Contains("Wizzard") && uCard2.Name.Contains("Ork"))
-                    dmgCard2 = 0.0;
-                else if (uCard1.Name.Contains("FireElve") && uCard2.Name.Contains("Dragon"))
-                    dmgCard2 = 0.0;
-                else if (uCard1.Name.Contains("Dragon") && uCard2.Name.Contains("FireElve"))
-                    dmgCard1 = 0.0;
-                else
-                {                    
-                    dmgCard1 -= (double)uCard2.Damage;
-                    dmgCard2 -= (double)uCard1.Damage;
-                }
-
-            }
-            else if (uCard1.CardType == "Monster" && uCard2.CardType == "Spell")
-            {
-                if (uCard1.Name.Contains("Kraken"))
-                    dmgCard2 = 0.0;
-                else if (uCard1.Name.Contains("Knight") && (uCard2.CardType == "Spell" && uCard2.ElementType == "Water"))
-                    dmgCard1 = 0.0;
-                else if (uCard1.ElementType == "Regular" && uCard2.ElementType == "Water" ||
-                         uCard1.ElementType == "Water" && uCard2.ElementType == "Fire" ||
-                         uCard1.ElementType == "Fire" && uCard2.ElementType == "Regular")
-                {
-                    dmgCard1 *= 2;
-                    dmgCard2 /= 2;
-                }
-                else if (uCard1.ElementType == "Water" && uCard2.ElementType == "Regular" ||
-                         uCard1.ElementType == "Fire" && uCard2.ElementType == "Water" ||
-                         uCard1.ElementType == "Regular" && uCard2.ElementType == "Fire")
-                {
-                    dmgCard1 /= 2;
-                    dmgCard2 *= 2;
-                }
-                else
-                {                    
-                    dmgCard1 -= (double)uCard2.Damage;
-                    dmgCard2 -= (double)uCard1.Damage;
-                }
-            }
-            else if (uCard1.CardType == "Spell" && uCard2.CardType == "Monster")
-            {
-                if (uCard2.Name.Contains("Kraken"))
-                    dmgCard1 = 0.0;
-                else if ((uCard1.CardType == "Spell" && uCard1.ElementType == "Water") && uCard2.Name.Contains("Knight"))
-                    dmgCard2 = 0.0;
-                else if (uCard1.ElementType == "Regular" && uCard2.ElementType == "Water" ||
-                         uCard1.ElementType == "Water" && uCard2.ElementType == "Fire"  ||
-                         uCard1.ElementType == "Fire" && uCard2.ElementType == "Regular")
-                {
-                    dmgCard1 *= 2;
-                    dmgCard2 /= 2;
-                }
-                else if (uCard1.ElementType == "Water" && uCard2.ElementType == "Regular" ||
-                         uCard1.ElementType == "Fire" && uCard2.ElementType == "Water" ||
-                         uCard1.ElementType == "Regular" && uCard2.ElementType == "Fire")
-                {
-                    dmgCard1 /= 2;
-                    dmgCard2 *= 2;
-                }
-                else
-                {                    
-                    dmgCard1 -= (double)uCard2.Damage;
-                    dmgCard2 -= (double)uCard1.Damage;
-                }
-            }
-            else
-            {
-                dmgCard1 -= (double)uCard2.Damage;
-                dmgCard2 -= (double)uCard1.Damage;
-
-                LogText = $"LOG|{DateTime.Now}, Ghost cards are fighting - {uCard1.Name}[dmg:{dmgCard1}] vs {uCard2.Name}[dmg:{dmgCard2}].";
-                BattleLog.Add(LogText);
-                Console.WriteLine(LogText);
-            }
-
-            Console.WriteLine($"LOG|{DateTime.Now}, Actual damage: dmg1({dmgCard1}) vs dmg2({dmgCard2})");
+            // Check if rules for calculation of damage are correct.
+            LogText = $"LOG|{DateTime.Now}, Actual damage: dmg1({dmgCard1}) vs dmg2({dmgCard2})";
+            BattleLog.Add(LogText);
+            Console.WriteLine(LogText);
 
             if (dmgCard1 < dmgCard2)
             {

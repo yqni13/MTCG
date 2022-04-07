@@ -10,8 +10,7 @@ namespace MTCG_SWEN1.Endpoints.Attributes
     [AttributeUsage(AttributeTargets.Class)]
     class EndpointAttribute : Attribute
     {
-        private string _path;
-
+        
         public string Path { get; set; }
 
         public EndpointAttribute(string path)

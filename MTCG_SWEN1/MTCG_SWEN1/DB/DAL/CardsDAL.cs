@@ -44,8 +44,8 @@ namespace MTCG_SWEN1.DB.DAL
             }
             catch (Exception err)
             {
-                connection.Close();
-                throw new Exception($"Error adding package of cards: {err.Message}");
+                connection.Close();                
+                throw new Exception($"Error adding package of cards: {err}");
             }
             connection.Close();
         }

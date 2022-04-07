@@ -51,5 +51,7 @@ namespace MTCG_SWEN1.Models
             Wins = wins;
             Losses = losses;
         }
+
+        
     }
 }

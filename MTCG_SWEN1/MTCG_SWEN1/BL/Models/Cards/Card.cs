@@ -56,7 +56,12 @@ namespace MTCG_SWEN1.Models.Cards
             PackageTimestamp = timestamp;
         }
             
-
+        public Card(Guid id, string name, double damage)
+        {
+            ID = id;
+            Name = name;
+            Damage = damage;
+        }
         /*public EElementType GetElementType()
         {
             var elementNames = Enum.GetNames(typeof(EElementType));

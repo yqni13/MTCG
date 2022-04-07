@@ -10,8 +10,7 @@ namespace MTCG_SWEN1.Endpoints.Attributes
     [AttributeUsage(AttributeTargets.Method)]
     class MethodAttribute : Attribute
     {
-        private string _method;
-
+       
         public string Method { get; set; }
 
         public MethodAttribute(string method)

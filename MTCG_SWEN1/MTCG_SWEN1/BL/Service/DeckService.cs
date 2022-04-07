@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MTCG_SWEN1.BL.Service
 {
-    class DeckService
+    public class DeckService
     {
         public static List<Card> GetDeck(string token)
         {

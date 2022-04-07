@@ -1,0 +1,597 @@
+LOG|07.04.2022 16:58:05, Battle kienboec vs altenhof starts, BattleRound: 1.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 4 vs altenhof: 4
+LOG|07.04.2022 16:58:05, kienboec uses WaterGoblin[damage:10] vs WaterSpell[damage:22] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(10) vs dmg2(22)
+LOG|07.04.2022 16:58:05, Card WaterSpell from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 2.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 3 vs altenhof: 5
+LOG|07.04.2022 16:58:05, kienboec uses RegularSpell[damage:28] vs WaterSpell[damage:22] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(56) vs dmg2(11)
+LOG|07.04.2022 16:58:05, Card RegularSpell from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 3.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 4 vs altenhof: 4
+LOG|07.04.2022 16:58:05, kienboec uses Dragon[damage:50] vs RegularSpell[damage:45] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(50) vs dmg2(45)
+LOG|07.04.2022 16:58:05, Card Dragon from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 4.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 5 vs altenhof: 3
+LOG|07.04.2022 16:58:05, kienboec uses WaterSpell[damage:20] vs Knight[damage:20] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(20) vs dmg2(0)
+LOG|07.04.2022 16:58:05, Card WaterSpell from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 5.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 6 vs altenhof: 2
+LOG|07.04.2022 16:58:05, kienboec uses Dragon[damage:50] vs RegularSpell[damage:50] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(50) vs dmg2(50)
+LOG|07.04.2022 16:58:05, This round ends in a draw.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 6.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 6 vs altenhof: 2
+LOG|07.04.2022 16:58:05, kienboec uses Dragon[damage:50] vs RegularSpell[damage:50] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(50) vs dmg2(50)
+LOG|07.04.2022 16:58:05, This round ends in a draw.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 7.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 6 vs altenhof: 2
+LOG|07.04.2022 16:58:05, kienboec uses Dragon[damage:50] vs RegularSpell[damage:50] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(50) vs dmg2(50)
+LOG|07.04.2022 16:58:05, This round ends in a draw.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 8.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 6 vs altenhof: 2
+LOG|07.04.2022 16:58:05, kienboec uses WaterSpell[damage:22] vs RegularSpell[damage:50] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(11) vs dmg2(100)
+LOG|07.04.2022 16:58:05, Card RegularSpell from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 9.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 5 vs altenhof: 3
+LOG|07.04.2022 16:58:05, kienboec uses WaterSpell[damage:20] vs WaterGoblin[damage:10] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(20) vs dmg2(10)
+LOG|07.04.2022 16:58:05, Card WaterSpell from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 10.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 6 vs altenhof: 2
+LOG|07.04.2022 16:58:05, kienboec uses RegularSpell[damage:45] vs RegularSpell[damage:50] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(45) vs dmg2(50)
+LOG|07.04.2022 16:58:05, Card RegularSpell from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 11.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 5 vs altenhof: 3
+LOG|07.04.2022 16:58:05, kienboec uses Knight[damage:20] vs WaterSpell[damage:22] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(0) vs dmg2(22)
+LOG|07.04.2022 16:58:05, Card WaterSpell from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 12.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 4 vs altenhof: 4
+LOG|07.04.2022 16:58:05, kienboec uses WaterGoblin[damage:10] vs Knight[damage:20] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(10) vs dmg2(20)
+LOG|07.04.2022 16:58:05, Card Knight from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 13.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 3 vs altenhof: 5
+LOG|07.04.2022 16:58:05, kienboec uses RegularSpell[damage:28] vs WaterSpell[damage:22] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(56) vs dmg2(11)
+LOG|07.04.2022 16:58:05, Card RegularSpell from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 14.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 4 vs altenhof: 4
+LOG|07.04.2022 16:58:05, kienboec uses WaterSpell[damage:20] vs WaterGoblin[damage:10] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(20) vs dmg2(10)
+LOG|07.04.2022 16:58:05, Card WaterSpell from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 15.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 5 vs altenhof: 3
+LOG|07.04.2022 16:58:05, kienboec uses WaterGoblin[damage:10] vs Knight[damage:20] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(10) vs dmg2(20)
+LOG|07.04.2022 16:58:05, Card Knight from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 16.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 4 vs altenhof: 4
+LOG|07.04.2022 16:58:05, kienboec uses WaterSpell[damage:20] vs Knight[damage:20] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(20) vs dmg2(0)
+LOG|07.04.2022 16:58:05, Card WaterSpell from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 17.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 5 vs altenhof: 3
+LOG|07.04.2022 16:58:05, kienboec uses Knight[damage:20] vs RegularSpell[damage:45] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(20) vs dmg2(45)
+LOG|07.04.2022 16:58:05, Card RegularSpell from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 18.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 4 vs altenhof: 4
+LOG|07.04.2022 16:58:05, kienboec uses WaterSpell[damage:20] vs RegularSpell[damage:50] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(10) vs dmg2(100)
+LOG|07.04.2022 16:58:05, Card RegularSpell from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 19.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 3 vs altenhof: 5
+LOG|07.04.2022 16:58:05, kienboec uses WaterSpell[damage:22] vs Knight[damage:20] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(22) vs dmg2(0)
+LOG|07.04.2022 16:58:05, Card WaterSpell from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 20.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 4 vs altenhof: 4
+LOG|07.04.2022 16:58:05, kienboec uses WaterSpell[damage:22] vs WaterGoblin[damage:10] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(22) vs dmg2(10)
+LOG|07.04.2022 16:58:05, Card WaterSpell from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 21.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 5 vs altenhof: 3
+LOG|07.04.2022 16:58:05, kienboec uses WaterGoblin[damage:10] vs WaterSpell[damage:20] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(10) vs dmg2(20)
+LOG|07.04.2022 16:58:05, Card WaterSpell from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 22.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 4 vs altenhof: 4
+LOG|07.04.2022 16:58:05, kienboec uses Knight[damage:20] vs WaterGoblin[damage:10] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(20) vs dmg2(10)
+LOG|07.04.2022 16:58:05, Card Knight from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 23.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 5 vs altenhof: 3
+LOG|07.04.2022 16:58:05, kienboec uses Dragon[damage:50] vs WaterSpell[damage:20] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(100) vs dmg2(10)
+LOG|07.04.2022 16:58:05, Card Dragon from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 24.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 6 vs altenhof: 2
+LOG|07.04.2022 16:58:05, kienboec uses Dragon[damage:50] vs RegularSpell[damage:45] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(50) vs dmg2(45)
+LOG|07.04.2022 16:58:05, Card Dragon from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 25.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 7 vs altenhof: 1
+LOG|07.04.2022 16:58:05, kienboec uses WaterSpell[damage:20] vs RegularSpell[damage:50] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(10) vs dmg2(100)
+LOG|07.04.2022 16:58:05, Card RegularSpell from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 26.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 6 vs altenhof: 2
+LOG|07.04.2022 16:58:05, kienboec uses RegularSpell[damage:45] vs RegularSpell[damage:50] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(45) vs dmg2(50)
+LOG|07.04.2022 16:58:05, Card RegularSpell from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 27.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 5 vs altenhof: 3
+LOG|07.04.2022 16:58:05, kienboec uses RegularSpell[damage:28] vs RegularSpell[damage:50] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(28) vs dmg2(50)
+LOG|07.04.2022 16:58:05, Card RegularSpell from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 28.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 4 vs altenhof: 4
+LOG|07.04.2022 16:58:05, kienboec uses WaterGoblin[damage:10] vs WaterSpell[damage:20] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(10) vs dmg2(20)
+LOG|07.04.2022 16:58:05, Card WaterSpell from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 29.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 3 vs altenhof: 5
+LOG|07.04.2022 16:58:05, kienboec uses Knight[damage:20] vs WaterGoblin[damage:10] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(20) vs dmg2(10)
+LOG|07.04.2022 16:58:05, Card Knight from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 30.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 4 vs altenhof: 4
+LOG|07.04.2022 16:58:05, kienboec uses WaterSpell[damage:22] vs RegularSpell[damage:45] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(11) vs dmg2(90)
+LOG|07.04.2022 16:58:05, Card RegularSpell from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 31.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 3 vs altenhof: 5
+LOG|07.04.2022 16:58:05, kienboec uses Dragon[damage:50] vs WaterSpell[damage:20] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(100) vs dmg2(10)
+LOG|07.04.2022 16:58:05, Card Dragon from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 32.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 4 vs altenhof: 4
+LOG|07.04.2022 16:58:05, kienboec uses Knight[damage:20] vs WaterSpell[damage:22] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(0) vs dmg2(22)
+LOG|07.04.2022 16:58:05, Card WaterSpell from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 33.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 3 vs altenhof: 5
+LOG|07.04.2022 16:58:05, kienboec uses WaterGoblin[damage:10] vs RegularSpell[damage:45] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(5) vs dmg2(90)
+LOG|07.04.2022 16:58:05, Card RegularSpell from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 34.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 2 vs altenhof: 6
+LOG|07.04.2022 16:58:05, kienboec uses Dragon[damage:50] vs RegularSpell[damage:45] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(50) vs dmg2(45)
+LOG|07.04.2022 16:58:05, Card Dragon from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 35.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 3 vs altenhof: 5
+LOG|07.04.2022 16:58:05, kienboec uses WaterSpell[damage:20] vs RegularSpell[damage:50] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(10) vs dmg2(100)
+LOG|07.04.2022 16:58:05, Card RegularSpell from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 36.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 2 vs altenhof: 6
+LOG|07.04.2022 16:58:05, kienboec uses RegularSpell[damage:45] vs WaterSpell[damage:22] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(90) vs dmg2(11)
+LOG|07.04.2022 16:58:05, Card RegularSpell from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 37.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 3 vs altenhof: 5
+LOG|07.04.2022 16:58:05, kienboec uses WaterSpell[damage:22] vs WaterGoblin[damage:10] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(22) vs dmg2(10)
+LOG|07.04.2022 16:58:05, Card WaterSpell from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 38.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 4 vs altenhof: 4
+LOG|07.04.2022 16:58:05, kienboec uses RegularSpell[damage:45] vs Knight[damage:20] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(45) vs dmg2(20)
+LOG|07.04.2022 16:58:05, Card RegularSpell from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 39.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 5 vs altenhof: 3
+LOG|07.04.2022 16:58:05, kienboec uses RegularSpell[damage:45] vs RegularSpell[damage:28] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(45) vs dmg2(28)
+LOG|07.04.2022 16:58:05, Card RegularSpell from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 40.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 6 vs altenhof: 2
+LOG|07.04.2022 16:58:05, kienboec uses WaterSpell[damage:22] vs WaterSpell[damage:20] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(22) vs dmg2(20)
+LOG|07.04.2022 16:58:05, Card WaterSpell from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 41.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 7 vs altenhof: 1
+LOG|07.04.2022 16:58:05, kienboec uses Dragon[damage:50] vs RegularSpell[damage:50] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(50) vs dmg2(50)
+LOG|07.04.2022 16:58:05, This round ends in a draw.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 42.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 7 vs altenhof: 1
+LOG|07.04.2022 16:58:05, kienboec uses Knight[damage:20] vs RegularSpell[damage:50] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(20) vs dmg2(50)
+LOG|07.04.2022 16:58:05, Card RegularSpell from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 43.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 6 vs altenhof: 2
+LOG|07.04.2022 16:58:05, kienboec uses RegularSpell[damage:28] vs RegularSpell[damage:50] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(28) vs dmg2(50)
+LOG|07.04.2022 16:58:05, Card RegularSpell from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 44.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 5 vs altenhof: 3
+LOG|07.04.2022 16:58:05, kienboec uses Dragon[damage:50] vs RegularSpell[damage:28] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(50) vs dmg2(28)
+LOG|07.04.2022 16:58:05, Card Dragon from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 45.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 6 vs altenhof: 2
+LOG|07.04.2022 16:58:05, kienboec uses WaterGoblin[damage:10] vs Knight[damage:20] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(10) vs dmg2(20)
+LOG|07.04.2022 16:58:05, Card Knight from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 46.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 5 vs altenhof: 3
+LOG|07.04.2022 16:58:05, kienboec uses Dragon[damage:50] vs WaterGoblin[damage:10] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(50) vs dmg2(0)
+LOG|07.04.2022 16:58:05, Card Dragon from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 47.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 6 vs altenhof: 2
+LOG|07.04.2022 16:58:05, kienboec uses WaterGoblin[damage:10] vs Knight[damage:20] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(10) vs dmg2(20)
+LOG|07.04.2022 16:58:05, Card Knight from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 48.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 5 vs altenhof: 3
+LOG|07.04.2022 16:58:05, kienboec uses Dragon[damage:50] vs RegularSpell[damage:50] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(50) vs dmg2(50)
+LOG|07.04.2022 16:58:05, This round ends in a draw.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 49.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 5 vs altenhof: 3
+LOG|07.04.2022 16:58:05, kienboec uses RegularSpell[damage:45] vs WaterGoblin[damage:10] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(90) vs dmg2(5)
+LOG|07.04.2022 16:58:05, Card RegularSpell from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 50.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 6 vs altenhof: 2
+LOG|07.04.2022 16:58:05, kienboec uses RegularSpell[damage:45] vs Knight[damage:20] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(45) vs dmg2(20)
+LOG|07.04.2022 16:58:05, Card RegularSpell from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 51.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 7 vs altenhof: 1
+LOG|07.04.2022 16:58:05, kienboec uses WaterSpell[damage:22] vs RegularSpell[damage:50] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(11) vs dmg2(100)
+LOG|07.04.2022 16:58:05, Card RegularSpell from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 52.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 6 vs altenhof: 2
+LOG|07.04.2022 16:58:05, kienboec uses WaterGoblin[damage:10] vs RegularSpell[damage:50] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(5) vs dmg2(100)
+LOG|07.04.2022 16:58:05, Card RegularSpell from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 53.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 5 vs altenhof: 3
+LOG|07.04.2022 16:58:05, kienboec uses RegularSpell[damage:45] vs RegularSpell[damage:50] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(45) vs dmg2(50)
+LOG|07.04.2022 16:58:05, Card RegularSpell from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 54.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 4 vs altenhof: 4
+LOG|07.04.2022 16:58:05, kienboec uses Dragon[damage:50] vs RegularSpell[damage:50] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(50) vs dmg2(50)
+LOG|07.04.2022 16:58:05, This round ends in a draw.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 55.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 4 vs altenhof: 4
+LOG|07.04.2022 16:58:05, kienboec uses WaterSpell[damage:20] vs RegularSpell[damage:45] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(10) vs dmg2(90)
+LOG|07.04.2022 16:58:05, Card RegularSpell from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 56.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 3 vs altenhof: 5
+LOG|07.04.2022 16:58:05, kienboec uses Knight[damage:20] vs WaterSpell[damage:20] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(0) vs dmg2(20)
+LOG|07.04.2022 16:58:05, Card WaterSpell from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 57.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 2 vs altenhof: 6
+LOG|07.04.2022 16:58:05, kienboec uses Dragon[damage:50] vs WaterSpell[damage:22] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(100) vs dmg2(11)
+LOG|07.04.2022 16:58:05, Card Dragon from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 58.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 3 vs altenhof: 5
+LOG|07.04.2022 16:58:05, kienboec uses Dragon[damage:50] vs RegularSpell[damage:45] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(50) vs dmg2(45)
+LOG|07.04.2022 16:58:05, Card Dragon from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 59.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 4 vs altenhof: 4
+LOG|07.04.2022 16:58:05, kienboec uses RegularSpell[damage:28] vs WaterSpell[damage:20] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(56) vs dmg2(10)
+LOG|07.04.2022 16:58:05, Card RegularSpell from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 60.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 5 vs altenhof: 3
+LOG|07.04.2022 16:58:05, kienboec uses Dragon[damage:50] vs RegularSpell[damage:50] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(50) vs dmg2(50)
+LOG|07.04.2022 16:58:05, This round ends in a draw.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 61.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 5 vs altenhof: 3
+LOG|07.04.2022 16:58:05, kienboec uses WaterSpell[damage:20] vs RegularSpell[damage:50] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(10) vs dmg2(100)
+LOG|07.04.2022 16:58:05, Card RegularSpell from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 62.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 4 vs altenhof: 4
+LOG|07.04.2022 16:58:05, kienboec uses RegularSpell[damage:28] vs WaterGoblin[damage:10] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(56) vs dmg2(5)
+LOG|07.04.2022 16:58:05, Card RegularSpell from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 63.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 5 vs altenhof: 3
+LOG|07.04.2022 16:58:05, kienboec uses RegularSpell[damage:45] vs WaterSpell[damage:20] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(90) vs dmg2(10)
+LOG|07.04.2022 16:58:05, Card RegularSpell from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 64.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 6 vs altenhof: 2
+LOG|07.04.2022 16:58:05, kienboec uses RegularSpell[damage:28] vs Knight[damage:20] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(28) vs dmg2(20)
+LOG|07.04.2022 16:58:05, Card RegularSpell from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 65.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 7 vs altenhof: 1
+LOG|07.04.2022 16:58:05, kienboec uses WaterSpell[damage:22] vs RegularSpell[damage:50] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(11) vs dmg2(100)
+LOG|07.04.2022 16:58:05, Card RegularSpell from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 66.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 6 vs altenhof: 2
+LOG|07.04.2022 16:58:05, kienboec uses Dragon[damage:50] vs RegularSpell[damage:50] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(50) vs dmg2(50)
+LOG|07.04.2022 16:58:05, This round ends in a draw.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 67.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 6 vs altenhof: 2
+LOG|07.04.2022 16:58:05, kienboec uses Dragon[damage:50] vs WaterSpell[damage:22] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(100) vs dmg2(11)
+LOG|07.04.2022 16:58:05, Card Dragon from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 68.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 7 vs altenhof: 1
+LOG|07.04.2022 16:58:05, kienboec uses RegularSpell[damage:45] vs RegularSpell[damage:50] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(45) vs dmg2(50)
+LOG|07.04.2022 16:58:05, Card RegularSpell from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 69.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 6 vs altenhof: 2
+LOG|07.04.2022 16:58:05, kienboec uses WaterSpell[damage:20] vs RegularSpell[damage:50] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(10) vs dmg2(100)
+LOG|07.04.2022 16:58:05, Card RegularSpell from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 70.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 5 vs altenhof: 3
+LOG|07.04.2022 16:58:05, kienboec uses Knight[damage:20] vs RegularSpell[damage:50] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(20) vs dmg2(50)
+LOG|07.04.2022 16:58:05, Card RegularSpell from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 71.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 4 vs altenhof: 4
+LOG|07.04.2022 16:58:05, kienboec uses WaterSpell[damage:22] vs WaterSpell[damage:20] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(22) vs dmg2(20)
+LOG|07.04.2022 16:58:05, Card WaterSpell from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 72.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 5 vs altenhof: 3
+LOG|07.04.2022 16:58:05, kienboec uses WaterSpell[damage:20] vs RegularSpell[damage:45] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(10) vs dmg2(90)
+LOG|07.04.2022 16:58:05, Card RegularSpell from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 73.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 4 vs altenhof: 4
+LOG|07.04.2022 16:58:05, kienboec uses WaterGoblin[damage:10] vs RegularSpell[damage:50] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(5) vs dmg2(100)
+LOG|07.04.2022 16:58:05, Card RegularSpell from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 74.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 3 vs altenhof: 5
+LOG|07.04.2022 16:58:05, kienboec uses RegularSpell[damage:28] vs RegularSpell[damage:45] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(28) vs dmg2(45)
+LOG|07.04.2022 16:58:05, Card RegularSpell from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 75.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 2 vs altenhof: 6
+LOG|07.04.2022 16:58:05, kienboec uses Dragon[damage:50] vs Knight[damage:20] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(50) vs dmg2(20)
+LOG|07.04.2022 16:58:05, Card Dragon from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 76.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 3 vs altenhof: 5
+LOG|07.04.2022 16:58:05, kienboec uses WaterSpell[damage:22] vs RegularSpell[damage:45] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(11) vs dmg2(90)
+LOG|07.04.2022 16:58:05, Card RegularSpell from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 77.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 2 vs altenhof: 6
+LOG|07.04.2022 16:58:05, kienboec uses Dragon[damage:50] vs WaterSpell[damage:22] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(100) vs dmg2(11)
+LOG|07.04.2022 16:58:05, Card Dragon from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 78.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 3 vs altenhof: 5
+LOG|07.04.2022 16:58:05, kienboec uses Dragon[damage:50] vs RegularSpell[damage:28] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(50) vs dmg2(28)
+LOG|07.04.2022 16:58:05, Card Dragon from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 79.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 4 vs altenhof: 4
+LOG|07.04.2022 16:58:05, kienboec uses RegularSpell[damage:28] vs WaterGoblin[damage:10] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(56) vs dmg2(5)
+LOG|07.04.2022 16:58:05, Card RegularSpell from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 80.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 5 vs altenhof: 3
+LOG|07.04.2022 16:58:05, kienboec uses Knight[damage:20] vs RegularSpell[damage:50] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(20) vs dmg2(50)
+LOG|07.04.2022 16:58:05, Card RegularSpell from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 81.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 4 vs altenhof: 4
+LOG|07.04.2022 16:58:05, kienboec uses RegularSpell[damage:28] vs RegularSpell[damage:50] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(28) vs dmg2(50)
+LOG|07.04.2022 16:58:05, Card RegularSpell from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 82.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 3 vs altenhof: 5
+LOG|07.04.2022 16:58:05, kienboec uses WaterSpell[damage:22] vs RegularSpell[damage:45] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(11) vs dmg2(90)
+LOG|07.04.2022 16:58:05, Card RegularSpell from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 83.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 2 vs altenhof: 6
+LOG|07.04.2022 16:58:05, kienboec uses WaterGoblin[damage:10] vs WaterSpell[damage:20] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(10) vs dmg2(20)
+LOG|07.04.2022 16:58:05, Card WaterSpell from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 84.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 1 vs altenhof: 7
+LOG|07.04.2022 16:58:05, kienboec uses Dragon[damage:50] vs RegularSpell[damage:45] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(50) vs dmg2(45)
+LOG|07.04.2022 16:58:05, Card Dragon from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 85.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 2 vs altenhof: 6
+LOG|07.04.2022 16:58:05, kienboec uses RegularSpell[damage:45] vs WaterGoblin[damage:10] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(90) vs dmg2(5)
+LOG|07.04.2022 16:58:05, Card RegularSpell from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 86.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 3 vs altenhof: 5
+LOG|07.04.2022 16:58:05, kienboec uses RegularSpell[damage:45] vs RegularSpell[damage:50] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(45) vs dmg2(50)
+LOG|07.04.2022 16:58:05, Card RegularSpell from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 87.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 2 vs altenhof: 6
+LOG|07.04.2022 16:58:05, kienboec uses WaterGoblin[damage:10] vs Knight[damage:20] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(10) vs dmg2(20)
+LOG|07.04.2022 16:58:05, Card Knight from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 88.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 1 vs altenhof: 7
+LOG|07.04.2022 16:58:05, kienboec uses Dragon[damage:50] vs RegularSpell[damage:50] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(50) vs dmg2(50)
+LOG|07.04.2022 16:58:05, This round ends in a draw.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 89.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 1 vs altenhof: 7
+LOG|07.04.2022 16:58:05, kienboec uses Dragon[damage:50] vs RegularSpell[damage:45] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(50) vs dmg2(45)
+LOG|07.04.2022 16:58:05, Card Dragon from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 90.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 2 vs altenhof: 6
+LOG|07.04.2022 16:58:05, kienboec uses Dragon[damage:50] vs Knight[damage:20] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(50) vs dmg2(20)
+LOG|07.04.2022 16:58:05, Card Dragon from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 91.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 3 vs altenhof: 5
+LOG|07.04.2022 16:58:05, kienboec uses Knight[damage:20] vs WaterSpell[damage:22] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(0) vs dmg2(22)
+LOG|07.04.2022 16:58:05, Card WaterSpell from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 92.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 2 vs altenhof: 6
+LOG|07.04.2022 16:58:05, kienboec uses Dragon[damage:50] vs WaterSpell[damage:22] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(100) vs dmg2(11)
+LOG|07.04.2022 16:58:05, Card Dragon from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 93.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 3 vs altenhof: 5
+LOG|07.04.2022 16:58:05, kienboec uses WaterSpell[damage:22] vs WaterGoblin[damage:10] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(22) vs dmg2(10)
+LOG|07.04.2022 16:58:05, Card WaterSpell from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 94.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 4 vs altenhof: 4
+LOG|07.04.2022 16:58:05, kienboec uses WaterSpell[damage:22] vs Knight[damage:20] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(22) vs dmg2(0)
+LOG|07.04.2022 16:58:05, Card WaterSpell from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 95.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 5 vs altenhof: 3
+LOG|07.04.2022 16:58:05, kienboec uses Dragon[damage:50] vs RegularSpell[damage:50] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(50) vs dmg2(50)
+LOG|07.04.2022 16:58:05, This round ends in a draw.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 96.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 5 vs altenhof: 3
+LOG|07.04.2022 16:58:05, kienboec uses Dragon[damage:50] vs RegularSpell[damage:50] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(50) vs dmg2(50)
+LOG|07.04.2022 16:58:05, This round ends in a draw.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 97.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 5 vs altenhof: 3
+LOG|07.04.2022 16:58:05, kienboec uses WaterSpell[damage:22] vs RegularSpell[damage:50] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(11) vs dmg2(100)
+LOG|07.04.2022 16:58:05, Card RegularSpell from altenhof wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 98.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 4 vs altenhof: 4
+LOG|07.04.2022 16:58:05, kienboec uses RegularSpell[damage:45] vs WaterSpell[damage:20] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(90) vs dmg2(10)
+LOG|07.04.2022 16:58:05, Card RegularSpell from kienboec wins.
+LOG|07.04.2022 16:58:05, Continue BattleRound: 99.
+
+LOG|07.04.2022 16:58:05, NUMBER OF CARDS IN DECK kienboec: 5 vs altenhof: 3
+LOG|07.04.2022 16:58:05, kienboec uses Knight[damage:20] vs RegularSpell[damage:50] by altenhof
+LOG|07.04.2022 16:58:05, Actual damage: dmg1(20) vs dmg2(50)
+LOG|07.04.2022 16:58:05, Card RegularSpell from altenhof wins.
+LOG|07.04.2022 16:58:05, last BattleRound: 100.
+
+LOG|07.04.2022 16:58:05, END OF BATTLE WITHOUT RESULT kienboec: 4 vs altenhof: 4

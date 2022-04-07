@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MTCG_SWEN1.DB.DAL
 {
-    class SessionsDAL : ISessions
+    public class SessionsDAL : ISessions
     {
         private readonly string _tableName = ETableNames.mtcg_sessions.GetDescription();
 

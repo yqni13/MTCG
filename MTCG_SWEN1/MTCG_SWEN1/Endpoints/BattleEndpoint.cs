@@ -58,7 +58,7 @@ namespace MTCG_SWEN1.Endpoints
             }
 
             _response.StatusMessage = EHttpStatusMessages.OK200.GetDescription();
-            _response.Body = "Battle finished. Log was created as .txt file.";
+            _response.Body = "Battle finished. Log was created as .txt file -> '/BattleLogs'.";
             _response.Send();
         }
     }
