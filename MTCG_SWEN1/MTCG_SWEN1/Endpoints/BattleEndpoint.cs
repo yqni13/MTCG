@@ -24,7 +24,7 @@ namespace MTCG_SWEN1.Endpoints
         }
 
         [Method("POST")]
-        public void BattlePost()
+        public void ExecuteMTCGBattle()
         {
             try
             {
@@ -57,6 +57,7 @@ namespace MTCG_SWEN1.Endpoints
                 _response.StatusMessage = EHttpStatusMessages.NotFound404.GetDescription();
             }
 
+            Console.WriteLine($"{DateTime.UtcNow}, Battle finished and LOG saved as .txt file");
             _response.StatusMessage = EHttpStatusMessages.OK200.GetDescription();
             _response.Body = "Battle finished. Log was created as .txt file -> '/BattleLogs'.";
             _response.Send();

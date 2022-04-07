@@ -62,35 +62,5 @@ namespace MTCG_SWEN1.Models.Cards
             Name = name;
             Damage = damage;
         }
-        /*public EElementType GetElementType()
-        {
-            var elementNames = Enum.GetNames(typeof(EElementType));
-
-            foreach (var type in elementNames)
-            {
-                if (Name == type)
-                {
-                    return Enum.Parse<EElementType>(type);
-                }
-            }
-
-            return EElementType.NORMAL;
-        }
-
-        public ECardType GetCardType()
-        {
-            var cardNames = Enum.GetNames(typeof(ECardType));
-
-            foreach (var type in cardNames)
-            {
-                if (Name == type)
-                {
-                    return Enum.Parse<ECardType>(type);
-                }
-            }
-
-            return Enum.Parse<ECardType>("Ghost");
-        }*/
-
     }
 }

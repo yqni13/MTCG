@@ -35,7 +35,7 @@ namespace MTCG_SWEN1.Endpoints
                 _response.StatusMessage = EHttpStatusMessages.NotFound404.GetDescription();
             }
 
-            Console.WriteLine("No implementations for GET/tradings.");
+            Console.WriteLine($"{ DateTime.UtcNow}, No implementations for GET/tradings.");
             _response.Send();
         }
 
@@ -54,7 +54,7 @@ namespace MTCG_SWEN1.Endpoints
                 _response.StatusMessage = EHttpStatusMessages.NotFound404.GetDescription();
             }
 
-            Console.WriteLine("No implementations for POST/tradings.");
+            Console.WriteLine($"{DateTime.UtcNow}, No implementations for POST/tradings.");
             _response.Send();
         }
 
@@ -73,7 +73,7 @@ namespace MTCG_SWEN1.Endpoints
                 _response.StatusMessage = EHttpStatusMessages.NotFound404.GetDescription();
             }
 
-            Console.WriteLine("No implementations for DELETE/tradings.");
+            Console.WriteLine($"{DateTime.UtcNow}, No implementations for DELETE/tradings.");
             _response.Send();
         }
     }

@@ -19,6 +19,7 @@ namespace MTCG_SWEN1.BL.Models
         {
             get
             {
+                // Prohibit creating 2 instances instead of only one.
                 lock(_lock)
                 {
                     if (_instance == null)
@@ -29,6 +30,7 @@ namespace MTCG_SWEN1.BL.Models
                 }
             }
         }
+
 
         public void RequestBattle(User user)
         {

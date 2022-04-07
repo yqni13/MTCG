@@ -23,21 +23,6 @@ namespace MTCG_SWEN1.Models
 
         public User() { }
 
-        public User(string user, string pwd)
-        {
-            Username = user;
-            Password = pwd;
-        }
-
-        public User(Guid id, string user, string pwd, int coins, int elo)
-        {
-            Id = id;
-            Username = user;
-            Password = pwd;
-            Coins = coins;            
-            ELO = elo;
-        }
-            
         public User(Guid id, string user, string pwd, int coins, int elo, string bio, string image, int games, int wins, int losses)
         {
             Id = id;
@@ -50,8 +35,6 @@ namespace MTCG_SWEN1.Models
             Games = games;
             Wins = wins;
             Losses = losses;
-        }
-
-        
+        }        
     }
 }

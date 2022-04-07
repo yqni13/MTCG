@@ -9,8 +9,7 @@ namespace MTCG_SWEN1.Endpoints.Attributes
     // Use AttributeTarget to save meta data for routing.
     [AttributeUsage(AttributeTargets.Method)]
     class MethodAttribute : Attribute
-    {
-       
+    {       
         public string Method { get; set; }
 
         public MethodAttribute(string method)

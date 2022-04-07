@@ -24,7 +24,7 @@ namespace MTCG_SWEN1.Endpoints
         }
 
         [Method("GET")]
-        public void CardsGet()
+        public void GetCards()
         {
             List<Card> cards = new();
             string json;
@@ -57,11 +57,7 @@ namespace MTCG_SWEN1.Endpoints
             
             json = JsonConvert.SerializeObject(cards);
             Console.WriteLine($"{DateTime.UtcNow}, Cards successfully listed for user.");
-            _response.SendWithHeaders(json, EHttpStatusMessages.OK200.GetDescription());
-            
-            //_response.StatusMessage = EHttpStatusMessages.OK200.GetDescription();
-            //_response.Body = json; //show cards
-            //_response.Send();
+            _response.SendWithHeaders(json, EHttpStatusMessages.OK200.GetDescription());            
         }
     }
 }

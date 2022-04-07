@@ -10,31 +10,15 @@ using System.Threading.Tasks;
 
 namespace MTCG_SWEN1.BL.Models
 {
-    public enum BattleStatus
-    {
-        Win = 2,
-        Loss = 1,
-        Draw = 0
-    }
-
-    public enum BattleParticipants
-    {
-        User2 = 2,
-        User1 = 1,
-        Draw = 0
-    }
 
     public class Battle
     {
         public User User1 { get; set; }
         public User User2 { get; set; }
         public List<Card> UserDeck1 { get; set; }
-        public List<Card> UserDeck2 { get; set; }
-        public BattleStatus Result { get; set; }
-        public List<String> BattleLog { get; set; } = new();
-        public Boolean BattleStillRunning { get; set; } = false;
-        public int Roundnumber { get; set; } = 1;        
-        
+        public List<Card> UserDeck2 { get; set; }        
+        public List<String> BattleLog { get; set; } = new();        
+        public int Roundnumber { get; set; } = 1;
 
         private readonly int _maxRoundsOfBattle = 100;
         public string LogText { get; set; } = "";
@@ -167,6 +151,7 @@ namespace MTCG_SWEN1.BL.Models
                 LogText = $"LOG|{DateTime.Now}, Card {uCard2.Name} from {User2.Username} wins.";
                 BattleLog.Add(LogText);
                 Console.WriteLine(LogText);
+
                 // Swap loser card to winner deck.
                 UserDeck2.Add(uCard1);
                 UserDeck1.Remove(uCard1);
@@ -177,6 +162,7 @@ namespace MTCG_SWEN1.BL.Models
                 LogText = $"LOG|{DateTime.Now}, Card {uCard1.Name} from {User1.Username} wins.";
                 BattleLog.Add(LogText);
                 Console.WriteLine(LogText);
+
                 // Swap loser card to winner deck.
                 UserDeck1.Add(uCard2);
                 UserDeck2.Remove(uCard2);
