@@ -3,44 +3,56 @@
 ## final C# project - MTCG (Monster Trading Card Game)
 
 ---
-
+Lukas Varga, if20b167
 link of repository on GitHub:
-https://github.com/if20b167/MTCG
+https://github.com/yqni13/MTCG
 
 ##Technical steps
 
 #Designs
-The system uses the combination of Data Access Layer (db access and operations), Business Layer via models and endpoints as well as a Presentation Layer (gateways for server connection and communication). Standard exceptions and serialization are implied too.
+The system uses the combination of Data Access Layer (db access and operations), Business Layer via models, services and endpoints as well as a Presentation Layer (gateways for server connection and communication). Standard exceptions and serialization are implemented too.
 
 #Failures
-At the beginning I wanted to use Repositorys for the communication of the database by implementing the regarding interfaces which led to a complete chaos. Also the connection to the database should be controlled by an own class to ensure there is only a single connection existing, but couldn't figure out a good solution for this.
+Out of the given endpoints from the used curl-script, only /tradings has not been implemented. Every endpoint responses to the given requests with the dedicated status message and body.
 
 #Selected Solutions
 Singleton pattern is used for starting the server.
-DB - script was created by using Datagrip, Information from the internet and a lot of trial and error. The db itself runs as postgreSQL. 
+DB - script was created by using VisualStudio and Datagrip, Information from the internet and a lot of trial and error. The db itself runs on postgresql controlled by command line. For controlling the endpoints I used the Endpoint Attributes.
+
+![db structure]
+(res/mtcg_db_visualize.png)
+
+
+##Unique Feature
+
+As a unique feature, after battle the regarding BattleLog will be saved into a .txt file inside the directory 'BattleLogs' within the same directory level as the software layers.
+
 
 ##Unit-Tests
-Not implemented.
-Focus was to test parts of the DAL, Models and DB because the http server isn't easy to test and battle logic misses too much of content.
+22 Unit-Tests in total
+10 Unit-Tests for testing the BattleLogic
+06 Unit-Tests for testing the CardLogic
+06 Unit-Tests for testing the UserLogic
+
+Unit-Tests have been implemented by using the NUnit Framework.
+The integration was focused on testing the battle logic because of the many conditions to change the damage calculation. Furthermore a few Asserts to check for exceptions while communicating with the database were tested. Additionally operations for registration and login of users are checked to get the correct results or exceptions.
+
 
 ##Leasons learned
-Because of missing knowledge from SWEN1 course and less practice did I underestimate the effort again. Especially the http server and database took me more time than thought which resulted in doubt and postponing because of small steps forward which led to missing time, again.
 
-Unit Tests should be done parallel to the project, but with the long time effort of http server there was not much to test at the time which led to writing most of the unit tests at the end. Furthermore do many problems exist (dependencies, private methods and so forth) which interfere with easy testing.
+- Unit tests should be implemented a more parallel way of programming because of its way to show fail/success for the implementation instead of doing it at the end of the project (missing the advantages) and needed to change some methods enabling test cases. Because of time problems (being the first bigger project with C#) Unit-Tests have been of less priority
 
-Working with a development/2nd branch was a nice experience which will be used regularly from now on. At first I tried to use a branch for an feature/part of the work each but the dev-branch makes more sense.
+- Time management is the most important part, because the projects need much time for research and debugging while having less experience
 
-Working on this project shows me missing practical experience in working with databases and the planing of a structure combining endpoints, the data access layer and business(battle) logic which needs to be improved.
+- using source code management for constant developing was helpful to structure processes and overview the changes in code, because you need to check what has been before and working with the tools (commandline or desktop launcher) has been a great learning experience
+
+- Working on this project shows me missing practical experience in working with databases and the planing of a structure combining endpoints, the data access layer and business(battle) logic which needs to be improved.
 
 ##Timetrack
-~ 3,5h Documentation
-~25,0h HTTP
-~ 6,5h Unit-Tests
-~16,0h DB/DAL
-
-##Git-History
-Created new GitHub Account to hide half-finished project from my official timeline. Therefore screenshots of Git-History is added below to show workflow.
-
-<img alt="picture unable to display" src="res/commit-history1.jpg">
-<img alt="picture unable to display" src="res/commit-history2.jpg">
-<img alt="picture unable to display" src="res/commit-history3.jpg">
+Documentation   05:29:00
+HTTP            26:41:00
+DB              12:54:00
+Curl-Script     02:17:00
+Business Logic  35:54:00
+Unit-Tests      06:49:00
+Summe           90:04:00
