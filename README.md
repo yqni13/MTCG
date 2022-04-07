@@ -49,10 +49,10 @@ The integration was focused on testing the battle logic because of the many cond
 - Working on this project shows me missing practical experience in working with databases and the planing of a structure combining endpoints, the data access layer and business(battle) logic which needs to be improved.
 
 ##Timetrack
-Documentation   05:29:00
-HTTP            26:41:00
-DB              12:54:00
-Curl-Script     02:17:00
-Business Logic  35:54:00
-Unit-Tests      06:49:00
-Summe           90:04:00
+05:29:00 Documentation
+26:41:00 HTTP
+12:54:00 DB
+02:17:00 Curl-Script
+35:54:00 Business Logic
+06:49:00 Unit-Tests
+90:04:00 Summe
