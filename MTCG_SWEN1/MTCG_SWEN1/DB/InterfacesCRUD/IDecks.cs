@@ -9,7 +9,7 @@ namespace MTCG_SWEN1.DB.InterfacesCRUD
 {
     interface IDecks
     {
-        List<Card> GetDeckCards(int deckID);
+        List<Card> GetDeckCards(int deckID);        
 
         void CreateNewDeck(Guid userID);
 
@@ -17,6 +17,6 @@ namespace MTCG_SWEN1.DB.InterfacesCRUD
 
         void AddDeckCards(List<Card> cards, Guid userID, int deckID);
 
-
+        
     }
 }

@@ -25,7 +25,7 @@ namespace MTCG_SWEN1.Endpoints
         }
 
         [Method("GET")]
-        public void DeckGet()
+        public void GetDeckCards()
         {
             List<Card> cards = new();
             string json;

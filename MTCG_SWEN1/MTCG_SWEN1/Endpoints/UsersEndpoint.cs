@@ -33,10 +33,8 @@ namespace MTCG_SWEN1.Endpoints
             {                
                 string userParameter = _request.PathParameter;
                 string token = _request.Headers["Authorization"];
-
-                // Check if user exists.
-                UserService.CheckIfUserExists(userParameter);
-                // Compare with logged in user.
+                
+                UserService.CheckIfUserExists(userParameter);                
                 if(!UserService.CheckIfLoggedIn(token))
                 {
                     _response.StatusMessage = EHttpStatusMessages.Unauthorized401.GetDescription();
@@ -54,7 +52,6 @@ namespace MTCG_SWEN1.Endpoints
                 }
 
                 user = UserService.GetUserInformation(token);
-
             }
             catch (Exception err)
             {
@@ -75,8 +72,7 @@ namespace MTCG_SWEN1.Endpoints
             try
             {                
                 var credentials = JsonConvert.DeserializeObject<Dictionary<string, string>>(_request.Body);
-
-                //if(credentials["Username"] == null || credentials["Username"] == "")
+                
                 if(!UserService.CheckIfCredentialsComplete(credentials["Username"], credentials["Password"]))
                 {
                     _response.StatusMessage = EHttpStatusMessages.NotAcceptable406.GetDescription();
@@ -84,8 +80,7 @@ namespace MTCG_SWEN1.Endpoints
                     _response.Send();
                     return;
                 }
-
-                // Call Service and catch Exceptions from Service or DB?
+                
                 if (!UserService.RegisterService(credentials))
                 {
                     Console.WriteLine($"{DateTime.UtcNow}, User does already exist in DB.");
@@ -103,8 +98,7 @@ namespace MTCG_SWEN1.Endpoints
                 _response.Send();
                 return;
             }
-
-            // Fill body and statusmsg of response and display status on backend console.
+            
             Console.WriteLine($"{DateTime.UtcNow}, New User added in DB.");
             _response.StatusMessage = EHttpStatusMessages.OK200.GetDescription();
             _response.Body = $"User registration successful.";
@@ -112,7 +106,7 @@ namespace MTCG_SWEN1.Endpoints
         }
 
         [Method("PUT")]
-        public void PutUsers()
+        public void UpdateUsers()
         {
             Dictionary<string, string> userEdit = new();
             User user = new();
@@ -120,10 +114,8 @@ namespace MTCG_SWEN1.Endpoints
             {
                 string userParameter = _request.PathParameter;
                 string token = _request.Headers["Authorization"];
-
-                // Check if user exists.
+                
                 UserService.CheckIfUserExists(userParameter);
-                // Compare with logged in user.
                 if (!UserService.CheckIfLoggedIn(token))
                 {
                     _response.StatusMessage = EHttpStatusMessages.Unauthorized401.GetDescription();
@@ -141,8 +133,7 @@ namespace MTCG_SWEN1.Endpoints
                     return;
                 }
 
-                userEdit = JsonConvert.DeserializeObject<Dictionary<string, string>>(_request.Body);
-                
+                userEdit = JsonConvert.DeserializeObject<Dictionary<string, string>>(_request.Body);                
             }
             catch (Exception err)
             {

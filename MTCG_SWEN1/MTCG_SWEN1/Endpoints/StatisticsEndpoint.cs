@@ -25,7 +25,7 @@ namespace MTCG_SWEN1.Endpoints
         }
 
         [Method("GET")]
-        public void StatsGet()
+        public void GetUserStatistics()
         {
             User user = new();
             Dictionary<string, string> statistics = new();

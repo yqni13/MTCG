@@ -26,10 +26,10 @@ namespace MTCG_SWEN1.Endpoints
         }
 
         [Method("POST")]
-        public void PackagesPost()
+        public void HandlePackages()
         {
-            //try
-            //{
+            try
+            {
                 User user = new();
                 if (!_request.Headers.ContainsKey("Authorization"))
                 {
@@ -37,15 +37,7 @@ namespace MTCG_SWEN1.Endpoints
                     _response.Body = "Error no token for authentication found.";
                     _response.Send();
                     return;
-                }
-
-                /*if (_request.Headers["Authorization"] != "Basic admin-mtcgToken")
-                {
-                    _response.StatusMessage = EHttpStatusMessages.NotAcceptable406.GetDescription();
-                    _response.Body = "Only admin is allowed to add packages.";
-                    _response.Send();
-                    return;
-                }*/
+                }                
                                 
                 if (!UserService.CheckIfLoggedIn(_request.Headers["Authorization"]))
                 {
@@ -89,18 +81,16 @@ namespace MTCG_SWEN1.Endpoints
                         _response.Body = "User has less coins than necessary.";
                         _response.Send();
                         return;
-                    }
-                        
+                    }                        
                 }
-
-            //}
-            /*catch (Exception err)
+            }
+            catch (Exception err)
             {
                 Console.WriteLine(err.Message);
                 _response.StatusMessage = EHttpStatusMessages.BadRequest400.GetDescription();
                 _response.Body = "Error for POST/packages.";
                 _response.Send();
-            }*/
+            }
 
             Console.WriteLine($"{DateTime.UtcNow}, New package added in DB.");
             _response.StatusMessage = EHttpStatusMessages.OK200.GetDescription();

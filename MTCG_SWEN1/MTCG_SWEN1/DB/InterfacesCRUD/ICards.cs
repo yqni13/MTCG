@@ -15,6 +15,6 @@ namespace MTCG_SWEN1.DB.InterfacesCRUD
 
         List<Card> GetAllCardsOfUser(Guid id);
 
-
+        List<Card> GetMaxNumberOfCardsToPurchase();
     }
 }

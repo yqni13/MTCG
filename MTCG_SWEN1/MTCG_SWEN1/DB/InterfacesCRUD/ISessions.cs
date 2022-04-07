@@ -11,5 +11,7 @@ namespace MTCG_SWEN1.DB.InterfacesCRUD
         void AddSession(string token, Guid id);
 
         bool CheckExistingSession(Guid id);
+
+        public Guid GetUserIDByToken(string requestingToken);
     }
 }

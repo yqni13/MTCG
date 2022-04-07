@@ -86,28 +86,7 @@ namespace MTCG_SWEN1.HTTP
         }
 
         private void ParseBody(StreamReader reader)
-        {
-            /*try
-            {
-                if (!Headers.ContainsKey("Content-Length"))
-                    throw new KeyNotFoundException("Missing Header error => HttpRequest.cs, ParseBody().");
-
-                while (reader.Peek() >= 0)
-                {
-                    Body += (char)reader.Read();
-                }
-
-            } 
-            catch(KeyNotFoundException err)
-            {
-                Console.WriteLine(err.Message);                
-                Body = "";
-            } 
-            catch (Exception)
-            {
-                Console.WriteLine($"Parsing content error => HttpRequest.cs, ParseBody().");
-                Body = "";
-            }*/
+        {            
 
             try
             {
@@ -170,13 +149,11 @@ namespace MTCG_SWEN1.HTTP
 
             if (slashCount > 1)
             {
-                if (Path.Substring(0, Path.LastIndexOf("/")) == "/transactions")
-                    //Console.WriteLine($"returned string instead: {a.Substring(a.LastIndexOf("/packages"))}");
+                if (Path.Substring(0, Path.LastIndexOf("/")) == "/transactions")                    
                     // Return Path variable "/packages" to find Endpoint.
                     return Path.Substring(Path.LastIndexOf("/packages"));                               
                 else
-                {
-                    //Console.WriteLine($"returned string: {a.Substring(0, a.LastIndexOf("/"))}");
+                {                    
                     // Return Path variable, because 2nd part of Path equals token or username.
                     if (Path.Substring(1, Path.LastIndexOf("/") - 1) != "")
                     {

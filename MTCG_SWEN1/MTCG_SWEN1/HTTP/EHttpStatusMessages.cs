@@ -34,49 +34,5 @@ namespace MTCG_SWEN1.HTTP
         OK200 = 200
     }
 
-    public class HttpStatusMessageConverter
-    {
-        /*public static EHttpStatusMessages FromStringToIdentifier(string description)
-        {
-            foreach (var status in Enum.GetValues(typeof(EHttpStatusMessages)))
-            {
-                if(status.ToString() == description)
-                {
-                    return (EHttpStatusMessages)status;
-                }
-            }
-
-            return EHttpStatusMessages.BadRequest400;
-        }*/
-
-        public static string GetPlaceholderStatusCode(int code)
-        {
-            string statusCode = "";
-            switch(code)
-            {
-                case 200:
-                    {
-                        statusCode = EHttpStatusMessages.OK200.GetDescription();
-                        break;
-                    }
-                case 400:
-                    {
-                        statusCode = EHttpStatusMessages.BadRequest400.GetDescription();
-                        break;
-                    }
-                case 404:
-                    {
-                        statusCode = EHttpStatusMessages.NotFound404.GetDescription();
-                        break;
-                    }
-                case 500:
-                    {
-                        statusCode = EHttpStatusMessages.InternalServerError500.GetDescription();
-                        break;
-                    }
-            }
-            return statusCode;
-        }
-    }
     
 }

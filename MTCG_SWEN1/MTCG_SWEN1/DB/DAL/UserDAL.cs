@@ -12,9 +12,8 @@ using System.Threading.Tasks;
 
 namespace MTCG_SWEN1.DB.DAL
 {
-    class UserDAL : IInsert, IRead
-    {
-        //private readonly DataBaseConnection _db = DataBaseConnection.GetStaticDBConnection;
+    class UserDAL : IUsers
+    {        
         private readonly string _tableName = ETableNames.mtcg_users.GetDescription();
 
         public void CreateUser(Dictionary<string, string> credentials)
@@ -32,10 +31,9 @@ namespace MTCG_SWEN1.DB.DAL
                 command.ExecuteNonQuery();
             }
             catch (Exception err)
-            {
-                //Console.WriteLine($"UserDAL error => Create():\n{err.Message}+still belongs here");
+            {                
                 connection.Close();
-                Console.WriteLine(err.Message);
+                Console.WriteLine($"UserDAL error => CreateUser(): {err.Message}");
                 throw new DuplicateNameException("Error creating new user.");
             }
             connection.Close();
@@ -80,9 +78,8 @@ namespace MTCG_SWEN1.DB.DAL
             }
             catch (Exception err)
             {
-                //Console.WriteLine($"UserDAL, ReadSpecific(): {err.Message}");
                 connection.Close();
-                Console.WriteLine(err.Message);
+                Console.WriteLine($"UserDAL, GetUserByUsername(): {err.Message}");                
                 throw new Exception("Could not fetch data.");
             }
             connection.Close();
@@ -203,8 +200,6 @@ namespace MTCG_SWEN1.DB.DAL
                 connection.Close();
                 throw new Exception($"Error updating User: {err.Message}");
             }
-
-
         }
         public Dictionary<string, int> GetScoreboardSorted()
         {
@@ -240,7 +235,6 @@ namespace MTCG_SWEN1.DB.DAL
         public void UpdateBattleStats(List<User> battleUsers)
         {
             NpgsqlConnection connection = DBConnection.Connect();
-
             try
             {
                 connection.Open();
