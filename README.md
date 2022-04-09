@@ -1,6 +1,6 @@
 ### Software Engineering Class 1, FH Technikum Wien, Computer Science, Semester #3
 
-## final C# project - MTCG (Monster Trading Card Game)
+## C# project - MTCG (Monster Trading Card Game)
 
 ---
 Lukas Varga, if20b167
@@ -47,8 +47,6 @@ The integration was focused on testing the battle logic because of the many cond
 
 - using source code management for constant developing was helpful to structure processes and overview the changes in code, because you need to check what has been before and working with the tools (commandline or desktop launcher) has been a great learning experience
 
-- Working on this project shows me missing practical experience in working with databases and the planing of a structure combining endpoints, the data access layer and business(battle) logic which needs to be improved.
-
 ##Timetrack
 05:29:00 Documentation
 26:41:00 HTTP
@@ -57,3 +55,4 @@ The integration was focused on testing the battle logic because of the many cond
 35:54:00 Business Logic
 06:49:00 Unit-Tests
 90:04:00 Summe
+
