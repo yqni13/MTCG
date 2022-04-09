@@ -25,12 +25,12 @@ namespace MTCG_SWEN1.Endpoints
         }
 
         [Method("GET")]
-        public void DeckGet()
+        public void GetDeckCards()
         {
             List<Card> cards = new();
             string json;
-            //try
-            //{
+            try
+            {
                 if (!_request.Headers.ContainsKey("Authorization"))
                 {
                     _response.StatusMessage = EHttpStatusMessages.Unauthorized401.GetDescription();
@@ -55,13 +55,13 @@ namespace MTCG_SWEN1.Endpoints
                     _response.Send();
                     return;
                 }
-            //}
-            /*catch (Exception err)
+            }
+            catch (Exception err)
             {
                 Console.WriteLine(err.Message);
                 _response.StatusMessage = EHttpStatusMessages.NotFound404.GetDescription();
                 _response.Body = "Error for GET/deck";
-            }*/
+            }
             if (_request.EndpointParameters.ContainsKey("format"))
             {
                 List<String> plainCardIDs = DeckService.ConvertToPlainOutput(cards);
@@ -74,30 +74,12 @@ namespace MTCG_SWEN1.Endpoints
             json = JsonConvert.SerializeObject(cards);
             Console.WriteLine($"{DateTime.UtcNow}, Deck with content successfully listed for user.");
             _response.SendWithHeaders(json, EHttpStatusMessages.OK200.GetDescription());
-        }
-
-        [Method("POST")]
-        public void DeckPost()
-        {
-            try
-            {
-                _response.StatusMessage = EHttpStatusMessages.OK200.GetDescription();
-                _response.Body = "Demo content for /deck POST";
-            }
-            catch (Exception err)
-            {
-                Console.WriteLine(err.Message);
-                _response.Body = "Error for /deck POST";
-                _response.StatusMessage = EHttpStatusMessages.NotFound404.GetDescription();
-            }
-            _response.Send();
-        }
+        }        
 
         [Method("PUT")]
-        public void DeckPut()
+        public void SetDeckCards()
         {            
-            List<String> cardIDs = new();
-            
+            List<String> cardIDs = new();            
             try
             {
                 if (!_request.Headers.ContainsKey("Authorization"))
@@ -133,18 +115,11 @@ namespace MTCG_SWEN1.Endpoints
                     DeckService.AddDeck(userID, cards);
                 }
                 else
-                {
-                    
-
-
+                {      
                     List<Card> cardsOld = DeckService.GetDeck(_request.Headers["Authorization"]);
                     var json = JsonConvert.SerializeObject(cardsOld);
                     Console.WriteLine($"{DateTime.UtcNow}, Not all cards are owned by user.");
                     _response.SendWithHeaders(json, EHttpStatusMessages.NotFound404.GetDescription());
-
-                    //_response.StatusMessage = EHttpStatusMessages.NotFound404.GetDescription();
-                    //_response.Body = ".";
-                    //_response.Send();
                     return;
                 }
             }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MTCG_SWEN1.BL.Service
 {
-    class UserService
+    public class UserService
     {
         public static bool RegisterService(Dictionary<string, string> credentials)
         {
@@ -76,6 +76,36 @@ namespace MTCG_SWEN1.BL.Service
             User user = new();
             userTABLE.GetUserByUsername(username, user);
             return user.Id;
+        }
+
+        public static User GetUserInformation(string token)
+        {
+            UserDAL userTABLE = new();
+            SessionsDAL sessionTABLE = new();
+            return userTABLE.GetUserByID(sessionTABLE.GetUserIDByToken(token));
+        }
+
+        public static void EditUserInformation(Dictionary<string, string> userEdit, string token)
+        {
+            UserDAL userTABLE = new();
+            SessionsDAL sessionTABLE = new();
+            userTABLE.EditUser(userEdit, sessionTABLE.GetUserIDByToken(token));
+        }
+
+        public static User GetUser(string token)
+        {
+            SessionsDAL sessionsTABLE = new();
+            UserDAL userTABLE = new();
+            Guid userID = sessionsTABLE.GetUserIDByToken(token);
+            return userTABLE.GetUserByID(userID);
+        }
+
+        public static bool ValidateUserLoginWithPathParameter(string pathparameter, string username)
+        {
+            if (pathparameter != username)
+                return false;
+
+            return true;
         }
     }
 }

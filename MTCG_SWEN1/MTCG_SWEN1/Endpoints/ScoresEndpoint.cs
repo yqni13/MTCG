@@ -23,9 +23,9 @@ namespace MTCG_SWEN1.Endpoints
         }
 
         [Method("GET")]
-        public void ScoresGet()
+        public void GetUserScoreboard()
         {
-            Dictionary<string, string> scoreboard = new();
+            Dictionary<string, int> scoreboard = new();
             try
             {
                 if (!_request.Headers.ContainsKey("Authorization"))
@@ -56,10 +56,6 @@ namespace MTCG_SWEN1.Endpoints
             string json = JsonConvert.SerializeObject(scoreboard, Formatting.Indented);
             Console.WriteLine($"{DateTime.UtcNow}, Scoreboard successfully listed.");
             _response.SendWithHeaders(json, EHttpStatusMessages.OK200.GetDescription());
-
-            //_response.StatusMessage = EHttpStatusMessages.OK200.GetDescription();
-            //_response.Body = "Demo content for /score GET";
-            //_response.Send();
         }
     }
 }

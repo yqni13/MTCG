@@ -25,8 +25,8 @@ namespace MTCG_SWEN1.Endpoints
         {
             try
             {
-                _response.StatusMessage = EHttpStatusMessages.OK200.GetDescription();
-                _response.Body = "Demo content for /tradings GET";
+                _response.StatusMessage = EHttpStatusMessages.BadRequest400.GetDescription();
+                _response.Body = "No implementations for GET/tradings.";
             }
             catch (Exception err)
             {
@@ -34,6 +34,8 @@ namespace MTCG_SWEN1.Endpoints
                 _response.Body = "Error for /tradings GET";
                 _response.StatusMessage = EHttpStatusMessages.NotFound404.GetDescription();
             }
+
+            Console.WriteLine($"{ DateTime.UtcNow}, No implementations for GET/tradings.");
             _response.Send();
         }
 
@@ -42,8 +44,8 @@ namespace MTCG_SWEN1.Endpoints
         {
             try
             {
-                _response.StatusMessage = EHttpStatusMessages.OK200.GetDescription();
-                _response.Body = "Demo content for /tradings POST";
+                _response.StatusMessage = EHttpStatusMessages.BadRequest400.GetDescription();
+                _response.Body = "No implementations for POST/tradings.";
             }
             catch (Exception err)
             {
@@ -51,6 +53,8 @@ namespace MTCG_SWEN1.Endpoints
                 _response.Body = "Error for /tradings POST";
                 _response.StatusMessage = EHttpStatusMessages.NotFound404.GetDescription();
             }
+
+            Console.WriteLine($"{DateTime.UtcNow}, No implementations for POST/tradings.");
             _response.Send();
         }
 
@@ -59,8 +63,8 @@ namespace MTCG_SWEN1.Endpoints
         {
             try
             {
-                _response.StatusMessage = EHttpStatusMessages.OK200.GetDescription();
-                _response.Body = "Demo content for /tradings DELETE";
+                _response.StatusMessage = EHttpStatusMessages.BadRequest400.GetDescription();
+                _response.Body = "No implementations for DELETE/tradings.";
             }
             catch (Exception err)
             {
@@ -68,6 +72,8 @@ namespace MTCG_SWEN1.Endpoints
                 _response.Body = "Error for /tradings DELETE";
                 _response.StatusMessage = EHttpStatusMessages.NotFound404.GetDescription();
             }
+
+            Console.WriteLine($"{DateTime.UtcNow}, No implementations for DELETE/tradings.");
             _response.Send();
         }
     }

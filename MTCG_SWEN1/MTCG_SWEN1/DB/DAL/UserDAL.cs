@@ -12,9 +12,8 @@ using System.Threading.Tasks;
 
 namespace MTCG_SWEN1.DB.DAL
 {
-    class UserDAL : IInsert, IRead
-    {
-        //private readonly DataBaseConnection _db = DataBaseConnection.GetStaticDBConnection;
+    class UserDAL : IUsers
+    {        
         private readonly string _tableName = ETableNames.mtcg_users.GetDescription();
 
         public void CreateUser(Dictionary<string, string> credentials)
@@ -32,10 +31,9 @@ namespace MTCG_SWEN1.DB.DAL
                 command.ExecuteNonQuery();
             }
             catch (Exception err)
-            {
-                //Console.WriteLine($"UserDAL error => Create():\n{err.Message}+still belongs here");
+            {                
                 connection.Close();
-                Console.WriteLine(err.Message);
+                Console.WriteLine($"UserDAL error => CreateUser(): {err.Message}");
                 throw new DuplicateNameException("Error creating new user.");
             }
             connection.Close();
@@ -75,14 +73,13 @@ namespace MTCG_SWEN1.DB.DAL
             }
             catch (Exception err) when (err.Message == "No row is available")
             {
-                Console.WriteLine($"UserDAL, ReadSpecific(): User does not exist.");                
+                Console.WriteLine($"UserDAL, GetUserByUsername(): User does not exist.");                
                 connection.Close();
             }
             catch (Exception err)
             {
-                //Console.WriteLine($"UserDAL, ReadSpecific(): {err.Message}");
                 connection.Close();
-                Console.WriteLine(err.Message);
+                Console.WriteLine($"UserDAL, GetUserByUsername(): {err.Message}");                
                 throw new Exception("Could not fetch data.");
             }
             connection.Close();
@@ -177,6 +174,90 @@ namespace MTCG_SWEN1.DB.DAL
             }
             connection.Close();
             return user;
+        }
+
+        public void EditUser(Dictionary<string, string> userEdit, Guid userID)
+        {
+            NpgsqlConnection connection = DBConnection.Connect();
+            try
+            {
+                connection.Open();
+                // update name, bio, image               
+
+                var command = connection.CreateCommand();
+                command.CommandText = $"UPDATE {_tableName} SET u_username=@user, u_bio=@bio, u_image=@image WHERE u_id=@userId";
+                command.Parameters.AddWithValue("@user", userEdit["Name"]);
+                command.Parameters.AddWithValue("@bio", userEdit["Bio"]);
+                command.Parameters.AddWithValue("@image", userEdit["Image"]);
+                command.Parameters.AddWithValue("@userId", userID);
+                command.ExecuteNonQuery();
+                command.Dispose();
+                connection.Close();
+
+            }
+            catch(Exception err)
+            {
+                connection.Close();
+                throw new Exception($"Error updating User: {err.Message}");
+            }
+        }
+        public Dictionary<string, int> GetScoreboardSorted()
+        {
+            NpgsqlConnection connection = DBConnection.Connect();
+            Dictionary<string, int> scoreboard = new();
+            try
+            {
+                connection.Open();
+                // update name, bio, image               
+
+                var command = connection.CreateCommand();
+                command.CommandText = $"SELECT u_username, u_elo FROM {_tableName} ORDER BY u_elo DESC";
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    scoreboard.Add(reader.GetString(0), reader.GetInt32(1));
+                }
+                reader.Close();
+                command.Dispose();
+                connection.Close();
+
+            }
+            catch (Exception err)
+            {
+                connection.Close();
+                throw new Exception($"Error updating User: {err.Message}");
+            }
+
+            return scoreboard;
+        }
+        
+        public void UpdateBattleStats(List<User> battleUsers)
+        {
+            NpgsqlConnection connection = DBConnection.Connect();
+            try
+            {
+                connection.Open();
+                foreach (var user in battleUsers)
+                {
+                    var command = connection.CreateCommand();
+                    command.CommandText = $"UPDATE {_tableName} SET u_elo=@elo, u_games=@games, u_wins=@wins, u_losses=@losses WHERE u_id=@userID";
+                    command.Parameters.AddWithValue("@userID", user.Id);
+                    command.Parameters.AddWithValue("@elo", user.ELO);
+                    command.Parameters.AddWithValue("@games", user.Games);
+                    command.Parameters.AddWithValue("@wins", user.Wins);
+                    command.Parameters.AddWithValue("@losses", user.Losses);
+                    command.ExecuteNonQuery();
+                    command.Dispose();
+                }
+            }
+            catch (Exception err)
+            {
+                connection.Close();
+                throw new Exception($"Error adding deck cards for user: {err}");
+            }
+
+            connection.Close();
         }
     }
 }

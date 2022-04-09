@@ -10,9 +10,7 @@ using System.Threading.Tasks;
 namespace MTCG_SWEN1.BL.Service
 {
     class CardService
-    {
-        
-
+    {   
         public static void PurchasePackagesByUser(string username)
         {
             CardsDAL cardTABLE = new();

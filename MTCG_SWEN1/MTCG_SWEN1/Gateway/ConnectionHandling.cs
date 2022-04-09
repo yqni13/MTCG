@@ -37,9 +37,7 @@ namespace MTCG_SWEN1.Server
         }
 
         private void Process()
-        {
-            
-            //Console.WriteLine(_request.Method);
+        {       
             _request.Receive();
             
             try
@@ -55,12 +53,10 @@ namespace MTCG_SWEN1.Server
             catch(Exception err)
             {
                 Console.WriteLine($"Transffering error, ConnectionHandler.cs, Process(): {err.Message}");
-                //_response.Send();
                 
             }            
         }
-
-        
+               
 
         private void InvokingEndpoint(MethodInfo method, Type path)
         {

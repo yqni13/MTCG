@@ -19,5 +19,18 @@ namespace MTCG_SWEN1.BL.Service
             
             return userTABLE.GetUserByID(id);
         }
+
+        public static Dictionary<string, string> PrepareStatsDisplay(User user)
+        {
+            Dictionary<string, string> statistics = new();
+            statistics.Add("Username", user.Username);
+            statistics.Add("ELO", user.ELO.ToString());
+            statistics.Add("Coins", user.Coins.ToString());
+            statistics.Add("Games", user.Games.ToString());
+            statistics.Add("Wins", user.Wins.ToString());
+            statistics.Add("Losses", user.Losses.ToString());
+
+            return statistics;
+        }
     }
 }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MTCG_SWEN1.BL.Service
 {
-    class DeckService
+    public class DeckService
     {
         public static List<Card> GetDeck(string token)
         {
@@ -26,17 +26,12 @@ namespace MTCG_SWEN1.BL.Service
         }
 
         public static void AddDeck(Guid userID, List<Card> chosenCards)
-        {
-            //get user
-            //get id of cards of user
-            //add the chosen cards from user to deck
+        {            
             UserDAL userTABLE = new();
             User user = userTABLE.GetUserByID(userID);
             DeckDAL deckTABLE = new();
             deckTABLE.CreateNewDeck(user.Id);
             deckTABLE.AddDeckCards(chosenCards, user.Id, deckTABLE.GetDeckID(user.Id));
-
-
         }
 
         public static Guid CreateNewDeckID()

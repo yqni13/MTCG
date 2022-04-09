@@ -71,9 +71,7 @@ namespace MTCG_SWEN1.DB.DAL
                 command.CommandText = $"INSERT INTO {_tableName} (d_user) VALUES (@userId)";
                 command.Parameters.AddWithValue("@userId", userID);
                 command.ExecuteNonQuery();
-                
-
-                Console.WriteLine("finished");
+                                
             }
 
             catch (Exception err)

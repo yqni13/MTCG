@@ -1,4 +1,5 @@
 ﻿using MTCG_SWEN1.BL.Service;
+using MTCG_SWEN1.DB.DAL;
 using MTCG_SWEN1.Endpoints.Attributes;
 using MTCG_SWEN1.HTTP;
 using MTCG_SWEN1.Models;
@@ -27,18 +28,42 @@ namespace MTCG_SWEN1.Endpoints
         [Method("GET")]
         public void GetUsers()
         {
+            User user = new();
             try
-            {
-                _response.StatusMessage = EHttpStatusMessages.OK200.GetDescription();
-                _response.Body = "Demo content for /users GET";
+            {                
+                string userParameter = _request.PathParameter;
+                string token = _request.Headers["Authorization"];
+                
+                UserService.CheckIfUserExists(userParameter);                
+                if(!UserService.CheckIfLoggedIn(token))
+                {
+                    _response.StatusMessage = EHttpStatusMessages.Unauthorized401.GetDescription();
+                    _response.Body = "User not logged in.";
+                    _response.Send();
+                    return;
+                }
+                user = UserService.GetUserInformation(token);
+                if(userParameter != user.Username)
+                {
+                    _response.StatusMessage = EHttpStatusMessages.Unauthorized401.GetDescription();
+                    _response.Body = "Wrong user.";
+                    _response.Send();
+                    return;
+                }
+
+                user = UserService.GetUserInformation(token);
             }
             catch (Exception err)
             {
                 Console.WriteLine(err.Message);
                 _response.StatusMessage = EHttpStatusMessages.NotFound404.GetDescription();
                 _response.Body = "Error for GET/users.";
+                return;
             }
-            _response.Send();
+
+            string json = JsonConvert.SerializeObject(user);
+            Console.WriteLine($"{DateTime.UtcNow}, User attributes successfully listed.");
+            _response.SendWithHeaders(json, EHttpStatusMessages.OK200.GetDescription());
         }
 
         [Method("POST")]
@@ -47,8 +72,7 @@ namespace MTCG_SWEN1.Endpoints
             try
             {                
                 var credentials = JsonConvert.DeserializeObject<Dictionary<string, string>>(_request.Body);
-
-                //if(credentials["Username"] == null || credentials["Username"] == "")
+                
                 if(!UserService.CheckIfCredentialsComplete(credentials["Username"], credentials["Password"]))
                 {
                     _response.StatusMessage = EHttpStatusMessages.NotAcceptable406.GetDescription();
@@ -56,8 +80,7 @@ namespace MTCG_SWEN1.Endpoints
                     _response.Send();
                     return;
                 }
-
-                // Call Service and catch Exceptions from Service or DB?
+                
                 if (!UserService.RegisterService(credentials))
                 {
                     Console.WriteLine($"{DateTime.UtcNow}, User does already exist in DB.");
@@ -75,8 +98,7 @@ namespace MTCG_SWEN1.Endpoints
                 _response.Send();
                 return;
             }
-
-            // Fill body and statusmsg of response and display status on backend console.
+            
             Console.WriteLine($"{DateTime.UtcNow}, New User added in DB.");
             _response.StatusMessage = EHttpStatusMessages.OK200.GetDescription();
             _response.Body = $"User registration successful.";
@@ -84,12 +106,34 @@ namespace MTCG_SWEN1.Endpoints
         }
 
         [Method("PUT")]
-        public void PutUsers()
+        public void UpdateUsers()
         {
+            Dictionary<string, string> userEdit = new();
+            User user = new();
             try
             {
-                _response.StatusMessage = EHttpStatusMessages.OK200.GetDescription();
-                _response.Body = "Demo content for /users PUT";
+                string userParameter = _request.PathParameter;
+                string token = _request.Headers["Authorization"];
+                
+                UserService.CheckIfUserExists(userParameter);
+                if (!UserService.CheckIfLoggedIn(token))
+                {
+                    _response.StatusMessage = EHttpStatusMessages.Unauthorized401.GetDescription();
+                    _response.Body = "User not logged in.";
+                    _response.Send();
+                    return;
+                }
+
+                user = UserService.GetUserInformation(token);
+                if (userParameter != user.Username)
+                {
+                    _response.StatusMessage = EHttpStatusMessages.Unauthorized401.GetDescription();
+                    _response.Body = "Wrong user.";
+                    _response.Send();
+                    return;
+                }
+
+                userEdit = JsonConvert.DeserializeObject<Dictionary<string, string>>(_request.Body);                
             }
             catch (Exception err)
             {
@@ -97,6 +141,10 @@ namespace MTCG_SWEN1.Endpoints
                 _response.StatusMessage = EHttpStatusMessages.NotFound404.GetDescription();
                 _response.Body = "Error for PUT/users.";
             }
+
+            Console.WriteLine($"{DateTime.UtcNow}, User information successfully updated.");
+            _response.StatusMessage = EHttpStatusMessages.OK200.GetDescription();
+            _response.Body = "User successfully updated.";
             _response.Send();
         }
     }

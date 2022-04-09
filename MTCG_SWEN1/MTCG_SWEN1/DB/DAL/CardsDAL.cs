@@ -44,16 +44,15 @@ namespace MTCG_SWEN1.DB.DAL
             }
             catch (Exception err)
             {
-                connection.Close();
-                throw new Exception($"Error adding package of cards: {err.Message}");
+                connection.Close();                
+                throw new Exception($"Error adding package of cards: {err}");
             }
             connection.Close();
         }
 
         public void PurchasePackage(Guid userID)
         {
-            List<Card> cards = new();
-            //NpgsqlConnection connection = DBConnection.Connect();
+            List<Card> cards = new();            
             
             // 1. Get 5 cards from admin ownership => define to be free to charge.
             //  => select by asking if current owner is admin or not
@@ -79,21 +78,15 @@ namespace MTCG_SWEN1.DB.DAL
                         cards.Add(new Card(cardid, timestamp));                    
                     }
                     reader.Close();
-
-                    // 2. Update owner of 5 cards by changing to current user
-                    //  => count if exactly 5 cards or not for exception                
-
-                        
-
+                    
+                    //  => count if exactly 5 cards or not for exception 
                     if (!PackageService.CheckForEnoughFreeCards(cards.Count))
                     {
                         connection.Close();
                         return;
-                    }
-                       
-
+                    }                       
                 }
-                
+                // 2. Update owner of 5 cards by changing to current user
                 using (NpgsqlConnection connection = DBConnection.Connect())
                 {
                     connection.Open();
@@ -110,10 +103,10 @@ namespace MTCG_SWEN1.DB.DAL
                     connection.Close();
                 }
 
+                // 3. Update coins of current user by minus 5                
                 using (NpgsqlConnection connection = DBConnection.Connect())
                 {
                     connection.Open();
-                    // 3. Update coins of current user by minus 5                
                     
                     var command = connection.CreateCommand();
                     command.CommandText = $"UPDATE {_tableNameUSER} SET u_coins=u_coins-5 WHERE u_id=@userId";
@@ -123,17 +116,11 @@ namespace MTCG_SWEN1.DB.DAL
                     connection.Close();
 
                 }
-
             }
             catch (Exception err)
-            {
-                //connection.Close();
-                //connectionUsers.Close();
+            {                
                 throw new Exception($"Error purchasing new package: {err}");
             }
-
-            //connectionUsers.Close();
-            //connection.Close();
         }
                 
 

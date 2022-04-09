@@ -12,7 +12,7 @@ CREATE TABLE
             u_username    varchar NOT NULL UNIQUE,
             u_password    varchar NOT NULL,
             u_coins   integer default 20,
-            u_elo integer default 0,
+            u_elo integer default 100,
             u_bio text,
             u_image text,
             u_games integer default 0,
@@ -36,8 +36,7 @@ CREATE TABLE
             c_damage    integer,            
             c_cardtype varchar,
             c_elementtype  varchar,
-            c_fortrade boolean default false,
-            c_packageid  uuid,
+            c_fortrade boolean default false,            
             c_packagetimestamp timestamp,
             c_indeck integer CONSTRAINT cards_decks_d_id_fk REFERENCES decks
 );

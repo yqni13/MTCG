@@ -46,7 +46,7 @@ namespace MTCG_SWEN1.Models.Cards
         }
 
 
-        public Card(Guid id, string name, double damage, string element, string type, DateTime timestamp)
+        public Card(Guid id, string name, double damage, string type, string element, DateTime timestamp)
         {
             ID = id;
             Name = name;
@@ -56,36 +56,11 @@ namespace MTCG_SWEN1.Models.Cards
             PackageTimestamp = timestamp;
         }
             
-
-        /*public EElementType GetElementType()
+        public Card(Guid id, string name, double damage)
         {
-            var elementNames = Enum.GetNames(typeof(EElementType));
-
-            foreach (var type in elementNames)
-            {
-                if (Name == type)
-                {
-                    return Enum.Parse<EElementType>(type);
-                }
-            }
-
-            return EElementType.NORMAL;
+            ID = id;
+            Name = name;
+            Damage = damage;
         }
-
-        public ECardType GetCardType()
-        {
-            var cardNames = Enum.GetNames(typeof(ECardType));
-
-            foreach (var type in cardNames)
-            {
-                if (Name == type)
-                {
-                    return Enum.Parse<ECardType>(type);
-                }
-            }
-
-            return Enum.Parse<ECardType>("Ghost");
-        }*/
-
     }
 }

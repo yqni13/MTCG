@@ -11,7 +11,7 @@ namespace MTCG_SWEN1.HTTP
 {
     class HttpResponse
     {
-        private bool BodyNotNull = false;
+        private bool BodyNotNull = true;
 
         public string StatusMessage { get; set; }
         public string Version { get; set; }
@@ -42,17 +42,11 @@ namespace MTCG_SWEN1.HTTP
             WriteLine(writer, $"Server: {HttpServer.GetStaticServer._serverName}");
             if (Headers.Count != 0)
                 foreach (var pair in Headers)
-                    WriteLine(writer, $"{pair.Key}: {pair.Value}");
-            /*if (BodyNotNull)
-                WriteLine(writer, $"Content-Type: application/json; charset=UTF-8");
-            WriteLine(writer, $"Content-Lenght: {Body.Length}");
-
-            if (BodyNotNull)
-                WriteLine(writer, Body);
-            */
-            if(!BodyNotNull)
+                    WriteLine(writer, $"{pair.Key}: {pair.Value}");            
+            
+            if(BodyNotNull)
             {
-                WriteLine(writer, $"Content-Lenght: {Body.Length}");
+                WriteLine(writer, $"Content-Length: {Body.Length}");
                 WriteLine(writer, $"Content-Type: application/json; charset=UTF-8");
                 WriteLine(writer, "");
                 WriteLine(writer, Body);
@@ -60,10 +54,9 @@ namespace MTCG_SWEN1.HTTP
             }
             else
             {
-                WriteLine(writer, $"Content-Lenght: {Body.Length}");
+                WriteLine(writer, $"Content-Length: {Body.Length}");
             }
-
-            //writer.WriteLine();
+            
             writer.Flush();
             writer.Close();
         }

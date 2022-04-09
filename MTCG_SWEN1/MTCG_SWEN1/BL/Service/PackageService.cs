@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MTCG_SWEN1.BL.Service
 {
-    class PackageService
+    public class PackageService
     {
         public static bool CheckForEnoughFreeCards(int cardCount)
         {
@@ -59,13 +59,10 @@ namespace MTCG_SWEN1.BL.Service
 
         public static string GetCardTypeFromName(string description)
         {
-            //string pattern = @"Spell";
-            //description = Regex.Replace(description, pattern, "");
-
             if (description.Contains("Spell"))
                 return ECardType.SPELL.GetDescription();
             else
                 return ECardType.MONSTER.GetDescription();
-        }
+        }        
     }
 }
