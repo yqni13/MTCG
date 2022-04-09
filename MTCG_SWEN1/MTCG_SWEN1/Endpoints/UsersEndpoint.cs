@@ -133,7 +133,8 @@ namespace MTCG_SWEN1.Endpoints
                     return;
                 }
 
-                userEdit = JsonConvert.DeserializeObject<Dictionary<string, string>>(_request.Body);                
+                userEdit = JsonConvert.DeserializeObject<Dictionary<string, string>>(_request.Body);
+                UserService.EditUserInformation(userEdit, token);
             }
             catch (Exception err)
             {

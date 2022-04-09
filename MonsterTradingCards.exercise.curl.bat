@@ -206,7 +206,7 @@ echo 16) scoreboard
 curl -X GET http://localhost:10001/score --header "Authorization: Basic kienboec-mtcgToken"
 echo.
 echo.
-ping localhost -n 5 >NUL 2>NUL
+
 REM --------------------------------------------------
 echo 17) battle
 start /b "kienboec battle" curl -X POST http://localhost:10001/battles --header "Authorization: Basic kienboec-mtcgToken"
