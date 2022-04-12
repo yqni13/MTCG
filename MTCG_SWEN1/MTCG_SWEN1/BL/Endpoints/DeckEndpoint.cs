@@ -33,35 +33,36 @@ namespace MTCG_SWEN1.Endpoints
             {
                 if (!_request.Headers.ContainsKey("Authorization"))
                 {
-                    _response.StatusMessage = EHttpStatusMessages.Unauthorized401.GetDescription();
-                    _response.Body = "Error no token for authentication found.";
-                    _response.Send();
+                    Console.WriteLine($"{DateTime.UtcNow}, No token for authentication of user found.");
+                    string jsonError = JsonConvert.SerializeObject("Error no token for authentication found.");
+                    _response.SendWithHeaders(jsonError, EHttpStatusMessages.Unauthorized401.GetDescription());
                     return;
                 }
 
                 if (!UserService.CheckIfLoggedIn(_request.Headers["Authorization"]))
                 {
-                    _response.StatusMessage = EHttpStatusMessages.Forbidden403.GetDescription();
-                    _response.Body = "User not logged in.";
-                    _response.Send();
+                    Console.WriteLine($"{DateTime.UtcNow}, User is not logged in.");
+                    string jsonError = JsonConvert.SerializeObject("User not logged in.");
+                    _response.SendWithHeaders(jsonError, EHttpStatusMessages.Forbidden403.GetDescription());
                     return;
                 }
 
                 cards = DeckService.GetDeck(_request.Headers["Authorization"]);
                 if(DeckService.IsListEmpty(cards))
-                {                    
-                    _response.StatusMessage = EHttpStatusMessages.NotFound404.GetDescription();
-                    _response.Body = "No deck for user existing.";
-                    _response.Send();
+                {
+                    Console.WriteLine($"{DateTime.UtcNow}, No deck for user existing.");
+                    string jsonError = JsonConvert.SerializeObject("No deck for user existing.");
+                    _response.SendWithHeaders(jsonError, EHttpStatusMessages.NotFound404.GetDescription());
                     return;
                 }
             }
             catch (Exception err)
             {
-                Console.WriteLine(err.Message);
-                _response.StatusMessage = EHttpStatusMessages.NotFound404.GetDescription();
-                _response.Body = "Error for GET/deck";
+                Console.WriteLine($"{DateTime.UtcNow}, DeckEndpoint GET error: {err.Message}");
+                string jsonException = JsonConvert.SerializeObject("Error for GET/deck.");
+                _response.SendWithHeaders(jsonException, EHttpStatusMessages.BadRequest400.GetDescription());
             }
+
             if (_request.EndpointParameters.ContainsKey("format"))
             {
                 List<String> plainCardIDs = DeckService.ConvertToPlainOutput(cards);
@@ -71,8 +72,8 @@ namespace MTCG_SWEN1.Endpoints
                 return;
             }
                 
-            json = JsonConvert.SerializeObject(cards);
             Console.WriteLine($"{DateTime.UtcNow}, Deck with content successfully listed for user.");
+            json = JsonConvert.SerializeObject(cards);
             _response.SendWithHeaders(json, EHttpStatusMessages.OK200.GetDescription());
         }        
 
@@ -84,17 +85,17 @@ namespace MTCG_SWEN1.Endpoints
             {
                 if (!_request.Headers.ContainsKey("Authorization"))
                 {
-                    _response.StatusMessage = EHttpStatusMessages.Unauthorized401.GetDescription();
-                    _response.Body = "Error no token for authentication found.";
-                    _response.Send();
+                    Console.WriteLine($"{DateTime.UtcNow}, No token for authentication of user found.");
+                    string jsonError = JsonConvert.SerializeObject("Error no token for authentication found.");
+                    _response.SendWithHeaders(jsonError, EHttpStatusMessages.Unauthorized401.GetDescription());
                     return;
                 }
 
                 if (!UserService.CheckIfLoggedIn(_request.Headers["Authorization"]))
                 {
-                    _response.StatusMessage = EHttpStatusMessages.Forbidden403.GetDescription();
-                    _response.Body = "User not logged in.";
-                    _response.Send();
+                    Console.WriteLine($"{DateTime.UtcNow}, User is not logged in.");
+                    string jsonError = JsonConvert.SerializeObject("User not logged in.");
+                    _response.SendWithHeaders(jsonError, EHttpStatusMessages.Forbidden403.GetDescription());
                     return;
                 }
 
@@ -105,9 +106,9 @@ namespace MTCG_SWEN1.Endpoints
                 List<Card> cards = DeckService.PrepareCards(cardIDs);
                 if(cards.Count != 4)
                 {
-                    _response.StatusMessage = EHttpStatusMessages.NotAcceptable406.GetDescription();
-                    _response.Body = "User needs to choose 4 cards.";
-                    _response.Send();
+                    Console.WriteLine($"{DateTime.UtcNow}, User needs to choose 4 cards.");
+                    string jsonError = JsonConvert.SerializeObject("User needs to choose 4 cards.");
+                    _response.SendWithHeaders(jsonError, EHttpStatusMessages.NotAcceptable406.GetDescription());                   
                     return;
                 }
                 else if (CardService.CheckIfUserOwnChosenCards(cardIDs, token))
@@ -117,23 +118,22 @@ namespace MTCG_SWEN1.Endpoints
                 else
                 {      
                     List<Card> cardsOld = DeckService.GetDeck(_request.Headers["Authorization"]);
-                    var json = JsonConvert.SerializeObject(cardsOld);
+                    string jsonError = JsonConvert.SerializeObject(cardsOld);
                     Console.WriteLine($"{DateTime.UtcNow}, Not all cards are owned by user.");
-                    _response.SendWithHeaders(json, EHttpStatusMessages.NotFound404.GetDescription());
+                    _response.SendWithHeaders(jsonError, EHttpStatusMessages.NotFound404.GetDescription());
                     return;
                 }
             }
             catch (Exception err)
             {
-                Console.WriteLine(err.Message);
-                _response.StatusMessage = EHttpStatusMessages.BadRequest400.GetDescription();
-                _response.Body = "Error for PUT/deck.";
-            }            
+                Console.WriteLine($"{DateTime.UtcNow}, DeckEndpoint PUT error: {err.Message}");
+                string jsonException = JsonConvert.SerializeObject("Error for PUT/deck.");
+                _response.SendWithHeaders(jsonException, EHttpStatusMessages.BadRequest400.GetDescription());
+            }
 
             Console.WriteLine($"{DateTime.UtcNow}, Card added to users deck.");
-            _response.StatusMessage = EHttpStatusMessages.OK200.GetDescription();
-            _response.Body = "Card added to users deck.";
-            _response.Send();
+            string json = JsonConvert.SerializeObject("Card added to users deck.");
+            _response.SendWithHeaders(json, EHttpStatusMessages.OK200.GetDescription());
         }
     }
 }

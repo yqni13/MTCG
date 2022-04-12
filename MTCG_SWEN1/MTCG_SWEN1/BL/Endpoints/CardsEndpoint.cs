@@ -27,22 +27,21 @@ namespace MTCG_SWEN1.Endpoints
         public void GetCards()
         {
             List<Card> cards = new();
-            string json;
             try
             {
                 if (!_request.Headers.ContainsKey("Authorization"))
                 {
-                    _response.StatusMessage = EHttpStatusMessages.Unauthorized401.GetDescription();
-                    _response.Body = "Error no token for authentication found.";
-                    _response.Send();
+                    Console.WriteLine($"{DateTime.UtcNow}, No token for authentication of user found.");
+                    string jsonError = JsonConvert.SerializeObject("Error no token for authentication found.");
+                    _response.SendWithHeaders(jsonError, EHttpStatusMessages.Unauthorized401.GetDescription());
                     return;
                 }
 
                 if (!UserService.CheckIfLoggedIn(_request.Headers["Authorization"]))
                 {
-                    _response.StatusMessage = EHttpStatusMessages.Forbidden403.GetDescription();
-                    _response.Body = "User not logged in.";
-                    _response.Send();
+                    Console.WriteLine($"{DateTime.UtcNow}, User is not logged in.");
+                    string jsonError = JsonConvert.SerializeObject("User not logged in.");
+                    _response.SendWithHeaders(jsonError, EHttpStatusMessages.Forbidden403.GetDescription());
                     return;
                 }
 
@@ -50,13 +49,13 @@ namespace MTCG_SWEN1.Endpoints
             }
             catch (Exception err)
             {
-                Console.WriteLine(err.Message);
-                _response.StatusMessage = EHttpStatusMessages.NotFound404.GetDescription();
-                _response.Body = "Error for GET/cards";
+                Console.WriteLine($"{DateTime.UtcNow}, CardsEndpoint GET error: {err.Message}");
+                string jsonException = JsonConvert.SerializeObject("Error for GET/cards.");
+                _response.SendWithHeaders(jsonException, EHttpStatusMessages.BadRequest400.GetDescription());
             }
             
-            json = JsonConvert.SerializeObject(cards);
             Console.WriteLine($"{DateTime.UtcNow}, Cards successfully listed for user.");
+            string json = JsonConvert.SerializeObject(cards);
             _response.SendWithHeaders(json, EHttpStatusMessages.OK200.GetDescription());            
         }
     }

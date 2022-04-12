@@ -32,10 +32,10 @@ namespace MTCG_SWEN1.Endpoints
                 var credentials = JsonConvert.DeserializeObject<Dictionary<string, string>>(_request.Body);
 
                 if(!UserService.CheckIfCredentialsComplete(credentials["Username"], credentials["Password"]))
-                {                    
-                    _response.StatusMessage = EHttpStatusMessages.NotAcceptable406.GetDescription();
-                    _response.Body = "Invalid credentials.";
-                    _response.Send();
+                {
+                    Console.WriteLine($"{DateTime.UtcNow}, Credentials of user are invalid.");
+                    string jsonError = JsonConvert.SerializeObject("Invalid credentials.");
+                    _response.SendWithHeaders(jsonError, EHttpStatusMessages.NotAcceptable406.GetDescription());
                     return;
                 }
                 UserDAL userTABLE = new();
@@ -44,11 +44,10 @@ namespace MTCG_SWEN1.Endpoints
                 userTABLE.GetUserByUsername(credentials["Username"], user);
 
                 if(UserService.CheckIfSessionExisting(user, sessionTABLE))
-                {
+                {                    
                     Console.WriteLine($"{DateTime.UtcNow}, Session already existing for user.");
-                    _response.StatusMessage = EHttpStatusMessages.BadRequest400.GetDescription();
-                    _response.Body = "Session for user already exists.";
-                    _response.Send();
+                    string jsonError = JsonConvert.SerializeObject("Session for user already exists.");
+                    _response.SendWithHeaders(jsonError, EHttpStatusMessages.BadRequest400.GetDescription());
                     return;
                 }
 
@@ -56,16 +55,14 @@ namespace MTCG_SWEN1.Endpoints
             }
             catch (Exception err)
             {
-                Console.WriteLine(err.Message);
-                _response.Body = "Error for POST/sessions.";
-                _response.StatusMessage = EHttpStatusMessages.NotFound404.GetDescription();
-                _response.Send();
+                Console.WriteLine($"{DateTime.UtcNow}, SessionsEndpoint POST error: {err.Message}");
+                string jsonException = JsonConvert.SerializeObject("Error for POST/sessions.");
+                _response.SendWithHeaders(jsonException, EHttpStatusMessages.NotFound404.GetDescription());
             }
             
             Console.WriteLine($"{DateTime.UtcNow}, User login was successful.");
-            _response.StatusMessage = EHttpStatusMessages.OK200.GetDescription();
-            _response.Body = "User login successful.";
-            _response.Send();
+            string json = JsonConvert.SerializeObject("User login successful.");
+            _response.SendWithHeaders(json, EHttpStatusMessages.OK200.GetDescription());
         }
     }
 }

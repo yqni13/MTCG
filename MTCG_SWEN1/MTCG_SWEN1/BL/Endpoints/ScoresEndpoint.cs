@@ -30,17 +30,17 @@ namespace MTCG_SWEN1.Endpoints
             {
                 if (!_request.Headers.ContainsKey("Authorization"))
                 {
-                    _response.StatusMessage = EHttpStatusMessages.Unauthorized401.GetDescription();
-                    _response.Body = "Error no token for authentication found.";
-                    _response.Send();
+                    Console.WriteLine($"{DateTime.UtcNow}, No token for authentication of user found.");
+                    string jsonError = JsonConvert.SerializeObject("Error no token for authentication found.");
+                    _response.SendWithHeaders(jsonError, EHttpStatusMessages.Unauthorized401.GetDescription());
                     return;
                 }
 
                 if (!UserService.CheckIfLoggedIn(_request.Headers["Authorization"]))
                 {
-                    _response.StatusMessage = EHttpStatusMessages.Forbidden403.GetDescription();
-                    _response.Body = "User not logged in.";
-                    _response.Send();
+                    Console.WriteLine($"{DateTime.UtcNow}, User is not logged in.");
+                    string jsonError = JsonConvert.SerializeObject("User not logged in.");
+                    _response.SendWithHeaders(jsonError, EHttpStatusMessages.Forbidden403.GetDescription());
                     return;
                 }
 
@@ -48,13 +48,13 @@ namespace MTCG_SWEN1.Endpoints
             }
             catch (Exception err)
             {
-                Console.WriteLine($"ScoresEndpoint error: {err.Message}");
-                _response.StatusMessage = EHttpStatusMessages.NotFound404.GetDescription();
-                _response.Body = "Error for GET/score.";
+                Console.WriteLine($"{DateTime.UtcNow}, ScoresEndpoint GET error: {err.Message}");
+                string jsonException = JsonConvert.SerializeObject("Error for GET/score.");
+                _response.SendWithHeaders(jsonException, EHttpStatusMessages.BadRequest400.GetDescription());
             }
 
-            string json = JsonConvert.SerializeObject(scoreboard, Formatting.Indented);
             Console.WriteLine($"{DateTime.UtcNow}, Scoreboard successfully listed.");
+            string json = JsonConvert.SerializeObject(scoreboard, Formatting.Indented);
             _response.SendWithHeaders(json, EHttpStatusMessages.OK200.GetDescription());
         }
     }

@@ -37,17 +37,17 @@ namespace MTCG_SWEN1.Endpoints
                 UserService.CheckIfUserExists(userParameter);                
                 if(!UserService.CheckIfLoggedIn(token))
                 {
-                    _response.StatusMessage = EHttpStatusMessages.Unauthorized401.GetDescription();
-                    _response.Body = "User not logged in.";
-                    _response.Send();
+                    Console.WriteLine($"{DateTime.UtcNow}, User is not logged in.");
+                    string jsonError = JsonConvert.SerializeObject("User not logged in.");
+                    _response.SendWithHeaders(jsonError, EHttpStatusMessages.Forbidden403.GetDescription());                    
                     return;
                 }
                 user = UserService.GetUserInformation(token);
                 if(userParameter != user.Username)
                 {
-                    _response.StatusMessage = EHttpStatusMessages.Unauthorized401.GetDescription();
-                    _response.Body = "Wrong user.";
-                    _response.Send();
+                    Console.WriteLine($"{DateTime.UtcNow}, URL error, wrong user parameter.");
+                    string jsonError = JsonConvert.SerializeObject("Wrong user.");
+                    _response.SendWithHeaders(jsonError, EHttpStatusMessages.Unauthorized401.GetDescription());                    
                     return;
                 }
 
@@ -55,14 +55,13 @@ namespace MTCG_SWEN1.Endpoints
             }
             catch (Exception err)
             {
-                Console.WriteLine(err.Message);
-                _response.StatusMessage = EHttpStatusMessages.NotFound404.GetDescription();
-                _response.Body = "Error for GET/users.";
-                return;
+                Console.WriteLine($"{ DateTime.UtcNow}, UserEndpoint GET error: {err.Message}");
+                string jsonException = JsonConvert.SerializeObject("Error for GET/users.");
+                _response.SendWithHeaders(jsonException, EHttpStatusMessages.BadRequest400.GetDescription());   
             }
 
-            string json = JsonConvert.SerializeObject(user);
             Console.WriteLine($"{DateTime.UtcNow}, User attributes successfully listed.");
+            string json = JsonConvert.SerializeObject(user);
             _response.SendWithHeaders(json, EHttpStatusMessages.OK200.GetDescription());
         }
 
@@ -75,34 +74,30 @@ namespace MTCG_SWEN1.Endpoints
                 
                 if(!UserService.CheckIfCredentialsComplete(credentials["Username"], credentials["Password"]))
                 {
-                    _response.StatusMessage = EHttpStatusMessages.NotAcceptable406.GetDescription();
-                    _response.Body = "Invalid credentials.";
-                    _response.Send();
+                    Console.WriteLine($"{DateTime.UtcNow}, Credentials of user are invalid.");
+                    string jsonError = JsonConvert.SerializeObject("Invalid credentials.");
+                    _response.SendWithHeaders(jsonError, EHttpStatusMessages.NotAcceptable406.GetDescription());
                     return;
                 }
                 
                 if (!UserService.RegisterService(credentials))
                 {
                     Console.WriteLine($"{DateTime.UtcNow}, User does already exist in DB.");
-                    _response.StatusMessage = EHttpStatusMessages.BadRequest400.GetDescription();
-                    _response.Body = "User already exists.";
-                    _response.Send();
+                    string jsonError = JsonConvert.SerializeObject("User already exists.");
+                    _response.SendWithHeaders(jsonError, EHttpStatusMessages.BadRequest400.GetDescription());                    
                     return;
                 }
             }            
             catch (Exception err)
-            {
-                Console.WriteLine($"UserEndpoint error: {err.Message}");
-                _response.StatusMessage = EHttpStatusMessages.BadRequest400.GetDescription();
-                _response.Body = "Error for POST/users.";
-                _response.Send();
-                return;
+            {                
+                Console.WriteLine($"{DateTime.UtcNow}, UserEndpoint POST error: {err.Message}");
+                string jsonException = JsonConvert.SerializeObject("Error for POST/users.");
+                _response.SendWithHeaders(jsonException, EHttpStatusMessages.BadRequest400.GetDescription());
             }
             
             Console.WriteLine($"{DateTime.UtcNow}, New User added in DB.");
-            _response.StatusMessage = EHttpStatusMessages.OK200.GetDescription();
-            _response.Body = $"User registration successful.";
-            _response.Send();
+            string json = JsonConvert.SerializeObject("User registration successful.");
+            _response.SendWithHeaders(json, EHttpStatusMessages.OK200.GetDescription());            
         }
 
         [Method("PUT")]
@@ -118,18 +113,18 @@ namespace MTCG_SWEN1.Endpoints
                 UserService.CheckIfUserExists(userParameter);
                 if (!UserService.CheckIfLoggedIn(token))
                 {
-                    _response.StatusMessage = EHttpStatusMessages.Unauthorized401.GetDescription();
-                    _response.Body = "User not logged in.";
-                    _response.Send();
+                    Console.WriteLine($"{DateTime.UtcNow}, User is not logged in.");
+                    string jsonError = JsonConvert.SerializeObject("User not logged in.");
+                    _response.SendWithHeaders(jsonError, EHttpStatusMessages.Unauthorized401.GetDescription());
                     return;
                 }
 
                 user = UserService.GetUserInformation(token);
                 if (userParameter != user.Username)
                 {
-                    _response.StatusMessage = EHttpStatusMessages.Unauthorized401.GetDescription();
-                    _response.Body = "Wrong user.";
-                    _response.Send();
+                    Console.WriteLine($"{DateTime.UtcNow}, URL error, wrong user parameter.");
+                    string jsonError = JsonConvert.SerializeObject("Wrong user.");
+                    _response.SendWithHeaders(jsonError, EHttpStatusMessages.Unauthorized401.GetDescription());
                     return;
                 }
 
@@ -138,15 +133,14 @@ namespace MTCG_SWEN1.Endpoints
             }
             catch (Exception err)
             {
-                Console.WriteLine(err.Message);
-                _response.StatusMessage = EHttpStatusMessages.NotFound404.GetDescription();
-                _response.Body = "Error for PUT/users.";
+                Console.WriteLine($"{DateTime.UtcNow}, UserEndpoint PUT error: {err.Message}");
+                string jsonException = JsonConvert.SerializeObject("Error for PUT/users.");
+                _response.SendWithHeaders(jsonException, EHttpStatusMessages.BadRequest400.GetDescription());                
             }
-
+            
             Console.WriteLine($"{DateTime.UtcNow}, User information successfully updated.");
-            _response.StatusMessage = EHttpStatusMessages.OK200.GetDescription();
-            _response.Body = "User successfully updated.";
-            _response.Send();
+            string json = JsonConvert.SerializeObject("User successfully updated.");
+            _response.SendWithHeaders(json, EHttpStatusMessages.OK200.GetDescription());
         }
     }
 }

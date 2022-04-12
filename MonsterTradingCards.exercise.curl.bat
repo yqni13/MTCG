@@ -175,9 +175,9 @@ curl -X PUT http://localhost:10001/users/kienboec --header "Content-Type: applic
 echo.
 curl -X PUT http://localhost:10001/users/altenhof --header "Content-Type: application/json" --header "Authorization: Basic altenhof-mtcgToken" -d "{\"Name\": \"Altenhofer\", \"Bio\": \"me codin...\",  \"Image\": \":-D\"}"
 echo.
-curl -X GET http://localhost:10001/users/kienboec --header "Authorization: Basic kienboec-mtcgToken"
+curl -X GET http://localhost:10001/users/Kienboeck --header "Authorization: Basic kienboec-mtcgToken"
 echo.
-curl -X GET http://localhost:10001/users/altenhof --header "Authorization: Basic altenhof-mtcgToken"
+curl -X GET http://localhost:10001/users/Altenhofer --header "Authorization: Basic altenhof-mtcgToken"
 echo.
 echo.
 echo should fail:

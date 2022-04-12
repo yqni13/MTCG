@@ -8,6 +8,7 @@ using MTCG_SWEN1.BL.Service;
 using MTCG_SWEN1.Endpoints.Attributes;
 using MTCG_SWEN1.HTTP;
 using MTCG_SWEN1.Models;
+using Newtonsoft.Json;
 
 namespace MTCG_SWEN1.Endpoints
 {
@@ -30,17 +31,17 @@ namespace MTCG_SWEN1.Endpoints
             {
                 if (!_request.Headers.ContainsKey("Authorization"))
                 {
-                    _response.StatusMessage = EHttpStatusMessages.Unauthorized401.GetDescription();
-                    _response.Body = "Error no token for authentication found.";
-                    _response.Send();
+                    Console.WriteLine($"{DateTime.UtcNow}, No token for authentication of user found.");
+                    string jsonError = JsonConvert.SerializeObject("Error no token for authentication found.");
+                    _response.SendWithHeaders(jsonError, EHttpStatusMessages.Unauthorized401.GetDescription());
                     return;
                 }
 
                 if (!UserService.CheckIfLoggedIn(_request.Headers["Authorization"]))
                 {
-                    _response.StatusMessage = EHttpStatusMessages.Forbidden403.GetDescription();
-                    _response.Body = "User not logged in.";
-                    _response.Send();
+                    Console.WriteLine($"{DateTime.UtcNow}, User is not logged in.");
+                    string jsonError = JsonConvert.SerializeObject("User not logged in.");
+                    _response.SendWithHeaders(jsonError, EHttpStatusMessages.Forbidden403.GetDescription());
                     return;
                 }
 
@@ -52,15 +53,14 @@ namespace MTCG_SWEN1.Endpoints
             }
             catch (Exception err)
             {
-                Console.WriteLine(err.Message);
-                _response.Body = "Error for POST/battle.";
-                _response.StatusMessage = EHttpStatusMessages.NotFound404.GetDescription();
+                Console.WriteLine($"{DateTime.UtcNow}, BattlesEndpoint POST error: {err.Message}");
+                string jsonException = JsonConvert.SerializeObject("Error for POST/battles.");
+                _response.SendWithHeaders(jsonException, EHttpStatusMessages.BadRequest400.GetDescription());
             }
 
             Console.WriteLine($"{DateTime.UtcNow}, Battle finished and LOG saved as .txt file");
-            _response.StatusMessage = EHttpStatusMessages.OK200.GetDescription();
-            _response.Body = "Battle finished. Log was created as .txt file -> '/BattleLogs'.";
-            _response.Send();
+            string json = JsonConvert.SerializeObject("Battle finished. Log was created as .txt file -> '/BattleLogs'.");
+            _response.SendWithHeaders(json, EHttpStatusMessages.OK200.GetDescription());
         }
     }
 }

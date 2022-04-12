@@ -33,17 +33,17 @@ namespace MTCG_SWEN1.Endpoints
                 User user = new();
                 if (!_request.Headers.ContainsKey("Authorization"))
                 {
-                    _response.StatusMessage = EHttpStatusMessages.Unauthorized401.GetDescription();
-                    _response.Body = "Error no token for authentication found.";
-                    _response.Send();
+                    Console.WriteLine($"{DateTime.UtcNow}, No token for authentication of user found.");
+                    string jsonError = JsonConvert.SerializeObject("Error no token for authentication found.");
+                    _response.SendWithHeaders(jsonError, EHttpStatusMessages.Unauthorized401.GetDescription());
                     return;
                 }                
                                 
                 if (!UserService.CheckIfLoggedIn(_request.Headers["Authorization"]))
                 {
-                    _response.StatusMessage = EHttpStatusMessages.Forbidden403.GetDescription();
-                    _response.Body = "Admin not logged in.";
-                    _response.Send();
+                    Console.WriteLine($"{DateTime.UtcNow}, Admin is not logged in.");
+                    string jsonError = JsonConvert.SerializeObject("Admin not logged in.");
+                    _response.SendWithHeaders(jsonError, EHttpStatusMessages.Forbidden403.GetDescription());
                     return;
                 }
 
@@ -68,34 +68,32 @@ namespace MTCG_SWEN1.Endpoints
 
                     if(cardsToPurchase.Count < 5)
                     {
-                        _response.StatusMessage = EHttpStatusMessages.Forbidden403.GetDescription();
-                        _response.Body = "Not enough cards to purchase package.";
-                        _response.Send();
+                        Console.WriteLine($"{DateTime.UtcNow}, Not enough cards to purchase package.");
+                        string jsonError = JsonConvert.SerializeObject("Not enough cards to purchase package.");
+                        _response.SendWithHeaders(jsonError, EHttpStatusMessages.Forbidden403.GetDescription());
                         return;
                     }                    
                     else if(user.Coins > 4)
                         CardService.PurchasePackagesByUser(user.Username);
                     else
                     {
-                        _response.StatusMessage = EHttpStatusMessages.Forbidden403.GetDescription();
-                        _response.Body = "User has less coins than necessary.";
-                        _response.Send();
+                        Console.WriteLine($"{DateTime.UtcNow}, User has less coins than necessary.");
+                        string jsonError = JsonConvert.SerializeObject("User has less coins than necessary.");
+                        _response.SendWithHeaders(jsonError, EHttpStatusMessages.Forbidden403.GetDescription());
                         return;
                     }                        
                 }
             }
             catch (Exception err)
             {
-                Console.WriteLine(err.Message);
-                _response.StatusMessage = EHttpStatusMessages.BadRequest400.GetDescription();
-                _response.Body = "Error for POST/packages.";
-                _response.Send();
+                Console.WriteLine($"{DateTime.UtcNow}, PackagesEndpoint POST error: {err.Message}");
+                string jsonException = JsonConvert.SerializeObject("Error for POST/packages.");
+                _response.SendWithHeaders(jsonException, EHttpStatusMessages.BadRequest400.GetDescription());
             }
-
+            
             Console.WriteLine($"{DateTime.UtcNow}, New package added in DB.");
-            _response.StatusMessage = EHttpStatusMessages.OK200.GetDescription();
-            _response.Body = "New package added.";
-            _response.Send();
+            string json = JsonConvert.SerializeObject("New package added.");
+            _response.SendWithHeaders(json, EHttpStatusMessages.OK200.GetDescription());
         }
     }
 }
